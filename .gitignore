@@ -1,31 +1,79 @@
-# Build output
-dist/
-.output/
-
-# Dependencies
+# ============================================
+# Node / Astro
+# ============================================
 node_modules/
-
-# Astro
+dist/
 .astro/
+.output/
+.vite/
+*.tsbuildinfo
 
-# Environment variables
-.env
-.env.production
-
-# macOS
-.DS_Store
-
-# Windows
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-
-# Logs
+# ============================================
+# Package Managers
+# ============================================
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
+# package-lock.json (DO NOT ignore, required for npm ci in Actions)
 
-# Evidence (uncomment if you don't want to commit evidence)
-# docs/evidence/
+# ============================================
+# Environment Variables
+# ============================================
+.env
+.env.local
+.env.development
+.env.production
+.env.*.local
+
+# ============================================
+# Phase Verification Reports & Scripts
+# ============================================
+phase*_verification.json
+phase*_verification_report.txt
+verification_report.txt
+*_report.txt
+verify-phase-*.py
+verify-*.py
+setup_project.py
+
+# ============================================
+# Python (for setup & verification scripts)
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+
+# ============================================
+# IDEs / Editors
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.code-workspace
+
+# ============================================
+# OS Generated Files
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+desktop.ini
+
+# ============================================
+# Logs & Temp Files
+# ============================================
+*.log
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
