@@ -1,0 +1,50 @@
+---
+// src/pages/katalog.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import KatalogFilter from '../components/KatalogFilter';
+import { getCollection } from 'astro:content';
+
+const title = 'Katalog — Arkan';
+const description = 'Projects I\'ve built — filterable and searchable.';
+
+// Fetch projects
+const allProjects = await getCollection('katalog');
+
+// Sort projects by date (newest first) as default
+const projects = allProjects
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((project) => ({
+    slug: project.id,
+    title: project.data.title,
+    description: project.data.description,
+    techStack: project.data.techStack,
+    thumbnail: project.data.thumbnail,
+    demoUrl: project.data.demoUrl,
+    repoUrl: project.data.repoUrl,
+    category: project.data.category,
+    date: project.data.date.toISOString(),
+  }));
+---
+
+<BaseLayout {title} {description}>
+  <section class="py-12 md:py-16">
+    <div class="container-page">
+      <div class="mb-12 text-center max-w-2xl mx-auto">
+        <h1 class="text-4xl font-bold text-text mb-4">Katalog</h1>
+        <p class="text-lg text-text-muted">
+          Projects I've built — filterable and searchable.
+        </p>
+      </div>
+
+      {projects.length > 0 ? (
+        <KatalogFilter projects={projects} client:load />
+      ) : (
+        <div class="bg-bg-subtle border border-border rounded-lg p-12 text-center">
+          <p class="text-text-muted text-lg">
+            No projects yet — coming soon.
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
