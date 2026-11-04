@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://katalogarkan.github.io/sitemap-index.xml

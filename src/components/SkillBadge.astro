@@ -1,37 +1,12 @@
 ---
 // src/components/SkillBadge.astro
-// Badge with skill name + optional level bar + optional icon.
-// Props per blueprint.md §8.5: name, level (optional), icon (optional).
-
 interface Props {
   name: string;
-  level?: number; // 0–100
-  icon?: string;  // inline SVG string
 }
 
-const { name, level, icon } = Astro.props;
-const hasLevel = typeof level === 'number';
-const clampedLevel = hasLevel ? Math.max(0, Math.min(100, level)) : 0;
+const { name } = Astro.props;
 ---
 
-<span
-  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full
-         text-sm font-medium bg-bg-subtle border border-border text-text"
->
-  {icon && (
-    <span class="w-4 h-4 flex-shrink-0" aria-hidden="true" set:html={icon} />
-  )}
-  <span>{name}</span>
-  {hasLevel && (
-    <span class="ml-1 text-xs text-text-muted tabular-nums">{clampedLevel}%</span>
-  )}
+<span class="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-bg border border-border text-text hover:border-primary hover:text-primary transition-colors cursor-default">
+  {name}
 </span>
-
-{hasLevel && (
-  <div class="w-full h-1.5 bg-bg-subtle rounded-full overflow-hidden" aria-hidden="true">
-    <div
-      class="h-full bg-primary rounded-full transition-[width] duration-300"
-      style={`width: ${clampedLevel}%`}
-    />
-  </div>
-)}

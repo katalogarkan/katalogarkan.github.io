@@ -15,7 +15,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
-# package-lock.json (DO NOT ignore, required for npm ci in Actions)
+# Note: package-lock.json should NOT be ignored (required for npm ci in Actions)
 
 # ============================================
 # Environment Variables
@@ -36,6 +36,19 @@ verification_report.txt
 verify-phase-*.py
 verify-*.py
 setup_project.py
+
+# ============================================
+# Local Testing & Debugging Scripts
+# ============================================
+check_empty.py
+debug_katalog.py
+test_forms.py
+structure.py
+diagnose.py
+clean.py
+create_assets.py
+create_blog_assets.py
+missing-files.py
 
 # ============================================
 # Python (for setup & verification scripts)
@@ -77,3 +90,10 @@ desktop.ini
 *.bak
 *.backup
 *.old
+
+# ============================================
+# Images & Assets (Debug/Redundant)
+# ============================================
+# If you're sure the images already exist in public/images/,
+# the line below can exclude the root images/ folder from being committed.
+images/

@@ -2,25 +2,54 @@
 // src/pages/resources.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const title = 'Resources — Arkan';
-const description = 'Templates, snippets, and tools I use and recommend.';
+const title = 'Free Resources & Consultation — Arkan';
+const description = 'Get free templates, snippets, and a free 15-minute technical consultation.';
 ---
 
 <BaseLayout {title} {description}>
   <section class="py-12 md:py-16">
-    <div class="container-page">
-      <div class="mb-12">
-        <h1 class="text-4xl font-bold text-text mb-4">Resources</h1>
+    <div class="container-page max-w-4xl">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-text mb-4">Resources & Freebies</h1>
         <p class="text-lg text-text-muted">
-          Templates, snippets, and tools I use and recommend.
+          Tools, templates, and insights I share to help businesses grow.
         </p>
       </div>
 
-      <!-- Empty State -->
-      <div class="bg-bg-subtle border border-border rounded-lg p-12 text-center">
-        <p class="text-text-muted text-lg">
-          No resources yet — coming soon.
-        </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Free Consultation -->
+        <div class="bg-bg-subtle border border-border rounded-lg p-8 hover:border-primary transition-colors flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+            </div>
+            <h2 class="text-xl font-bold text-text mb-2">Free 15-Minute Consultation</h2>
+            <p class="text-sm text-text-muted mb-6">
+              Not sure if you need a Data Pipeline or a Web App? Let's hop on a quick call to discuss your business needs. No strings attached.
+            </p>
+          </div>
+          <a href="/contact" class="inline-flex items-center text-primary font-medium hover:underline">
+            Book a Call →
+          </a>
+        </div>
+
+        <!-- Data Engineering Checklist -->
+        <div class="bg-bg-subtle border border-border rounded-lg p-8 hover:border-primary transition-colors flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <h2 class="text-xl font-bold text-text mb-2">Data Pipeline Checklist (PDF)</h2>
+            <p class="text-sm text-text-muted mb-6">
+              A comprehensive checklist to ensure your ETL pipelines are production-ready, secure, and cost-efficient.
+            </p>
+          </div>
+          <a href="/contact" class="inline-flex items-center text-primary font-medium hover:underline">
+            Request via Email →
+          </a>
+        </div>
+
       </div>
     </div>
   </section>

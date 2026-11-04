@@ -2,47 +2,163 @@
 // src/pages/about.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const title = 'About — Arkan';
-const description = 'Learn more about Arkan, a Full Stack Web Developer.';
+const title = 'About — Arkan Tsabit';
+const description = 'Full Stack Developer & Cloud Data Engineer. Oracle Top 108 Global. Available for freelance projects.';
 
 const timeline = [
-  { year: '2022', event: 'Started learning web development' },
-  { year: '2023', event: 'Built first full stack app' },
-  { year: '2024', event: 'Freelance projects' },
-  { year: '2026', event: 'Launched katalogarkan' },
-];
-
-const values = [
-  { title: 'Clean Code', desc: 'Arkan lorem dolor sit amet, consectetur adipiscing seolesm, und ours.', icon: 'code' },
-  { title: 'Clear Communication', desc: 'I build fast, accessible, and maintainable webv. clear communication.', icon: 'chat' },
-  { title: 'On Time', desc: 'Arkan ipsum dolor sit amet, consectetur adipiscing elit, seddimm on time.', icon: 'clock' },
+  { year: '2026', event: 'Building modern web apps & data pipelines for freelance clients' },
+  { year: '2025', event: 'Top 108 Global — Oracle Race to Certification' },
+  { year: '2025', event: 'Earned 10+ Professional Certifications (Oracle, IBM, Meta)' },
+  { year: '2024', event: 'Built BatchETL Pipeline (2.96M+ rows, 100% quality)' },
 ];
 ---
 
 <BaseLayout {title} {description}>
   <section class="py-12 md:py-16">
-    <div class="container-page max-w-4xl">
-      <h1 class="text-4xl font-bold text-text mb-12 text-center">About Me</h1>
+    <div class="container-page max-w-5xl">
+      
+      <!-- Header & Foto (2 Kolom: Kiri Foto, Kanan Teks) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center mb-16">
+        
+        <!-- Kolom Kiri: Foto Profil (Kotak Sudut Tumpul) -->
+        <div class="flex justify-center md:justify-start">
+          <div class="w-48 h-56 md:w-64 md:h-72 rounded-2xl overflow-hidden border-4 border-border shadow-xl bg-bg-subtle">
+            <img src="/images/avatar.png" alt="Foto Profil Arkan Tsabit" class="w-full h-full object-cover object-top" />
+          </div>
+        </div>
 
-      <!-- Bio -->
+        <!-- Kolom Kanan: Teks Bio -->
+        <div class="md:col-span-2">
+          <h1 class="text-4xl font-bold text-text mb-4">About Me</h1>
+          <p class="text-xl text-text-muted leading-relaxed mb-4">
+            Hi, I'm Arkan Tsabit. I am a <strong class="text-text">Full Stack Developer</strong> and <strong class="text-text">Cloud Data Engineer</strong> who focuses on building scalable systems and modern web applications.
+          </p>
+          <p class="text-lg text-text-muted leading-relaxed">
+            I hold <strong class="text-text">10 professional certifications</strong> from Oracle, IBM, and Meta, and was ranked <strong class="text-text">Top 108 Globally</strong> in the Oracle Race to Certification. I don't just write code; I architect end-to-end solutions that turn raw data into automated, production-ready applications.
+          </p>
+        </div>
+        
+      </div>
+
+      <!-- Technical Expertise -->
       <div class="mb-16">
-        <h2 class="text-2xl font-bold text-text mb-6">Bio</h2>
-        <div class="flex flex-col md:flex-row gap-8 items-start">
-          <img src="/images/avatar.png" alt="Arkan" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover bg-bg-subtle flex-shrink-0" />
-          <div class="space-y-4 text-text-muted">
-            <p>
-              Arkan is a lorem dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut developed minim airno and tham cons, quiz mattred conves/stion and applications.
-            </p>
-            <p>
-              I build fast, accessible, and maintainable web applications, consent, gootnes, user prossional wecimmcrox, sllis afriss consable, and temptely web environment tiresing.
-            </p>
+        <h2 class="text-2xl font-bold text-text mb-6 border-b border-border pb-2">Technical Expertise</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Data Engineering -->
+          <div class="bg-bg-subtle border border-border rounded-lg p-6">
+            <h3 class="text-lg font-bold text-text mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+              Data Engineering
+            </h3>
+            <ul class="text-sm text-text-muted space-y-2">
+              <li><strong class="text-text">Orchestration:</strong> Apache Airflow, Google Composer</li>
+              <li><strong class="text-text">Transformation:</strong> Dataform, dbt, Pandas</li>
+              <li><strong class="text-text">Warehousing:</strong> BigQuery, PostgreSQL, DuckDB</li>
+              <li><strong class="text-text">Big Data:</strong> Apache Spark, Apache Kafka</li>
+              <li><strong class="text-text">Programming:</strong> Python, SQL</li>
+              <li><strong class="text-text">APIs:</strong> RESTful API, SOAP</li>
+            </ul>
+          </div>
+
+          <!-- Cloud & DevOps -->
+          <div class="bg-bg-subtle border border-border rounded-lg p-6">
+            <h3 class="text-lg font-bold text-text mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+              Cloud & DevOps
+            </h3>
+            <ul class="text-sm text-text-muted space-y-2">
+              <li><strong class="text-text">Cloud:</strong> Google Cloud (GCP), AWS, Oracle Cloud (OCI)</li>
+              <li><strong class="text-text">Containerization:</strong> Docker, Kubernetes</li>
+              <li><strong class="text-text">IaC:</strong> Terraform</li>
+              <li><strong class="text-text">CI/CD:</strong> Jenkins, GitHub Actions</li>
+              <li><strong class="text-text">Version Control:</strong> Git, Bitbucket</li>
+            </ul>
+          </div>
+
+          <!-- Full Stack Web -->
+          <div class="bg-bg-subtle border border-border rounded-lg p-6">
+            <h3 class="text-lg font-bold text-text mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+              Full Stack Web
+            </h3>
+            <ul class="text-sm text-text-muted space-y-2">
+              <li><strong class="text-text">Frameworks:</strong> Astro, React, Next.js, Node.js</li>
+              <li><strong class="text-text">Languages:</strong> TypeScript, JavaScript, HTML, CSS</li>
+              <li><strong class="text-text">Styling:</strong> Tailwind CSS</li>
+              <li><strong class="text-text">State/Data:</strong> React Hooks, JSON</li>
+            </ul>
+          </div>
+
+          <!-- Visualization & Analytics -->
+          <div class="bg-bg-subtle border border-border rounded-lg p-6">
+            <h3 class="text-lg font-bold text-text mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+              Visualization & Analytics
+            </h3>
+            <ul class="text-sm text-text-muted space-y-2">
+              <li><strong class="text-text">Dashboards:</strong> Streamlit, Tableau, Power BI, Looker Studio</li>
+              <li><strong class="text-text">Monitoring:</strong> Grafana, Prometheus</li>
+              <li><strong class="text-text">Libraries:</strong> Plotly, Matplotlib, Seaborn</li>
+            </ul>
           </div>
         </div>
       </div>
 
-      <!-- Journey -->
+      <!-- Values / Why Work With Me -->
       <div class="mb-16">
-        <h2 class="text-2xl font-bold text-text mb-6">Journey</h2>
+        <h2 class="text-2xl font-bold text-text mb-6 border-b border-border pb-2">Why Work With Me?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-bg-subtle border border-border rounded-lg p-6">
+            <div class="w-10 h-10 bg-primary/10 text-primary rounded-md flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            </div>
+            <h3 class="font-bold text-text mb-2">Production-Ready Code</h3>
+            <p class="text-sm text-text-muted">I write clean, maintainable code with proper error handling. Every pipeline and web app is built to survive real-world traffic.</p>
+          </div>
+          <div class="bg-bg-subtle border border-border rounded-lg p-6">
+            <div class="w-10 h-10 bg-primary/10 text-primary rounded-md flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <h3 class="font-bold text-text mb-2">On-Time Delivery</h3>
+            <p class="text-sm text-text-muted">I respect your deadlines. I communicate clearly about progress and deliver on schedule without cutting corners.</p>
+          </div>
+          <div class="bg-bg-subtle border border-border rounded-lg p-6">
+            <div class="w-10 h-10 bg-primary/10 text-primary rounded-md flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </div>
+            <h3 class="font-bold text-text mb-2">Business Mindset</h3>
+            <p class="text-sm text-text-muted">I don't just code. I understand business requirements, ensuring that the final product solves your actual problems.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Achievements -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-text mb-6 border-b border-border pb-2">Key Achievements</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-primary/5 border border-primary/20 rounded-lg p-4">
+            <p class="font-bold text-primary mb-1">Top 108 Global</p>
+            <p class="text-sm text-text-muted">Oracle Race to Certification (2025)</p>
+          </div>
+          <div class="bg-primary/5 border border-primary/20 rounded-lg p-4">
+            <p class="font-bold text-primary mb-1">Top 3 Indonesia</p>
+            <p class="text-sm text-text-muted">Oracle Race to Certification (2025)</p>
+          </div>
+          <div class="bg-primary/5 border border-primary/20 rounded-lg p-4">
+            <p class="font-bold text-primary mb-1">10+ Certifications</p>
+            <p class="text-sm text-text-muted">Oracle, IBM, Meta</p>
+          </div>
+          <div class="bg-primary/5 border border-primary/20 rounded-lg p-4">
+            <p class="font-bold text-primary mb-1">Production Scale</p>
+            <p class="text-sm text-text-muted">ETL pipelines processing 2.96M+ rows</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-text mb-6 border-b border-border pb-2">Technical Journey</h2>
         <div class="relative border-l-2 border-primary/30 ml-3 space-y-8 pb-4">
           {timeline.map((item) => (
             <div class="relative pl-8">
@@ -57,50 +173,22 @@ const values = [
         </div>
       </div>
 
-      <!-- Values -->
-      <div class="mb-16">
-        <h2 class="text-2xl font-bold text-text mb-6">What I Value</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {values.map((val) => (
-            <div class="bg-bg-subtle border border-border rounded-lg p-6">
-              <div class="w-10 h-10 bg-primary/10 text-primary rounded-md flex items-center justify-center mb-4">
-                {val.icon === 'code' && <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>}
-                {val.icon === 'chat' && <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>}
-                {val.icon === 'clock' && <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>}
-              </div>
-              <h3 class="font-bold text-text mb-2">{val.title}</h3>
-              <p class="text-sm text-text-muted">{val.desc}</p>
-            </div>
-          ))}
+      <!-- Freelance CTA -->
+      <div class="bg-bg-subtle border border-border rounded-lg p-8 text-center mt-12">
+        <h2 class="text-2xl font-bold text-text mb-2">Available for Freelance</h2>
+        <p class="text-text-muted mb-6 max-w-xl mx-auto">
+          I am currently open for freelance projects. Whether you need a high-performance website, an automated data pipeline, or a complete dashboard integration, I can deliver production-ready solutions on time.
+        </p>
+        <div class="flex justify-center gap-4">
+          <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-primary text-white font-medium hover:bg-primary-hover transition-colors">
+            Hire Me
+          </a>
+          <a href="/katalog" class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-transparent text-primary font-medium border border-primary hover:bg-primary hover:text-white transition-colors">
+            View Projects
+          </a>
         </div>
       </div>
 
-      <!-- Download CV -->
-      <div class="text-center mb-16">
-        <a href="/cv.pdf" class="inline-flex items-center gap-2 px-6 py-3 rounded-md border border-primary text-primary font-medium hover:bg-primary hover:text-white transition-colors">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-          Download CV
-        </a>
-      </div>
-
-      <!-- Info -->
-      <div>
-        <h2 class="text-2xl font-bold text-text mb-6">Info</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div>
-            <h3 class="font-medium text-text mb-1">Location</h3>
-            <p class="text-text-muted">Indonesia</p>
-          </div>
-          <div>
-            <h3 class="font-medium text-text mb-1">Languages</h3>
-            <p class="text-text-muted">Indonesian, English</p>
-          </div>
-          <div>
-            <h3 class="font-medium text-text mb-1">Availability</h3>
-            <p class="text-text-muted">Open for freelance</p>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 </BaseLayout>

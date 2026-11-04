@@ -11,7 +11,7 @@ const katalog = defineCollection({
     thumbnail: z.string(),
     demoUrl: z.url().optional(),
     repoUrl: z.url().optional(),
-    category: z.enum(['web-app', 'landing-page', 'api', 'mobile']),
+    category: z.enum(['web-app', 'landing-page', 'api', 'mobile', 'data-engineering', 'cloud-devops']),
     featured: z.boolean().default(false),
     date: z.coerce.date(),
   }),

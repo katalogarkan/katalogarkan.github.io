@@ -1,223 +1,46 @@
-# katalogarkan — deployment-guide.md
-
----
+# Deployment Guide
 
 ## Document Information
 
 | Property | Value |
-|----------|-------|
-| Document Version | 1.3.0 |
-| Project Version | 0.5.0 (Phase 5 Complete) |
-| Last Updated | 2026-11-04 |
+| :--- | :--- |
+| Version | 1.0.0 |
+| Last Updated | 2026-11-05 |
 | Status | Approved — Source of Truth |
-| Project | Personal branding & katalog website |
-| Owner | Arkan (Full Stack Web Developer) |
-| Related | `blueprint.md` §18 (Deployment), `cheatsheets.md` §6 |
-| Repository | `katalogarkan/katalogarkan.github.io` |
 | Hosting | GitHub Pages |
 | CI/CD | GitHub Actions |
-| Node Version | 22 |
 | Build Output | `dist/` |
 
 ---
 
-## Table of Contents
+## 1. How Deployment Works
 
-1. [Purpose](#1-purpose)
-2. [Deployment Architecture](#2-deployment-architecture)
-3. [Prerequisites](#3-prerequisites)
-4. [GitHub Pages Setup](#4-github-pages-setup)
-5. [GitHub Actions Workflow](#5-github-actions-workflow)
-6. [Astro Configuration](#6-astro-configuration)
-7. [First Deploy](#7-first-deploy)
-8. [Subsequent Deploys](#8-subsequent-deploys)
-9. [Verification](#9-verification)
-10. [Rollback](#10-rollback)
-11. [Custom Domain](#11-custom-domain)
-12. [Troubleshooting](#12-troubleshooting)
-13. [Security](#13-security)
-14. [Performance](#14-performance)
-15. [Change Log](#15-change-log)
+This website uses **GitHub Pages** for free hosting and **GitHub Actions** for the automated build process.
+
+The flow is simple:
+1. You run `git push` to the `main` branch.
+2. GitHub Actions detects the push.
+3. Actions runs `npm install` and `npm run build`.
+4. The build output (the `dist/` folder) is uploaded to GitHub Pages.
+5. The website goes live within 1–2 minutes.
 
 ---
 
-## 1. Purpose
+## 2. Initial Setup (One-Time Only)
 
-### 1.1 What This Document Is
+If you are setting up this repository for the first time, make sure the following settings are correct in GitHub:
 
-The step-by-step guide to deploying the katalogarkan website to GitHub Pages. Covers initial setup, ongoing deploys, rollback, custom domain, and troubleshooting.
-
-### 1.2 Who Uses This
-
-| Role | Usage |
-|------|-------|
-| Owner (Arkan) | Deploy the website, fix deploy issues |
-| Future contributor | Understand deployment process |
-| AI assistant | Diagnose deploy problems |
-
-### 1.3 Relationship to Blueprint
-
-| Blueprint §18 | This Document |
-|---------------|---------------|
-| Deployment summary (tables) | Step-by-step instructions |
-| Config examples | Full setup + verification |
-| Acceptance criteria | Troubleshooting + rollback |
-
-**Rule:** The workflow in §5.2 of this document must match `blueprint.md` §18.2 exactly.
+1. Go to **Settings** → **Pages**.
+2. Under **Build and deployment** → **Source**, select **GitHub Actions** (do NOT select *Deploy from a branch*).
+3. Go to **Settings** → **Actions** → **General**.
+4. Under **Workflow permissions**, select **Read and write permissions**.
+5. Save.
 
 ---
 
-## 2. Deployment Architecture
+## 3. The Workflow File
 
-### 2.1 Flow Diagram
-
-```
-┌──────────────────────────────────────────────────────┐
-│  LOCAL MACHINE                                       │
-│                                                      │
-│  1. Arkan edits files                                │
-│  2. git commit                                       │
-│  3. git push origin main                             │
-│                                                      │
-└──────────────────────┬───────────────────────────────┘
-                       │
-                       ▼
-┌──────────────────────────────────────────────────────┐
-│  GITHUB REPOSITORY                                   │
-│                                                      │
-│  4. Push triggers .github/workflows/deploy.yml       │
-│                                                      │
-└──────────────────────┬───────────────────────────────┘
-                       │
-                       ▼
-┌──────────────────────────────────────────────────────┐
-│  GITHUB ACTIONS                                      │
-│                                                      │
-│  5. Checkout repo                                    │
-│  6. Setup Node 22                                    │
-│  7. npm ci                                           │
-│  8. npm run build                                    │
-│  9. Upload dist/ as artifact                         │
-│  10. Deploy artifact to GitHub Pages                 │
-│                                                      │
-└──────────────────────┬───────────────────────────────┘
-                       │
-                       ▼
-┌──────────────────────────────────────────────────────┐
-│  GITHUB PAGES CDN                                    │
-│                                                      │
-│  11. Serve static files                              │
-│  12. https://katalogarkan.github.io                  │
-│                                                      │
-└──────────────────────────────────────────────────────┘
-```
-
-### 2.2 Key Properties
-
-| Property | Value |
-|----------|-------|
-| Repository | `katalogarkan/katalogarkan.github.io` |
-| Branch | `main` |
-| Build output | `dist/` |
-| Node version | 22 |
-| Workflow | Explicit (see §5.2) |
-| Deploy time | ~1–2 minutes |
-| HTTPS | Auto-enabled |
-| Cost | Free |
-
-### 2.3 Why `katalogarkan.github.io` as Repo Name
-
-GitHub Pages has two URL formats:
-
-| Format | Repo Name | URL |
-|--------|-----------|-----|
-| User site | `{username}.github.io` | `https://{username}.github.io` |
-| Project site | Any other name | `https://{username}.github.io/{repo}` |
-
-By naming the repo `katalogarkan.github.io`, the site lives at the root URL `https://katalogarkan.github.io` — no `base` path needed in `astro.config.mjs`.
-
----
-
-## 3. Prerequisites
-
-### 3.1 Local Machine
-
-| Requirement | Version | Check |
-|-------------|---------|-------|
-| Node.js | 22+ | `node --version` |
-| npm | 10+ | `npm --version` |
-| Git | 2.40+ | `git --version` |
-
-### 3.2 GitHub Account
-
-| Requirement | Status |
-|-------------|--------|
-| Account `katalogarkan` exists | ✅ |
-| Repository `katalogarkan.github.io` exists | ✅ |
-| Repo is Public | ✅ (required for free GitHub Pages) |
-| GitHub Pages enabled | ⚠️ Must be enabled in Settings |
-
-### 3.3 Repository Structure
-
-Before first deploy, the repo must contain:
-
-| File | Purpose |
-|------|---------|
-| `package.json` | Dependencies (Astro 5, Tailwind 4, React 18) |
-| `package-lock.json` | Locked dependencies (required for `npm ci`) |
-| `astro.config.mjs` | Astro config with `site` + `@tailwindcss/vite` |
-| `.github/workflows/deploy.yml` | Deploy workflow |
-| `src/pages/index.astro` | At least one page |
-| `src/styles/global.css` | Tailwind 4 `@import` + `@theme` |
-| `LICENSE` | MIT license |
-
----
-
-## 4. GitHub Pages Setup
-
-### 4.1 Enable GitHub Pages
-
-| # | Step | Action |
-|---|------|--------|
-| 1 | Open repository | `https://github.com/katalogarkan/katalogarkan.github.io` |
-| 2 | Click **Settings** | Top navigation |
-| 3 | Click **Pages** | Left sidebar |
-| 4 | Under **Build and deployment** → **Source** | Select **GitHub Actions** |
-| 5 | Save | (Auto-saves) |
-
-**Important:** Do NOT select "Deploy from a branch". Select **GitHub Actions** — the workflow handles the build.
-
-### 4.2 Verify Pages Settings
-
-| Setting | Expected Value |
-|---------|----------------|
-| Source | GitHub Actions |
-| Custom domain | (empty at launch) |
-| Enforce HTTPS | ✅ (default) |
-
-### 4.3 Check Workflow Permissions
-
-| # | Step | Action |
-|---|------|--------|
-| 1 | Settings → **Actions** → **General** | — |
-| 2 | Under **Workflow permissions** | Select **Read and write permissions** |
-| 3 | Save | — |
-
-**Why:** The deploy workflow needs `pages: write` and `id-token: write` permissions. These are declared in `deploy.yml`, but the repo-level setting must allow them.
-
----
-
-## 5. GitHub Actions Workflow
-
-### 5.1 File Location
-
-```
-.github/workflows/deploy.yml
-```
-
-### 5.2 Complete Workflow (Explicit — Single Source of Truth)
-
-This must match `blueprint.md` §18.2 exactly.
+The configuration file is located at `.github/workflows/deploy.yml`. This file tells GitHub what to do.
 
 ```yaml
 name: Deploy to GitHub Pages
@@ -242,19 +65,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'npm'
-
       - name: Install dependencies
         run: npm ci
-
       - name: Build with Astro
         run: npm run build
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -272,488 +91,66 @@ jobs:
         uses: actions/deploy-pages@v4
 ```
 
-### 5.3 Workflow Breakdown
-
-| Step | Purpose |
-|------|---------|
-| `on.push.branches: [main]` | Trigger on push to main |
-| `on.workflow_dispatch` | Allow manual trigger |
-| `permissions` | Read repo, write Pages, OIDC token |
-| `concurrency` | One deploy at a time |
-| `checkout` | Clone repo |
-| `setup-node` | Install Node 22 + cache npm |
-| `npm ci` | Install exact deps from `package-lock.json` |
-| `npm run build` | Build Astro → `dist/` |
-| `upload-pages-artifact` | Package `dist/` for Pages |
-| `deploy-pages` | Deploy artifact to Pages CDN |
-
-### 5.4 Why Not `withastro/action@v3`
-
-The official Astro action is simpler but hides the build steps. The explicit workflow above is preferred because:
-
-| Reason | Detail |
-|--------|--------|
-| Transparency | Every step is visible in the log |
-| Debuggability | If a step fails, you see exactly which one |
-| Control | Easy to add caching, env vars, or extra build steps |
-| Learning | Understand what Astro's action does under the hood |
-
-**No alternative workflow is provided in this document.** The explicit workflow in §5.2 is the single source of truth.
-
 ---
 
-## 6. Astro Configuration
+## 4. Routine Deployment
 
-### 6.1 Required Config
-
-```js
-// astro.config.mjs
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
-import react from '@astrojs/react';
-import sitemap from '@astrojs/sitemap';
-
-export default defineConfig({
-  site: 'https://katalogarkan.github.io',
-  integrations: [react(), sitemap()],
-  vite: {
-    plugins: [tailwindcss()],
-  },
-});
-```
-
-### 6.2 Why `site` Is Required
-
-| Feature | Without `site` | With `site` |
-|---------|----------------|-------------|
-| Sitemap | Fails | Works |
-| Canonical URLs | Missing | Correct |
-| OG image URLs | Broken | Correct |
-| RSS feed (future) | Fails | Works |
-
-**Rule:** `site` must match the live URL exactly, no trailing slash.
-
-### 6.3 Tailwind 4 via `@tailwindcss/vite`
-
-Tailwind 4 uses the Vite plugin directly — there is **no `tailwind.config.mjs`** and **no `@astrojs/tailwind` integration**.
-
-| Concern | Tailwind 3 (old) | Tailwind 4 (current) |
-|---------|------------------|----------------------|
-| Integration | `@astrojs/tailwind` | `@tailwindcss/vite` (via `vite.plugins`) |
-| Config | `tailwind.config.mjs` | `@theme` in `global.css` |
-| Import | `@tailwind base/components/utilities` | `@import "tailwindcss"` |
-| Plugin | `plugins: [typography]` | `@plugin "@tailwindcss/typography"` |
-
-**Rule:** Do not add `@astrojs/tailwind` to `integrations` and do not create `tailwind.config.mjs`. All token config lives in `src/styles/global.css` (see `blueprint.md` §5.9).
-
-### 6.4 No `base` Needed
-
-Because the repo is named `katalogarkan.github.io`, the site is served at the root (`/`). No `base` config needed.
-
-**If repo name were different** (e.g., `my-website`), you would need:
-
-```js
-export default defineConfig({
-  site: 'https://katalogarkan.github.io',
-  base: '/my-website',
-  // ...
-});
-```
-
-**Not applicable here.**
-
----
-
-## 7. First Deploy
-
-### 7.1 Pre-Deploy Checklist
-
-| # | Check | Done |
-|---|-------|:---:|
-| 1 | `npm run build` succeeds locally | ☐ |
-| 2 | `dist/` folder created | ☐ |
-| 3 | `astro.config.mjs` has `site` | ☐ |
-| 4 | `astro.config.mjs` uses `@tailwindcss/vite` (no `@astrojs/tailwind`) | ☐ |
-| 5 | `src/styles/global.css` starts with `@import "tailwindcss"` | ☐ |
-| 6 | `.github/workflows/deploy.yml` exists and matches §5.2 | ☐ |
-| 7 | `package-lock.json` committed | ☐ |
-| 8 | GitHub Pages source = GitHub Actions | ☐ |
-| 9 | Workflow permissions = Read and write | ☐ |
-| 10 | Repo is Public | ☐ |
-| 11 | `LICENSE` file exists | ☐ |
-
-### 7.2 Deploy Steps
-
-| # | Step | Command |
-|---|------|---------|
-| 1 | Stage all files | `git add .` |
-| 2 | Commit | `git commit -m "chore: initial deploy"` |
-| 3 | Push | `git push origin main` |
-| 4 | Open Actions tab | `https://github.com/katalogarkan/katalogarkan.github.io/actions` |
-| 5 | Wait for workflow | ~1–2 minutes |
-| 6 | Check green check | ✅ |
-| 7 | Open live URL | `https://katalogarkan.github.io` |
-
-### 7.3 What to Expect
-
-| Time | What Happens |
-|------|--------------|
-| 0s | Push received, workflow queued |
-| ~10s | Workflow starts (`build` job) |
-| ~30s | Checkout + Node setup + npm ci |
-| ~60s | Astro build completes |
-| ~70s | Artifact uploaded |
-| ~80s | `deploy` job starts |
-| ~90s | Deploy completes |
-| ~120s | Live URL serves new content |
-
-**First deploy may take longer** (2–3 min) due to cache warming.
-
----
-
-## 8. Subsequent Deploys
-
-### 8.1 Normal Workflow
+Every time you finish editing code or adding an article, follow these steps:
 
 ```bash
-# 1. Make changes
-# 2. Test locally
-npm run dev
-
-# 3. Build to verify
+# 1. Check the local build (make sure there are no errors)
 npm run build
 
-# 4. Commit + push
+# 2. Commit your changes
 git add .
-git commit -m "feat: add new project"
+git commit -m "content: add new article"
+
+# 3. Push to GitHub
 git push origin main
 
-# 5. Wait 1–2 min
-# 6. Verify live
+# 4. Wait 1-2 minutes, then check the "Actions" tab on GitHub.
+# 5. Open https://katalogarkan.github.io to see the result.
 ```
 
-### 8.2 What Triggers a Deploy
+---
 
-| Trigger | Deploys? |
-|---------|:---:|
-| Push to `main` | ✅ |
-| Push to other branch | ❌ |
-| Pull request | ❌ |
-| Manual `workflow_dispatch` | ✅ |
-| Empty commit to `main` | ✅ |
+## 5. Troubleshooting (If the Deploy Fails)
 
-### 8.3 Deploy Frequency
+If you see a red cross (❌) in the **Actions** tab, these are the most common causes:
 
-| Content Type | Frequency |
-|--------------|-----------|
-| New project | When added |
-| New article | When published |
-| Code change | When committed |
-| Config change | When committed |
+| Issue | Solution |
+| :--- | :--- |
+| **Build failed (Zod Error)** | There is a typo in the Markdown frontmatter. Check the error log and make sure `category`, `date`, and `title` are correct. |
+| **Asset 404 (broken image)** | Make sure the image filename in the Markdown exactly matches the one in `public/images/`. Remember, letter case matters! |
+| **Node version mismatch** | Make sure `node-version` in `deploy.yml` is set to `22`. |
+| **Permission denied** | Go to Settings → Actions → General and make sure it is set to "Read and write". |
+| **Tailwind classes not appearing** | Make sure `@import "tailwindcss";` is at the very top of `global.css`. |
 
-**No limit** on deploys — GitHub Actions free tier allows unlimited minutes for public repos.
-
-### 8.4 Deploys by Phase (Current State)
-
-| Phase | Deploy Status |
-|-------|---------------|
-| Phase 1 | ✅ Deployed (Astro 5 + Tailwind 4 foundation) |
-| Phase 2 | ✅ Deployed (Home + layout) |
-| Phase 3 | ✅ Deployed (7 static pages) |
-| Phase 4 | ✅ Deployed (Katalog + React filter) |
-| Phase 5 | ✅ Deployed (Blog + 2 detail routes, 12 pages) |
-| Phase 6 | ⏳ Pending (SEO, Lighthouse, final deploy) |
+### How to Read the Error Log:
+1. Open the repository on GitHub.
+2. Click the **Actions** tab.
+3. Click the failed workflow (red cross).
+4. Click the **build** or **deploy** job.
+5. Read the red text to find out what went wrong.
 
 ---
 
-## 9. Verification
+## 6. Rollback (Restore a Previous Version)
 
-### 9.1 After Deploy
-
-| # | Check | Method |
-|---|-------|--------|
-| 1 | Action completed with green check | Actions tab |
-| 2 | Live URL loads | Open in browser |
-| 3 | Home page shows latest content | Visual |
-| 4 | No console errors | DevTools Console |
-| 5 | All assets load (no 404) | DevTools Network |
-| 6 | Dark mode works | Change OS theme |
-| 7 | Mobile responsive | DevTools device mode |
-
-### 9.2 Verify Specific Content
-
-| Content | URL |
-|---------|-----|
-| New project | `https://katalogarkan.github.io/katalog/{slug}` |
-| New article | `https://katalogarkan.github.io/blog/{slug}` |
-| Sitemap | `https://katalogarkan.github.io/sitemap-index.xml` (Phase 6) |
-| Robots | `https://katalogarkan.github.io/robots.txt` (Phase 6) |
-
-### 9.3 Check Deploy Logs
-
-| # | Step | Action |
-|---|------|--------|
-| 1 | Open Actions tab | Click workflow run |
-| 2 | Click `build` job | View build logs |
-| 3 | Click `deploy` job | View deploy logs |
-| 4 | Check for errors | Red text = error |
-
----
-
-## 10. Rollback
-
-### 10.1 Rollback via Git Revert (Recommended)
+If you push and break the website, you can restore it using Git Revert.
 
 ```bash
-# 1. Find the commit to revert
-git log --oneline -10
-
-# 2. Revert the bad commit
-git revert <commit-hash>
-
-# 3. Push (triggers deploy of reverted state)
-git push origin main
-```
-
-**Why revert, not reset:** Revert creates a new commit that undoes the change. History is preserved. Safe for production.
-
-### 10.2 Rollback via Reset (Destructive)
-
-```bash
-# 1. Reset to previous commit
-git reset --hard <commit-hash>
-
-# 2. Force push
-git push --force origin main
-```
-
-**Warning:** This rewrites history. Only use if no one else has pulled the branch.
-
-### 10.3 Rollback via GitHub UI
-
-| # | Step | Action |
-|---|------|--------|
-| 1 | Open commit history | Repo → Commits |
-| 2 | Find the bad commit | — |
-| 3 | Click **Revert** | Creates revert PR |
-| 4 | Merge PR | Triggers deploy of reverted state |
-
-### 10.4 Emergency: Disable Pages
-
-If the live site is broken and needs to be taken down immediately:
-
-| # | Step | Action |
-|---|------|--------|
-| 1 | Settings → Pages | — |
-| 2 | Source → **None** | Save |
-| 3 | Site returns 404 | — |
-| 4 | Fix the issue locally | — |
-| 5 | Re-enable Pages → GitHub Actions | — |
-
----
-
-## 11. Custom Domain
-
-### 11.1 When to Add
-
-| Condition | Status |
-|-----------|--------|
-| Phase 6 complete | Required before custom domain |
-| Domain purchased | Required |
-| DNS access | Required |
-
-### 11.2 Domain Options
-
-| Domain | Est. Cost/Year | Registrar |
-|--------|----------------|-----------|
-| `katalogarkan.com` | ~$10–15 | Namecheap, Cloudflare |
-| `katalogarkan.dev` | ~$12–15 | Namecheap, Cloudflare |
-| `katalogarkan.id` | ~Rp 200K–300K | Local registrar |
-
-### 11.3 Setup Steps
-
-| # | Step | Action |
-|---|------|--------|
-| 1 | Buy domain | Namecheap / Cloudflare / local |
-| 2 | Open DNS settings | Registrar dashboard |
-| 3 | Add CNAME record | `www` → `katalogarkan.github.io` |
-| 4 | Add A records (apex) | `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` |
-| 5 | GitHub → Settings → Pages | Custom domain: `katalogarkan.com` |
-| 6 | Save | — |
-| 7 | Wait for DNS check | ~24 hours |
-| 8 | Enable **Enforce HTTPS** | After DNS verified |
-| 9 | Update `astro.config.mjs` | `site: 'https://katalogarkan.com'` |
-| 10 | Push + deploy | — |
-
-### 11.4 DNS Records
-
-| Type | Name | Value |
-|------|------|-------|
-| A | `@` | `185.199.108.153` |
-| A | `@` | `185.199.109.153` |
-| A | `@` | `185.199.110.153` |
-| A | `@` | `185.199.111.153` |
-| CNAME | `www` | `katalogarkan.github.io` |
-
-### 11.5 After Custom Domain
-
-| # | Check | Done |
-|---|-------|:---:|
-| 1 | `https://katalogarkan.com` loads | ☐ |
-| 2 | `https://www.katalogarkan.com` loads | ☐ |
-| 3 | HTTPS works (green lock) | ☐ |
-| 4 | Old `github.io` URL redirects | ☐ |
-| 5 | Sitemap uses new domain | ☐ |
-| 6 | OG image URLs use new domain | ☐ |
-
----
-
-## 12. Troubleshooting
-
-### 12.1 Deploy Fails
-
-| Symptom | Cause | Fix |
-|---------|-------|-----|
-| Action red X | Build error | Check `build` job logs |
-| `npm ci` fails | `package-lock.json` out of sync | Run `npm install` locally, commit lockfile |
-| `npm run build` fails | Code error | Run `npm run build` locally, fix errors |
-| `Node version` error | Wrong Node in workflow | Check `node-version: 22` in `deploy.yml` |
-| `Permission denied` | Workflow permissions | Settings → Actions → Read and write |
-
-### 12.2 Deploy Succeeds but Site Broken
-
-| Symptom | Cause | Fix |
-|---------|-------|-----|
-| 404 on all pages | Pages source not set | Settings → Pages → Source: GitHub Actions |
-| Assets 404 | `site` missing or wrong | Check `astro.config.mjs` `site` |
-| CSS not loading | Tailwind not compiled | Check `@tailwindcss/vite` in `vite.plugins` |
-| Tailwind classes missing | `@import "tailwindcss"` missing | Check top of `global.css` |
-| Images 404 | Wrong path | Check `/images/...` not `./images/...` |
-| Dark mode not working | CSS variables missing | Check `@media (prefers-color-scheme: dark)` block in `global.css` |
-| Old content | CDN cache | Wait 5 min, hard refresh (Ctrl+Shift+R) |
-
-### 12.3 Custom Domain Issues
-
-| Symptom | Cause | Fix |
-|---------|-------|-----|
-| DNS not verified | Records not propagated | Wait 24h, check with `dig` |
-| HTTPS fails | DNS not verified yet | Wait, then enable Enforce HTTPS |
-| `github.io` still works | Custom domain not saved | Save in Settings → Pages |
-| `www` not working | Missing CNAME | Add CNAME `www` → `katalogarkan.github.io` |
-
-### 12.4 Workflow Not Triggering
-
-| Symptom | Cause | Fix |
-|---------|-------|-----|
-| Push doesn't trigger | Wrong branch | Check `on.push.branches: [main]` |
-| Workflow disabled | Manually disabled | Actions tab → Enable workflow |
-| No Actions tab | Actions disabled | Settings → Actions → Allow all actions |
-
-### 12.5 Diagnostic Commands
-
-```bash
-# Check local build
-npm run build
-
-# Check local preview
-npm run preview
-
-# Check git status
-git status
-
-# Check remote
-git remote -v
-
-# Check branch
-git branch
-
-# Check last commit
+# 1. View the commit history
 git log --oneline -5
 
-# Check DNS (custom domain)
-dig katalogarkan.com
-nslookup katalogarkan.com
+# 2. Revert to a safe commit (replace <commit-id> with the correct ID)
+git revert <commit-id>
+
+# 3. Push
+git push origin main
 ```
 
----
-
-## 13. Security
-
-### 13.1 Deploy Security
-
-| # | Concern | Mitigation |
-|---|---------|------------|
-| 1 | Secrets in repo | No secrets — Formspree ID is public |
-| 2 | Malicious dependencies | `npm audit` before each phase |
-| 3 | Workflow permissions | Minimal: `contents: read`, `pages: write`, `id-token: write` |
-| 4 | Branch protection | Enable after launch (see §13.2) |
-| 5 | Force push | Avoid on `main` |
-
-### 13.2 Branch Protection (Recommended After Launch)
-
-| # | Setting | Value |
-|---|---------|-------|
-| 1 | Settings → Branches → Add rule | `main` |
-| 2 | Require pull request | ✅ (optional for solo) |
-| 3 | Require status checks | ✅ (deploy) |
-| 4 | Restrict force push | ✅ |
-
-**For solo project:** Branch protection is optional. Enable if you want to prevent accidental force pushes.
-
-### 13.3 HTTPS
-
-| Property | Value |
-|----------|-------|
-| Enforced by | GitHub Pages |
-| Certificate | Auto-provisioned (Let's Encrypt) |
-| Renewal | Auto |
-| HSTS | Not configured (default) |
+GitHub Actions will automatically re-deploy the previous version.
 
 ---
-
-## 14. Performance
-
-### 14.1 Deploy Performance
-
-| Metric | Target | Actual |
-|--------|--------|--------|
-| Build time | < 2 min | ~60s |
-| Deploy time | < 1 min | ~30s |
-| Total time | < 3 min | ~90s |
-| CDN propagation | < 5 min | ~2 min |
-
-### 14.2 Site Performance (Post-Deploy)
-
-| Metric | Target |
-|--------|--------|
-| Lighthouse Performance | ≥ 95 |
-| Lighthouse Accessibility | ≥ 95 |
-| Lighthouse Best Practices | ≥ 95 |
-| Lighthouse SEO | ≥ 95 |
-| LCP | < 2.5s |
-| CLS | < 0.1 |
-
-### 14.3 CDN
-
-| Property | Value |
-|----------|-------|
-| CDN | GitHub Pages (Fastly) |
-| Global | Yes |
-| Cache | Static assets cached |
-| Invalidation | Automatic on deploy |
-
----
-
-## 15. Change Log
-
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.3.0 | 2026-11-04 | Synced with `blueprint.md` v1.3.0 after Phase 5: `Project Version` bumped to 0.5.0; pre-deploy checklist added `package-lock.json` requirement (§7.1); added §8.4 deploys-by-phase table (Phase 1–5 ✅, Phase 6 ⏳); §9.2 sitemap/robots URLs marked Phase 6; no changes to workflow (§5.2) or Astro config (§6.1) — already correct. |
-| 1.2.0 | 2026-11-04 | Synced with `blueprint.md` v1.2.0 after Phase 1: Node 22 in §3.1 and §5.2; Astro config now uses `@tailwindcss/vite` (§6.1); new §6.3 explaining Tailwind 4 (no `tailwind.config.mjs`, no `@astrojs/tailwind`); pre-deploy checklist updated (§7.1); troubleshooting updated for Tailwind 4 (§12.2). |
-| 1.1.0 | 2026-10-26 | Removed `withastro/action@v3` alternative; explicit workflow in §5.2 is single source of truth; added note matching `blueprint.md` §18.2; added `LICENSE` to prerequisites and checklist; added dark mode CSS variable troubleshooting. |
-| 1.0.1 | 2026-10-26 | Document Info split into `Document Version` vs `Project Version`. |
-| 1.0.0 | 2026-10-26 | Initial deployment guide. |
-
----
-
 *End of document.*

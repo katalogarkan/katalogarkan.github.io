@@ -2,78 +2,253 @@
 // src/pages/services.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const title = 'Services — Arkan';
-const description = 'Services I offer to clients.';
+const title = 'Services & Pricing — Arkan Tsabit';
+const description = 'Detailed freelance services for Web Development, Data Engineering, Analytics, and Cloud.';
 
-const services = [
-  { name: 'Landing Page', desc: 'A single-page website to showcase your product or personal brand.', price: 'Start from $150' },
-  { name: 'Web App', desc: 'Full stack web application with database, auth, and dashboard.', price: 'Start from $500' },
-  { name: 'Custom', desc: 'Have something specific in mind? Let\'s discuss your needs.', price: 'Contact me' },
-];
-
-const steps = [
-  { num: '1', title: 'Discuss', desc: 'We talk about your goals, timeline, and budget.' },
-  { num: '2', title: 'Design', desc: 'I create a wireframe and visual design for approval.' },
-  { num: '3', title: 'Develop', desc: 'I build the site with clean, maintainable code.' },
-  { num: '4', title: 'Launch', desc: 'We deploy, test, and hand over the final product.' },
-];
-
-const faqs = [
-  { q: 'How long does a project take?', a: 'Depends on scope. A landing page takes 1–2 weeks, a web app 4–8 weeks.' },
-  { q: 'Do you offer maintenance?', a: 'Yes, I offer monthly maintenance packages after launch.' },
-  { q: 'What is your payment method?', a: '50% upfront, 50% after delivery. Bank transfer or PayPal.' },
+const serviceCategories = [
+  {
+    name: "Web Development",
+    icon: "web",
+    services: [
+      { 
+        title: "Landing Page", 
+        desc: "A high-converting single-page website designed to launch your product quickly. Ideal for marketing campaigns or validating a new business idea.",
+        deliverables: ["1 Page Design & Development", "Mobile & Tablet Responsive", "Contact Form Integration", "Basic On-Page SEO"],
+        tech: ["Astro", "Tailwind CSS"],
+        timeline: "5–7 Days",
+        revisions: "2 Revisions",
+        price: "$250"
+      },
+      { 
+        title: "Company Profile", 
+        desc: "A professional multi-page website to establish your brand's credibility online. Perfect for B2B companies, agencies, and local businesses.",
+        deliverables: ["Up to 5 Pages (Home, About, Services)", "Blog/News Section Setup", "SEO Meta Tags", "Google Analytics Integration"],
+        tech: ["Astro", "React", "Tailwind CSS"],
+        timeline: "10–14 Days",
+        revisions: "3 Revisions",
+        price: "$450"
+      },
+      { 
+        title: "Custom Web App", 
+        desc: "An interactive web application tailored to your specific business logic. Includes user authentication, database connection, and custom features.",
+        deliverables: ["Custom Frontend & Backend", "REST API Integration", "User Login/Auth System", "Database Setup & Connection"],
+        tech: ["Astro", "React", "Node.js", "PostgreSQL"],
+        timeline: "3–6 Weeks",
+        revisions: "Unlimited (within scope)",
+        price: "$800+"
+      },
+      { 
+        title: "Website Redesign", 
+        desc: "Give your outdated website a modern, fast, and mobile-friendly makeover. Improve user experience and conversion rates.",
+        deliverables: ["UI/UX Audit", "Modern Design Implementation", "Speed Optimization", "Mobile Responsiveness"],
+        tech: ["Astro", "Tailwind CSS", "Figma"],
+        timeline: "1–2 Weeks",
+        revisions: "3 Revisions",
+        price: "$400"
+      },
+      { 
+        title: "Monthly Maintenance", 
+        desc: "Keep your website secure, updated, and running smoothly. I handle the technical stuff so you can focus on your business.",
+        deliverables: ["Weekly Backups", "Security Updates", "Uptime Monitoring", "Minor Content Updates"],
+        tech: ["cPanel", "GitHub", "Cloudflare"],
+        timeline: "Monthly Retainer",
+        revisions: "N/A",
+        price: "$50/mo"
+      }
+    ]
+  },
+  {
+    name: "Data Engineering & Analytics",
+    icon: "data",
+    services: [
+      { 
+        title: "ETL Pipeline Setup", 
+        desc: "Automated data extraction, transformation, and loading from your sources to your data warehouse. Save hours of manual data entry.",
+        deliverables: ["Python Scripts for Extraction", "Apache Airflow DAGs", "Data Cleaning & Deduplication", "Automated Daily Scheduling"],
+        tech: ["Python", "Apache Airflow", "BigQuery"],
+        timeline: "1–2 Weeks",
+        revisions: "2 Revisions",
+        price: "$600"
+      },
+      { 
+        title: "Data Warehouse Modeling", 
+        desc: "Designing an optimized database schema (Star Schema) to make your data analytics faster, cheaper, and more reliable.",
+        deliverables: ["ERD & Schema Design", "BigQuery/PostgreSQL Setup", "Dataform/dbt Transformations", "Data Quality Tests"],
+        tech: ["BigQuery", "Dataform", "SQL"],
+        timeline: "2–3 Weeks",
+        revisions: "3 Revisions",
+        price: "$700"
+      },
+      { 
+        title: "Web Scraping", 
+        desc: "Extract valuable data from competitor websites, marketplaces, or social media to gain a competitive edge for your business.",
+        deliverables: ["Custom Python Scraper", "Data Cleaning & Formatting", "CSV/JSON Export", "Anti-Block Handling"],
+        tech: ["Python", "BeautifulSoup", "Pandas"],
+        timeline: "3–7 Days",
+        revisions: "2 Revisions",
+        price: "$350"
+      },
+      { 
+        title: "Interactive Dashboard", 
+        desc: "Transform your raw data into beautiful, interactive dashboards so you can track KPIs and make data-driven decisions.",
+        deliverables: ["Custom Dashboard Design", "Live Data Connection", "Up to 5 Charts/KPIs", "Deployment to Cloud"],
+        tech: ["Streamlit", "Plotly", "Looker Studio"],
+        timeline: "1–2 Weeks",
+        revisions: "2 Revisions",
+        price: "$450"
+      },
+      { 
+        title: "Data Migration", 
+        desc: "Securely migrating your data from legacy systems (MySQL, Excel, CSV) to modern cloud infrastructure without downtime or data loss.",
+        deliverables: ["Migration Strategy Document", "Zero Downtime Execution", "Validation & Reconciliation Scripts", "Post-Migration Support"],
+        tech: ["GCP", "Python", "Docker"],
+        timeline: "1–2 Weeks",
+        revisions: "2 Revisions",
+        price: "$500"
+      }
+    ]
+  },
+  {
+    name: "Cloud & DevOps",
+    icon: "cloud",
+    services: [
+      { 
+        title: "Dockerization", 
+        desc: "Packaging your application into containers so it runs reliably and consistently on your local machine, testing server, and production.",
+        deliverables: ["Dockerfile Creation", "Docker Compose Setup", "Environment Variables Config", "Deployment Guide"],
+        tech: ["Docker", "Docker Compose"],
+        timeline: "3–5 Days",
+        revisions: "2 Revisions",
+        price: "$300"
+      },
+      { 
+        title: "CI/CD Pipeline", 
+        desc: "Automating your testing and deployment process to ship features faster and safer without manual errors.",
+        deliverables: ["GitHub Actions/Jenkins Setup", "Automated Build & Test", "Deployment Scripts", "Rollback Strategy"],
+        tech: ["GitHub Actions", "Jenkins"],
+        timeline: "1 Week",
+        revisions: "2 Revisions",
+        price: "$400"
+      },
+      { 
+        title: "Cloud Infrastructure (IaC)", 
+        desc: "Setting up your servers, databases, and networking on Google Cloud or AWS using Infrastructure as Code (Terraform).",
+        deliverables: ["Terraform Scripts", "Server & Database Provisioning", "Security & Firewall Rules", "Cost Optimization Guide"],
+        tech: ["Terraform", "GCP", "AWS"],
+        timeline: "1–2 Weeks",
+        revisions: "2 Revisions",
+        price: "$600"
+      },
+      { 
+        title: "Cloud Cost Optimization", 
+        desc: "Auditing your GCP or AWS account to find wasted resources, optimize configurations, and reduce your monthly cloud bill.",
+        deliverables: ["Cloud Audit Report", "Resource Right-sizing", "Idle Resource Cleanup", "Cost-Saving Recommendations"],
+        tech: ["GCP", "AWS", "Cost Explorer"],
+        timeline: "1 Week",
+        revisions: "1 Revision",
+        price: "$350"
+      }
+    ]
+  }
 ];
 ---
 
 <BaseLayout {title} {description}>
   <section class="py-12 md:py-16">
-    <div class="container-page max-w-4xl">
-      <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-text mb-4">Services</h1>
-        <p class="text-lg text-text-muted">How I can help you build your next project.</p>
+    <div class="container-page max-w-6xl">
+      
+      <!-- Header -->
+      <div class="text-center mb-16">
+        <h1 class="text-4xl font-bold text-text mb-4">Services & Pricing</h1>
+        <p class="text-lg text-text-muted max-w-2xl mx-auto">
+          Transparent pricing, clear deliverables, and production-ready code. Choose the exact service you need.
+        </p>
       </div>
 
-      <!-- Packages -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-        {services.map((svc) => (
-          <div class="bg-bg-subtle border border-border rounded-lg p-6 flex flex-col">
-            <h2 class="text-xl font-bold text-text mb-2">{svc.name}</h2>
-            <p class="text-sm text-text-muted mb-6 flex-grow">{svc.desc}</p>
-            <div class="pt-4 border-t border-border">
-              <p class="text-sm font-medium text-text">{svc.price}</p>
+      <!-- Services List -->
+      <div class="space-y-16">
+        {serviceCategories.map((category) => (
+          <div id={category.icon === 'web' ? 'web-dev' : category.icon === 'data' ? 'data-eng' : 'cloud-devops'} class="scroll-mt-24">
+            <!-- Category Header -->
+            <h2 class="text-2xl font-bold text-text mb-8 flex items-center gap-3 border-b-2 border-primary pb-4">
+              {category.icon === 'web' && (
+                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              )}
+              {category.icon === 'data' && (
+                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+              )}
+              {category.icon === 'cloud' && (
+                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+              )}
+              {category.name}
+            </h2>
+
+            <!-- Service Cards (Grid) -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {category.services.map((svc) => (
+                <div class="bg-bg-subtle border border-border rounded-lg flex flex-col hover:border-primary transition-colors overflow-hidden shadow-sm">
+                  
+                  <!-- Card Header -->
+                  <div class="p-6 border-b border-border bg-bg/50">
+                    <h3 class="font-bold text-text text-xl mb-2">{svc.title}</h3>
+                    <p class="text-sm text-text-muted leading-relaxed">{svc.desc}</p>
+                  </div>
+
+                  <!-- Card Body -->
+                  <div class="p-6 flex-grow space-y-6">
+                    <!-- Deliverables -->
+                    <div>
+                      <h4 class="text-xs font-bold text-text uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        What You Get
+                      </h4>
+                      <ul class="space-y-2">
+                        {svc.deliverables.map((item) => (
+                          <li class="text-sm text-text-muted flex items-start gap-2">
+                            <span class="text-primary mt-0.5">•</span> {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <!-- Tech Stack -->
+                    <div>
+                      <h4 class="text-xs font-bold text-text uppercase tracking-wider mb-3">Tech Stack</h4>
+                      <div class="flex flex-wrap gap-2">
+                        {svc.tech.map((t) => (
+                          <span class="text-xs font-medium bg-primary/10 text-primary px-2 py-1 rounded">{t}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Card Footer -->
+                  <div class="p-6 border-t border-border bg-bg/50 mt-auto">
+                    <div class="flex justify-between items-center mb-4 text-sm">
+                      <div>
+                        <p class="text-text-muted">Timeline</p>
+                        <p class="font-bold text-text">{svc.timeline}</p>
+                      </div>
+                      <div class="text-right">
+                        <p class="text-text-muted">Revisions</p>
+                        <p class="font-bold text-text">{svc.revisions}</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-border">
+                      <span class="text-2xl font-bold text-primary">{svc.price}</span>
+                      <a href="/contact" class="px-4 py-2 rounded-md bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors">
+                        Order Now
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+              ))}
             </div>
           </div>
         ))}
       </div>
 
-      <!-- Process -->
-      <div class="mb-16">
-        <h2 class="text-2xl font-bold text-text mb-8 text-center">How It Works</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {steps.map((step) => (
-            <div class="text-center">
-              <div class="w-12 h-12 bg-primary/10 text-primary font-bold text-xl rounded-full flex items-center justify-center mx-auto mb-4">
-                {step.num}
-              </div>
-              <h3 class="font-bold text-text mb-2">{step.title}</h3>
-              <p class="text-sm text-text-muted">{step.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <!-- FAQ -->
-      <div>
-        <h2 class="text-2xl font-bold text-text mb-8 text-center">Frequently Asked Questions</h2>
-        <div class="space-y-4">
-          {faqs.map((faq) => (
-            <div class="bg-bg-subtle border border-border rounded-lg p-6">
-              <h3 class="font-bold text-text mb-2">{faq.q}</h3>
-              <p class="text-sm text-text-muted">{faq.a}</p>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   </section>
 </BaseLayout>

@@ -4,13 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import KatalogFilter from '../components/KatalogFilter';
 import { getCollection } from 'astro:content';
 
-const title = 'Katalog — Arkan';
+const title = 'Katalog — Arkan Tsabit';
 const description = 'Projects I\'ve built — filterable and searchable.';
 
-// Fetch projects
 const allProjects = await getCollection('katalog');
 
-// Sort projects by date (newest first) as default
 const projects = allProjects
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .map((project) => ({

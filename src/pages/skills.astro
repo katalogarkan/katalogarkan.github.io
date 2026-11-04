@@ -3,95 +3,245 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SkillBadge from '../components/SkillBadge.astro';
 
-const title = 'Skills — Arkan';
-const description = 'Technologies and tools I work with daily.';
+const title = 'Skills & Certifications — Arkan Tsabit';
+const description = 'Technical skills and 10 verified professional certifications in Data Engineering, Cloud, and Web Development.';
 
+// 1. Data Technical Skills
 const categories = [
   {
-    name: 'Frontend',
+    name: 'Data Engineering & Big Data',
+    icon: 'database',
     skills: [
-      { name: 'HTML', level: 95 },
-      { name: 'CSS', level: 90 },
-      { name: 'JavaScript', level: 90 },
-      { name: 'React', level: 85 },
-      { name: 'Tailwind', level: 90 },
-      { name: 'Astro', level: 85 },
+      'Apache Airflow', 
+      'Google Cloud Composer',
+      'Apache Spark (PySpark)',
+      'Apache Kafka',
+      'dbt (Data Build Tool)',
+      'Dataform',
+      'Pandas',
+      'Python',
+      'SQL',
+      'Bash / Shell Scripting'
     ]
   },
   {
-    name: 'Backend',
+    name: 'Cloud & DevOps',
+    icon: 'cloud',
     skills: [
-      { name: 'Node.js', level: 85 },
-      { name: 'PHP', level: 75 },
-      { name: 'Laravel', level: 80 },
-      { name: 'Express', level: 80 },
+      'Google Cloud Platform (GCP)',
+      'Amazon Web Services (AWS)',
+      'Docker',
+      'Kubernetes',
+      'Terraform',
+      'Jenkins',
+      'GitHub Actions',
+      'Git',
+      'Bitbucket',
+      'Linux / Unix'
     ]
   },
   {
-    name: 'Database',
+    name: 'Databases & Warehousing',
+    icon: 'server',
     skills: [
-      { name: 'MySQL', level: 85 },
-      { name: 'MongoDB', level: 70 },
-      { name: 'PostgreSQL', level: 80 },
+      'BigQuery',
+      'PostgreSQL',
+      'DuckDB',
+      'MySQL',
+      'MongoDB',
+      'Redis',
+      'Snowflake',
+      'Oracle Autonomous DB',
+      'Apache Cassandra'
     ]
   },
   {
-    name: 'DevOps & Tools',
+    name: 'Full Stack Web',
+    icon: 'code',
     skills: [
-      { name: 'Git', level: 90 },
-      { name: 'GitHub', level: 90 },
-      { name: 'Docker', level: 75 },
-      { name: 'Linux', level: 80 },
+      'Astro',
+      'React',
+      'Node.js',
+      'Next.js',
+      'TypeScript',
+      'JavaScript',
+      'Tailwind CSS',
+      'HTML5',
+      'CSS3',
+      'RESTful API',
+      'SOAP'
     ]
+  },
+  {
+    name: 'Visualization & Analytics',
+    icon: 'chart',
+    skills: [
+      'Streamlit',
+      'Tableau',
+      'Power BI',
+      'Looker Studio',
+      'Grafana',
+      'Prometheus',
+      'Plotly',
+      'Matplotlib',
+      'Seaborn'
+    ]
+  }
+];
+
+// 2. Verified Certifications Data
+const certifications = [
+  {
+    name: "OCI 2025 Multicloud Architect Professional",
+    issuer: "Oracle",
+    level: "Professional",
+    date: "Oct 2025",
+    url: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=99E3FF00B51B7F01EBB349E70C1797168EC307E05C3B3F2804F5FEAFF1EDE366"
+  },
+  {
+    name: "OCI 2025 Generative AI Professional",
+    issuer: "Oracle",
+    level: "Professional",
+    date: "Oct 2025",
+    url: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=4108A46E884297C4A2A7903F29B8B6B1BE3C8085639788DA61EBC061CB9C3F5F"
+  },
+  {
+    name: "Oracle AI Vector Search Certified Professional",
+    issuer: "Oracle",
+    level: "Professional",
+    date: "Oct 2025",
+    url: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=79D9DE40E76454DA693E60F7B71AD78FCBBE5072D6F4214FC7E2FD982593EDDD"
+  },
+  {
+    name: "Oracle AI Autonomous Database 2025 Professional",
+    issuer: "Oracle",
+    level: "Professional",
+    date: "Oct 2025",
+    url: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=8AC0AE3D9E7ECB5B33635326032AD33F9614CB6BDAC5BFE5784B7E4522A68E9C"
+  },
+  {
+    name: "Oracle AI Cloud Database Services 2025 Professional",
+    issuer: "Oracle",
+    level: "Professional",
+    date: "Oct 2025",
+    url: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=0C2EA1BCFECB9658472AD96C71A69EC7459E895D74386B0D6A45F7C209551813"
+  },
+  {
+    name: "OCI 2025 AI Foundations Associate",
+    issuer: "Oracle",
+    level: "Associate",
+    date: "Oct 2025",
+    url: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=D592DE2A2D5CCA6FBD5E0A021BF40BC932DD3B847A80425BABD5A4ABBD6CA24D"
+  },
+  {
+    name: "OCI 2025 Foundations Associate",
+    issuer: "Oracle",
+    level: "Associate",
+    date: "Oct 2025",
+    url: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=65BBB3F0D58CA22597232518C6CA09D381E0AA903D6ADA2806C4D5929A7BE7F6"
+  },
+  {
+    name: "Oracle Data Platform 2025 Foundations Associate",
+    issuer: "Oracle",
+    level: "Associate",
+    date: "Oct 2025",
+    url: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=17C96B55EB3916C91EF1B896EC1BE2FDDC869D216B885F60C3DD073E8E909CBD"
+  },
+  {
+    name: "IBM Data Engineering Professional",
+    issuer: "IBM",
+    level: "Specialization",
+    date: "Jun 2025",
+    url: "https://www.coursera.org/account/accomplishments/professional-cert/0DJPC6W8M192"
+  },
+  {
+    name: "Meta Database Engineer Professional",
+    issuer: "Meta",
+    level: "Specialization",
+    date: "Mar 2025",
+    url: "https://www.coursera.org/account/accomplishments/professional-cert/TVDET6XAODUI"
   }
 ];
 ---
 
 <BaseLayout {title} {description}>
   <section class="py-12 md:py-16">
-    <div class="container-page max-w-4xl">
-      <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-text mb-4">Skills</h1>
-        <p class="text-lg text-text-muted">Technologies and tools I work with daily.</p>
+    <div class="container-page max-w-5xl">
+      
+      <!-- Header -->
+      <div class="text-center mb-16">
+        <h1 class="text-4xl font-bold text-text mb-4">Skills & Certifications</h1>
+        <p class="text-lg text-text-muted max-w-2xl mx-auto">
+          Technologies I use to build scalable data pipelines and web applications, backed by 10 professional certifications.
+        </p>
       </div>
 
-      <div class="space-y-12">
-        {categories.map((category) => (
-          <div>
-            <h2 class="text-2xl font-bold text-text mb-6">{category.name}</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
-              {category.skills.map((skill) => (
-                <div>
-                  <div class="flex justify-between items-center mb-2">
-                    <SkillBadge name={skill.name} />
-                    <span class="text-sm text-text-muted">{skill.level}%</span>
-                  </div>
-                  <div class="w-full h-2 bg-bg-subtle rounded-full overflow-hidden">
-                    <div class="h-full bg-primary rounded-full" style={`width: ${skill.level}%`}></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      <!-- 1. TECHNICAL SKILLS -->
+      <div class="mb-20">
+        <h2 class="text-2xl font-bold text-text mb-8 border-b border-border pb-4 flex items-center gap-2">
+          <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+          Technical Expertise
+        </h2>
 
-      <!-- Certifications -->
-      <div class="mt-16">
-        <h2 class="text-2xl font-bold text-text mb-6">Certifications</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-bg-subtle border border-border rounded-lg p-6">
-            <h3 class="font-bold text-text mb-1">Full Stack Web Development Certificate</h3>
-            <p class="text-sm text-text-muted">Issuer Name</p>
-            <p class="text-xs text-text-muted mt-2">2025</p>
-          </div>
-          <div class="bg-bg-subtle border border-border rounded-lg p-6">
-            <h3 class="font-bold text-text mb-1">Cloud Practitioner Certification</h3>
-            <p class="text-sm text-text-muted">Issuer Name</p>
-            <p class="text-xs text-text-muted mt-2">2026</p>
-          </div>
+          {categories.map((category) => (
+            <div class="bg-bg-subtle border border-border rounded-lg p-6">
+              <h3 class="text-lg font-bold text-text mb-4 flex items-center gap-3 border-b border-border pb-3">
+                {category.icon === 'database' && (
+                  <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                )}
+                {category.icon === 'cloud' && (
+                  <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                )}
+                {category.icon === 'server' && (
+                  <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                )}
+                {category.icon === 'code' && (
+                  <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                )}
+                {category.icon === 'chart' && (
+                  <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+                )}
+                {category.name}
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                {category.skills.map((skill) => (
+                  <SkillBadge name={skill} />
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
+
+      <!-- 2. CERTIFICATIONS -->
+      <div>
+        <h2 class="text-2xl font-bold text-text mb-8 border-b border-border pb-4 flex items-center gap-2">
+          <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Verified Certifications
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {certifications.map((cert) => (
+            <div class="bg-bg-subtle border border-border rounded-lg p-5 flex flex-col justify-between hover:shadow-md transition-shadow">
+              <div>
+                <div class="flex justify-between items-start mb-2">
+                  <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded">{cert.issuer}</span>
+                  <span class="text-xs text-text-muted font-medium">{cert.date}</span>
+                </div>
+                <h3 class="font-bold text-text text-sm leading-snug mb-1">{cert.name}</h3>
+                <p class="text-xs text-text-muted mb-4">{cert.level} Level</p>
+              </div>
+              
+              <a href={cert.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm font-medium text-primary hover:text-primary-hover transition-colors mt-2">
+                Verify Credential
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
     </div>
   </section>
 </BaseLayout>

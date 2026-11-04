@@ -12,7 +12,6 @@ interface Props {
   slug: string;
 }
 
-// 'date' dihapus dari destructuring karena tidak dipakai di dalam card
 const { title, description, techStack, thumbnail, demoUrl, repoUrl, category, slug } = Astro.props;
 ---
 
@@ -26,8 +25,8 @@ const { title, description, techStack, thumbnail, demoUrl, repoUrl, category, sl
       loading="lazy"
     />
     <!-- Category Badge -->
-    <span class="absolute top-3 right-3 bg-bg/90 backdrop-blur text-text text-xs font-medium px-2 py-1 rounded-md border border-border">
-      {category}
+    <span class="absolute top-3 right-3 bg-bg/90 backdrop-blur text-text text-xs font-medium px-2 py-1 rounded-md border border-border capitalize">
+      {category.replace('-', ' ')}
     </span>
   </div>
 

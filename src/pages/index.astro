@@ -1,8 +1,5 @@
 ---
 // src/pages/index.astro
-// Home page: Hero, Featured Projects, Skills Summary, Testimonials, CTA.
-// Empty sections are hidden via conditional rendering.
-
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SkillBadge from '../components/SkillBadge.astro';
 import { getCollection } from 'astro:content';
@@ -14,66 +11,111 @@ const featuredProjects = allProjects
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
-// Placeholder skills (top 8) — will be replaced with real data in Phase 3
 const topSkills = [
-  'HTML',
-  'CSS',
-  'JavaScript',
-  'TypeScript',
-  'React',
-  'Astro',
-  'Node.js',
-  'Tailwind CSS',
+  'Python', 'SQL', 'Apache Airflow', 'BigQuery', 'Astro', 'React', 'Docker', 'Terraform'
 ];
 
-// Placeholder testimonials — will be replaced with real data in Phase 3
-const testimonials: { quote: string; name: string; role: string }[] = [];
-
-const title = 'Arkan — Full Stack Web Developer';
+const title = 'Arkan Tsabit — Full Stack & Data Engineer';
 const description =
-  'Personal site and project katalog of Arkan, a Full Stack Web Developer building fast, accessible web experiences.';
+  'I help businesses build high-performance websites and scalable data pipelines. Oracle Top 108 Global. Available for freelance projects.';
 ---
 
 <BaseLayout {title} {description}>
 
   <!-- ============================================ -->
-  <!-- HERO -->
+  <!-- HERO SECTION -->
+  <!-- ============================================ -->
+  <section class="py-20 md:py-32 relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-bg to-bg"></div>
+
+    <div class="container-page max-w-4xl text-center">
+      <p class="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+        Available for Freelance Projects
+      </p>
+      <h1 class="text-4xl md:text-6xl font-bold text-text leading-tight mb-6">
+        I build <span class="text-primary">Data Pipelines</span> & <span class="text-primary">Modern Websites</span>.
+      </h1>
+      <p class="text-lg md:text-xl text-text-muted mb-10 max-w-2xl mx-auto">
+        Hi, I'm Arkan Tsabit. I am a Full Stack Developer and Cloud Data Engineer with 10+ professional certifications (Oracle, IBM, Meta). I help businesses turn raw data into automated, production-ready applications.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="/services" class="inline-flex items-center justify-center px-8 py-4 rounded-md bg-primary text-white font-medium text-lg hover:bg-primary-hover focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-colors shadow-lg shadow-primary/20">
+          View My Services
+        </a>
+        <a href="/katalog" class="inline-flex items-center justify-center px-8 py-4 rounded-md bg-bg-subtle text-text font-medium text-lg border border-border hover:bg-border hover:text-text focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-colors">
+          See My Projects
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- STATS / SOCIAL PROOF -->
+  <!-- ============================================ -->
+  <section class="py-10 border-y border-border bg-bg-subtle">
+    <div class="container-page max-w-5xl">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <p class="text-3xl md:text-4xl font-bold text-primary mb-1">10+</p>
+          <p class="text-sm font-medium text-text-muted">Certifications</p>
+        </div>
+        <div>
+          <p class="text-3xl md:text-4xl font-bold text-primary mb-1">Top 108</p>
+          <p class="text-sm font-medium text-text-muted">Oracle Global Rank</p>
+        </div>
+        <div>
+          <p class="text-3xl md:text-4xl font-bold text-primary mb-1">2.96M+</p>
+          <p class="text-sm font-medium text-text-muted">Rows Processed</p>
+        </div>
+        <div>
+          <p class="text-3xl md:text-4xl font-bold text-primary mb-1">100%</p>
+          <p class="text-sm font-medium text-text-muted">Data Quality</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SERVICES SUMMARY -->
   <!-- ============================================ -->
   <section class="py-16 md:py-24">
-    <div class="container-page">
-      <div class="max-w-3xl">
-        <p class="text-sm font-medium text-primary mb-4">
-          Full Stack Web Developer
+    <div class="container-page max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-text mb-4">What I Can Do For You</h2>
+        <p class="text-text-muted max-w-2xl mx-auto">
+          From designing high-performance websites to architecting scalable cloud data pipelines.
         </p>
-        <h1 class="text-4xl md:text-6xl font-bold text-text leading-tight mb-6">
-          Hi, I'm Arkan.
-        </h1>
-        <p class="text-lg md:text-xl text-text-muted mb-8 max-w-2xl">
-          I build fast, accessible, and maintainable web applications —
-          from static sites to full-stack apps. This is my personal site
-          and project katalog.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <a
-            href="/katalog"
-            class="inline-flex items-center justify-center px-6 py-3 rounded-md
-                   bg-primary text-white font-medium
-                   hover:bg-primary-hover
-                   focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
-                   transition-colors"
-          >
-            View Katalog
-          </a>
-          <a
-            href="/contact"
-            class="inline-flex items-center justify-center px-6 py-3 rounded-md
-                   bg-transparent text-primary font-medium border border-primary
-                   hover:bg-primary hover:text-white
-                   focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
-                   transition-colors"
-          >
-            Contact Me
-          </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Web Dev -->
+        <div class="bg-bg-subtle border border-border rounded-lg p-8 hover:border-primary transition-colors">
+          <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold text-text mb-3">Web Development</h3>
+          <p class="text-sm text-text-muted mb-6">Modern, fast, and SEO-optimized websites built with Astro, React, and Tailwind CSS.</p>
+          <a href="/services#web-dev" class="text-sm font-medium text-primary hover:text-primary-hover">Learn more →</a>
+        </div>
+
+        <!-- Data Eng -->
+        <div class="bg-bg-subtle border border-border rounded-lg p-8 hover:border-primary transition-colors">
+          <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold text-text mb-3">Data Engineering</h3>
+          <p class="text-sm text-text-muted mb-6">Automated ETL pipelines and data warehouses using Python, Airflow, and BigQuery.</p>
+          <a href="/services#data-eng" class="text-sm font-medium text-primary hover:text-primary-hover">Learn more →</a>
+        </div>
+
+        <!-- Cloud -->
+        <div class="bg-bg-subtle border border-border rounded-lg p-8 hover:border-primary transition-colors">
+          <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold text-text mb-3">Cloud & DevOps</h3>
+          <p class="text-sm text-text-muted mb-6">Infrastructure as Code, Docker containerization, and CI/CD pipelines.</p>
+          <a href="/services#cloud-devops" class="text-sm font-medium text-primary hover:text-primary-hover">Learn more →</a>
         </div>
       </div>
     </div>
@@ -83,38 +125,30 @@ const description =
   <!-- FEATURED PROJECTS -->
   <!-- ============================================ -->
   {featuredProjects.length > 0 && (
-    <section class="py-12 md:py-16 border-t border-border">
-      <div class="container-page">
+    <section class="py-16 border-t border-border bg-bg-subtle/50">
+      <div class="container-page max-w-5xl">
         <div class="flex items-end justify-between mb-8">
           <div>
-            <h2 class="text-2xl font-bold text-text">Featured Projects</h2>
-            <p class="text-text-muted mt-2">
-              A few things I've built recently.
-            </p>
+            <h2 class="text-3xl font-bold text-text">Featured Projects</h2>
+            <p class="text-text-muted mt-2">Real-world solutions I've built.</p>
           </div>
-          <a
-            href="/katalog"
-            class="hidden sm:inline-flex text-sm font-medium text-primary hover:text-primary-hover transition-colors"
-          >
-            View all →
+          <a href="/katalog" class="hidden sm:inline-flex text-sm font-medium text-primary hover:text-primary-hover">
+            View all projects →
           </a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {featuredProjects.map((project) => (
-            <a
-              href={`/katalog/${project.id}`}
-              class="group block bg-bg-subtle border border-border rounded-lg p-6
-                     shadow-md hover:shadow-lg transition-shadow"
-            >
+            <a href={`/katalog/${project.id}`} class="group block bg-bg border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-all">
               <h3 class="text-lg font-bold text-text group-hover:text-primary transition-colors mb-2">
                 {project.data.title}
               </h3>
-              <p class="text-sm text-text-muted mb-4">
+              <p class="text-sm text-text-muted mb-4 line-clamp-3">
                 {project.data.description}
               </p>
               <div class="flex flex-wrap gap-1">
                 {project.data.techStack.slice(0, 3).map((tech) => (
-                  <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                  <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-primary/10 text-primary">
                     {tech}
                   </span>
                 ))}
@@ -129,74 +163,39 @@ const description =
   <!-- ============================================ -->
   <!-- SKILLS SUMMARY -->
   <!-- ============================================ -->
-  {topSkills.length > 0 && (
-    <section class="py-12 md:py-16 border-t border-border">
-      <div class="container-page">
-        <div class="mb-8">
-          <h2 class="text-2xl font-bold text-text">Skills</h2>
-          <p class="text-text-muted mt-2">
-            Technologies I work with day to day.
-          </p>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          {topSkills.map((skill) => (
-            <SkillBadge name={skill} />
-          ))}
-        </div>
+  <section class="py-16">
+    <div class="container-page max-w-5xl text-center">
+      <h2 class="text-2xl font-bold text-text mb-6">Core Technologies</h2>
+      <div class="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
+        {topSkills.map((skill) => (
+          <SkillBadge name={skill} />
+        ))}
       </div>
-    </section>
-  )}
+      <div class="mt-8">
+        <a href="/skills" class="text-sm font-medium text-primary hover:text-primary-hover">View all skills & certifications →</a>
+      </div>
+    </div>
+  </section>
 
   <!-- ============================================ -->
-  <!-- TESTIMONIALS -->
+  <!-- FINAL CTA -->
   <!-- ============================================ -->
-  {testimonials.length > 0 && (
-    <section class="py-12 md:py-16 border-t border-border">
-      <div class="container-page">
-        <div class="mb-8">
-          <h2 class="text-2xl font-bold text-text">What People Say</h2>
-          <p class="text-text-muted mt-2">
-            Feedback from clients and collaborators.
-          </p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((t) => (
-            <blockquote class="bg-bg-subtle border border-border rounded-lg p-6">
-              <p class="text-text mb-4 italic">"{t.quote}"</p>
-              <footer class="text-sm">
-                <p class="font-bold text-text">{t.name}</p>
-                <p class="text-text-muted">{t.role}</p>
-              </footer>
-            </blockquote>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ============================================ -->
-  <!-- CTA -->
-  <!-- ============================================ -->
-  <section class="py-12 md:py-16 border-t border-border">
-    <div class="container-page">
-      <div class="bg-bg-subtle border border-border rounded-lg p-8 md:p-12 text-center">
-        <h2 class="text-2xl md:text-3xl font-bold text-text mb-4">
-          Interested in working together?
+  <section class="py-16 md:py-24 border-t border-border">
+    <div class="container-page max-w-4xl">
+      <div class="bg-primary text-white rounded-2xl p-8 md:p-12 text-center shadow-xl shadow-primary/20 relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+        
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
+          Ready to build something great?
         </h2>
-        <p class="text-text-muted mb-6 max-w-xl mx-auto">
-          I'm available for freelance projects and full-time roles.
-          Let's talk about what you're building.
+        <p class="text-primary-100/90 text-lg mb-8 max-w-xl mx-auto relative z-10 text-white/90">
+          Let's discuss your project. Whether you need a high-performance website or an automated data pipeline, I can help you achieve it.
         </p>
-        <a
-          href="/contact"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-md
-                 bg-primary text-white font-medium
-                 hover:bg-primary-hover
-                 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
-                 transition-colors"
-        >
-          Contact Me
-        </a>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
+          <a href="/contact" class="inline-flex items-center justify-center px-8 py-3 rounded-md bg-white text-primary font-bold hover:bg-gray-100 transition-colors">
+            Hire Me Now
+          </a>
+        </div>
       </div>
     </div>
   </section>

@@ -9,7 +9,7 @@ interface Project {
   demoUrl?: string;
   repoUrl?: string;
   category: string;
-  date: string;
+  date: string; // Kita ubah jadi string agar aman saat passing data
   slug: string;
 }
 
@@ -22,7 +22,7 @@ export default function KatalogFilter({ projects }: Props) {
   const [category, setCategory] = useState('All');
   const [sort, setSort] = useState('newest');
 
-  // 1. Filter & Search
+  // 1. Logika Filter & Search
   const filteredProjects = projects.filter((project) => {
     const matchesSearch = 
       project.title.toLowerCase().includes(search.toLowerCase()) || 
@@ -33,7 +33,7 @@ export default function KatalogFilter({ projects }: Props) {
     return matchesSearch && matchesCategory;
   });
 
-  // 2. Sort
+  // 2. Logika Sort
   const sortedProjects = [...filteredProjects].sort((a, b) => {
     const dateA = new Date(a.date).getTime();
     const dateB = new Date(b.date).getTime();
@@ -42,26 +42,9 @@ export default function KatalogFilter({ projects }: Props) {
 
   return (
     <div>
-      {/* Controls */}
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
-        {/* Category */}
-        <div className="relative w-full md:w-48">
-          <select 
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full appearance-none px-4 py-2 rounded-md border border-border bg-bg text-text font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary cursor-pointer"
-          >
-            <option value="All">All Categories</option>
-            <option value="web-app">Web App</option>
-            <option value="landing-page">Landing Page</option>
-            <option value="api">API</option>
-            <option value="mobile">Mobile</option>
-          </select>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-text-muted">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-          </div>
-        </div>
-
+      {/* Control Panel (Search, Filter, Sort) */}
+      <div className="flex flex-col md:flex-row gap-4 mb-8 bg-bg-subtle p-4 rounded-lg border border-border">
+        
         {/* Search */}
         <div className="relative flex-grow">
           <input 
@@ -76,29 +59,36 @@ export default function KatalogFilter({ projects }: Props) {
           </div>
         </div>
 
+        {/* Category Filter */}
+        <select 
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="px-4 py-2 rounded-md border border-border bg-bg text-text font-medium focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
+        >
+          <option value="All">All Categories</option>
+          <option value="web-app">Web App</option>
+          <option value="data-engineering">Data Engineering</option>
+          <option value="cloud-devops">Cloud & DevOps</option>
+        </select>
+
         {/* Sort */}
-        <div className="relative w-full md:w-40">
-          <select 
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-            className="w-full appearance-none px-4 py-2 rounded-md border border-border bg-bg text-text font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary cursor-pointer"
-          >
-            <option value="newest">Newest First</option>
-            <option value="oldest">Oldest First</option>
-          </select>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-text-muted">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-          </div>
-        </div>
+        <select 
+          value={sort}
+          onChange={(e) => setSort(e.target.value)}
+          className="px-4 py-2 rounded-md border border-border bg-bg text-text font-medium focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
+        >
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+        </select>
       </div>
 
-      {/* Grid */}
+      {/* Project Grid */}
       {sortedProjects.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sortedProjects.map((project) => (
             <div key={project.slug} className="h-full">
-              {/* We pass props to an HTML representation here because we can't easily import Astro components into React */}
-              <a href={`/katalog/${project.slug}`} className="group block bg-bg-subtle border border-border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col h-full">
+              {/* Kartu Project (HTML representation agar bisa dirender React) */}
+              <a href={`/katalog/${project.slug}`} className="group block bg-bg border border-border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col h-full">
                 <div className="aspect-video w-full overflow-hidden bg-gray-200 relative">
                   <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
                   <span className="absolute top-3 right-3 bg-bg/90 backdrop-blur text-text text-xs font-medium px-2 py-1 rounded-md border border-border capitalize">
