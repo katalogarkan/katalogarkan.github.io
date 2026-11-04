@@ -1,0 +1,97 @@
+---
+// src/pages/skills.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SkillBadge from '../components/SkillBadge.astro';
+
+const title = 'Skills — Arkan';
+const description = 'Technologies and tools I work with daily.';
+
+const categories = [
+  {
+    name: 'Frontend',
+    skills: [
+      { name: 'HTML', level: 95 },
+      { name: 'CSS', level: 90 },
+      { name: 'JavaScript', level: 90 },
+      { name: 'React', level: 85 },
+      { name: 'Tailwind', level: 90 },
+      { name: 'Astro', level: 85 },
+    ]
+  },
+  {
+    name: 'Backend',
+    skills: [
+      { name: 'Node.js', level: 85 },
+      { name: 'PHP', level: 75 },
+      { name: 'Laravel', level: 80 },
+      { name: 'Express', level: 80 },
+    ]
+  },
+  {
+    name: 'Database',
+    skills: [
+      { name: 'MySQL', level: 85 },
+      { name: 'MongoDB', level: 70 },
+      { name: 'PostgreSQL', level: 80 },
+    ]
+  },
+  {
+    name: 'DevOps & Tools',
+    skills: [
+      { name: 'Git', level: 90 },
+      { name: 'GitHub', level: 90 },
+      { name: 'Docker', level: 75 },
+      { name: 'Linux', level: 80 },
+    ]
+  }
+];
+---
+
+<BaseLayout {title} {description}>
+  <section class="py-12 md:py-16">
+    <div class="container-page max-w-4xl">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-text mb-4">Skills</h1>
+        <p class="text-lg text-text-muted">Technologies and tools I work with daily.</p>
+      </div>
+
+      <div class="space-y-12">
+        {categories.map((category) => (
+          <div>
+            <h2 class="text-2xl font-bold text-text mb-6">{category.name}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+              {category.skills.map((skill) => (
+                <div>
+                  <div class="flex justify-between items-center mb-2">
+                    <SkillBadge name={skill.name} />
+                    <span class="text-sm text-text-muted">{skill.level}%</span>
+                  </div>
+                  <div class="w-full h-2 bg-bg-subtle rounded-full overflow-hidden">
+                    <div class="h-full bg-primary rounded-full" style={`width: ${skill.level}%`}></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Certifications -->
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-text mb-6">Certifications</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-bg-subtle border border-border rounded-lg p-6">
+            <h3 class="font-bold text-text mb-1">Full Stack Web Development Certificate</h3>
+            <p class="text-sm text-text-muted">Issuer Name</p>
+            <p class="text-xs text-text-muted mt-2">2025</p>
+          </div>
+          <div class="bg-bg-subtle border border-border rounded-lg p-6">
+            <h3 class="font-bold text-text mb-1">Cloud Practitioner Certification</h3>
+            <p class="text-sm text-text-muted">Issuer Name</p>
+            <p class="text-xs text-text-muted mt-2">2026</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

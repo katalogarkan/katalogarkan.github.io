@@ -1,0 +1,79 @@
+---
+// src/pages/services.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Services — Arkan';
+const description = 'Services I offer to clients.';
+
+const services = [
+  { name: 'Landing Page', desc: 'A single-page website to showcase your product or personal brand.', price: 'Start from $150' },
+  { name: 'Web App', desc: 'Full stack web application with database, auth, and dashboard.', price: 'Start from $500' },
+  { name: 'Custom', desc: 'Have something specific in mind? Let\'s discuss your needs.', price: 'Contact me' },
+];
+
+const steps = [
+  { num: '1', title: 'Discuss', desc: 'We talk about your goals, timeline, and budget.' },
+  { num: '2', title: 'Design', desc: 'I create a wireframe and visual design for approval.' },
+  { num: '3', title: 'Develop', desc: 'I build the site with clean, maintainable code.' },
+  { num: '4', title: 'Launch', desc: 'We deploy, test, and hand over the final product.' },
+];
+
+const faqs = [
+  { q: 'How long does a project take?', a: 'Depends on scope. A landing page takes 1–2 weeks, a web app 4–8 weeks.' },
+  { q: 'Do you offer maintenance?', a: 'Yes, I offer monthly maintenance packages after launch.' },
+  { q: 'What is your payment method?', a: '50% upfront, 50% after delivery. Bank transfer or PayPal.' },
+];
+---
+
+<BaseLayout {title} {description}>
+  <section class="py-12 md:py-16">
+    <div class="container-page max-w-4xl">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-text mb-4">Services</h1>
+        <p class="text-lg text-text-muted">How I can help you build your next project.</p>
+      </div>
+
+      <!-- Packages -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        {services.map((svc) => (
+          <div class="bg-bg-subtle border border-border rounded-lg p-6 flex flex-col">
+            <h2 class="text-xl font-bold text-text mb-2">{svc.name}</h2>
+            <p class="text-sm text-text-muted mb-6 flex-grow">{svc.desc}</p>
+            <div class="pt-4 border-t border-border">
+              <p class="text-sm font-medium text-text">{svc.price}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Process -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-text mb-8 text-center">How It Works</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {steps.map((step) => (
+            <div class="text-center">
+              <div class="w-12 h-12 bg-primary/10 text-primary font-bold text-xl rounded-full flex items-center justify-center mx-auto mb-4">
+                {step.num}
+              </div>
+              <h3 class="font-bold text-text mb-2">{step.title}</h3>
+              <p class="text-sm text-text-muted">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div>
+        <h2 class="text-2xl font-bold text-text mb-8 text-center">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <div class="bg-bg-subtle border border-border rounded-lg p-6">
+              <h3 class="font-bold text-text mb-2">{faq.q}</h3>
+              <p class="text-sm text-text-muted">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

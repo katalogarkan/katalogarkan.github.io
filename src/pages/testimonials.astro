@@ -1,0 +1,27 @@
+---
+// src/pages/testimonials.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Testimonials — Arkan';
+const description = 'What clients and collaborators say about working with me.';
+---
+
+<BaseLayout {title} {description}>
+  <section class="py-12 md:py-16">
+    <div class="container-page">
+      <div class="mb-12">
+        <h1 class="text-4xl font-bold text-text mb-4">Testimonials</h1>
+        <p class="text-lg text-text-muted">
+          What clients and collaborators say about working with me.
+        </p>
+      </div>
+
+      <!-- Empty State -->
+      <div class="bg-bg-subtle border border-border rounded-lg p-12 text-center">
+        <p class="text-text-muted text-lg">
+          No testimonials yet — coming soon.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

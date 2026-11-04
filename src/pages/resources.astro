@@ -1,0 +1,27 @@
+---
+// src/pages/resources.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Resources — Arkan';
+const description = 'Templates, snippets, and tools I use and recommend.';
+---
+
+<BaseLayout {title} {description}>
+  <section class="py-12 md:py-16">
+    <div class="container-page">
+      <div class="mb-12">
+        <h1 class="text-4xl font-bold text-text mb-4">Resources</h1>
+        <p class="text-lg text-text-muted">
+          Templates, snippets, and tools I use and recommend.
+        </p>
+      </div>
+
+      <!-- Empty State -->
+      <div class="bg-bg-subtle border border-border rounded-lg p-12 text-center">
+        <p class="text-text-muted text-lg">
+          No resources yet — coming soon.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,106 @@
+---
+// src/pages/about.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'About — Arkan';
+const description = 'Learn more about Arkan, a Full Stack Web Developer.';
+
+const timeline = [
+  { year: '2022', event: 'Started learning web development' },
+  { year: '2023', event: 'Built first full stack app' },
+  { year: '2024', event: 'Freelance projects' },
+  { year: '2026', event: 'Launched katalogarkan' },
+];
+
+const values = [
+  { title: 'Clean Code', desc: 'Arkan lorem dolor sit amet, consectetur adipiscing seolesm, und ours.', icon: 'code' },
+  { title: 'Clear Communication', desc: 'I build fast, accessible, and maintainable webv. clear communication.', icon: 'chat' },
+  { title: 'On Time', desc: 'Arkan ipsum dolor sit amet, consectetur adipiscing elit, seddimm on time.', icon: 'clock' },
+];
+---
+
+<BaseLayout {title} {description}>
+  <section class="py-12 md:py-16">
+    <div class="container-page max-w-4xl">
+      <h1 class="text-4xl font-bold text-text mb-12 text-center">About Me</h1>
+
+      <!-- Bio -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-text mb-6">Bio</h2>
+        <div class="flex flex-col md:flex-row gap-8 items-start">
+          <img src="/images/avatar.png" alt="Arkan" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover bg-bg-subtle flex-shrink-0" />
+          <div class="space-y-4 text-text-muted">
+            <p>
+              Arkan is a lorem dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut developed minim airno and tham cons, quiz mattred conves/stion and applications.
+            </p>
+            <p>
+              I build fast, accessible, and maintainable web applications, consent, gootnes, user prossional wecimmcrox, sllis afriss consable, and temptely web environment tiresing.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Journey -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-text mb-6">Journey</h2>
+        <div class="relative border-l-2 border-primary/30 ml-3 space-y-8 pb-4">
+          {timeline.map((item) => (
+            <div class="relative pl-8">
+              <div class="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1 border-4 border-bg"></div>
+              <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+                <span class="font-bold text-text">{item.year}</span>
+                <span class="hidden sm:inline text-text-muted">—</span>
+                <span class="text-text-muted">{item.event}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-text mb-6">What I Value</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {values.map((val) => (
+            <div class="bg-bg-subtle border border-border rounded-lg p-6">
+              <div class="w-10 h-10 bg-primary/10 text-primary rounded-md flex items-center justify-center mb-4">
+                {val.icon === 'code' && <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>}
+                {val.icon === 'chat' && <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>}
+                {val.icon === 'clock' && <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>}
+              </div>
+              <h3 class="font-bold text-text mb-2">{val.title}</h3>
+              <p class="text-sm text-text-muted">{val.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Download CV -->
+      <div class="text-center mb-16">
+        <a href="/cv.pdf" class="inline-flex items-center gap-2 px-6 py-3 rounded-md border border-primary text-primary font-medium hover:bg-primary hover:text-white transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          Download CV
+        </a>
+      </div>
+
+      <!-- Info -->
+      <div>
+        <h2 class="text-2xl font-bold text-text mb-6">Info</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div>
+            <h3 class="font-medium text-text mb-1">Location</h3>
+            <p class="text-text-muted">Indonesia</p>
+          </div>
+          <div>
+            <h3 class="font-medium text-text mb-1">Languages</h3>
+            <p class="text-text-muted">Indonesian, English</p>
+          </div>
+          <div>
+            <h3 class="font-medium text-text mb-1">Availability</h3>
+            <p class="text-text-muted">Open for freelance</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
