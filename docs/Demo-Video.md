@@ -6,10 +6,10 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.0.0 |
-| Project Version | 0.1.0 (Phase 1 Complete) |
+| Document Version | 1.1.0 |
+| Project Version | 0.5.0 (Phase 5 Complete) |
 | Last Updated | 2026-11-04 |
-| Status | Draft — Planning |
+| Status | Draft — Ready to Record after Phase 6 |
 | Project | Personal branding & katalog website |
 | Owner | Arkan (Full Stack Web Developer) |
 | Purpose | Script & production plan for demo video |
@@ -58,12 +58,17 @@ A complete production plan for a **90–120 second demo video** of the katalogar
 
 | Phase | Status |
 |-------|--------|
-| Phase 1 | ❌ Not ready — no real content |
-| Phase 2–5 | ❌ Not ready — pages incomplete |
-| **Phase 6** | ✅ **Record here** — all pages complete |
-| **Launch (1.0.0)** | ✅ **Re-record** with real content |
+| Phase 1 | ✅ Complete — foundation only, no real content |
+| Phase 2 | ✅ Complete — Home + layout ready |
+| Phase 3 | ✅ Complete — 7 static pages ready |
+| Phase 4 | ✅ Complete — Katalog + filter ready |
+| Phase 5 | ✅ Complete — Blog + detail pages ready |
+| **Phase 6** | ⏳ **Record here** — all pages complete, polish done |
+| **Launch (1.0.0)** | ⏳ **Re-record** with real content |
 
-**Rule:** Record once after Phase 6 (structure complete), re-record after launch (real projects/articles). Keep both versions.
+**Rule:** Record once after Phase 6 (structure + polish complete), re-record after launch (real projects/articles). Keep both versions.
+
+**Current state:** Phases 1–5 complete. Phase 6 (SEO, Lighthouse, final deploy) pending. All 9 pages + 2 dynamic routes + 404 are built (12 pages, 0 errors, 0 warnings). Video can be recorded after Phase 6 sign-off.
 
 ---
 
@@ -317,18 +322,19 @@ A complete production plan for a **90–120 second demo video** of the katalogar
 | # | Check | Done |
 |---|-------|:---:|
 | 1 | Site deployed and live at `katalogarkan.github.io` | ☐ |
-| 2 | At least 3 projects in katalog | ☐ |
-| 3 | At least 1 article published (not draft) | ☐ |
-| 4 | Dark mode works (test OS switch) | ☐ |
-| 5 | Mobile view works (test DevTools) | ☐ |
-| 6 | Contact form works (test submission) | ☐ |
-| 7 | No console errors | ☐ |
-| 8 | Browser window 1440×900 | ☐ |
-| 9 | Extensions disabled | ☐ |
-| 10 | Cache cleared | ☐ |
-| 11 | Script printed / on second screen | ☐ |
-| 12 | Microphone tested | ☐ |
-| 13 | Recording software tested (10s test clip) | ☐ |
+| 2 | Phase 6 complete (Lighthouse ≥ 95, sitemap, robots.txt) | ☐ |
+| 3 | At least 3 projects in katalog | ☐ |
+| 4 | At least 1 article published (not draft) | ☐ |
+| 5 | Dark mode works (test OS switch) | ☐ |
+| 6 | Mobile view works (test DevTools) | ☐ |
+| 7 | Contact form works (test submission) | ☐ |
+| 8 | No console errors | ☐ |
+| 9 | Browser window 1440×900 | ☐ |
+| 10 | Extensions disabled | ☐ |
+| 11 | Cache cleared | ☐ |
+| 12 | Script printed / on second screen | ☐ |
+| 13 | Microphone tested | ☐ |
+| 14 | Recording software tested (10s test clip) | ☐ |
 
 ### 9.2 During Recording
 
@@ -511,6 +517,7 @@ A complete production plan for a **90–120 second demo video** of the katalogar
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.1.0 | 2026-11-04 | Synced with `blueprint.md` v1.3.0 after Phase 5: `Project Version` bumped to 0.5.0; §1.3 phase table updated (Phases 1–5 ✅ Complete, Phase 6 ⏳ next); recording checklist added Phase 6 prerequisite; status changed to "Ready to Record after Phase 6"; current state note added (12 pages built, 0 errors). |
 | 1.0.0 | 2026-11-04 | Initial demo video plan: goals, script, shot list, technical setup, recording checklist, editing guide, accessibility, publishing. |
 
 ---

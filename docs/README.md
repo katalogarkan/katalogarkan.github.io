@@ -1,4 +1,4 @@
-# docs/README.md — katalogarkan
+# katalogarkan — README.md
 
 ---
 
@@ -6,8 +6,8 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.1.0 |
-| Project Version | 0.1.0 (Phase 1 Complete) |
+| Document Version | 1.2.0 |
+| Project Version | 0.5.0 (Phase 5 Complete) |
 | Last Updated | 2026-11-04 |
 | Status | Active — Documentation Index |
 | Project | Personal branding & katalog website |
@@ -82,6 +82,14 @@ Every architectural decision, design token, content rule, verification check, de
 | 2 | [`deployment-guide.md`](deployment-guide.md) §7 | First deploy |
 | 3 | [`deployment-guide.md`](deployment-guide.md) §12 | Troubleshooting |
 
+### 2.5 If You Are Recording the Demo Video
+
+| Step | Read | Why |
+|:---:|------|-----|
+| 1 | [`demo-video.md`](demo-video.md) §5 | Video structure |
+| 2 | [`demo-video.md`](demo-video.md) §6 | Full script |
+| 3 | [`demo-video.md`](demo-video.md) §9 | Recording checklist |
+
 ---
 
 ## 3. Document Index
@@ -90,14 +98,14 @@ Every architectural decision, design token, content rule, verification check, de
 
 | # | Document | Version | Purpose | Status |
 |:-:|----------|:---:|---------|--------|
-| 1 | [`blueprint.md`](blueprint.md) | 1.2.0 | Architecture, tech stack, 6 phases, decisions log | Approved — Source of Truth |
-| 2 | [`design-system.md`](design-system.md) | 1.2.0 | Colors, typography, spacing, components, dark mode | Approved — Source of Truth |
-| 3 | [`content-guide.md`](content-guide.md) | 1.1.0 | How to write katalog & blog content | Approved — Source of Truth |
-| 4 | [`deployment-guide.md`](deployment-guide.md) | 1.2.0 | GitHub Pages deploy step-by-step | Approved — Source of Truth |
-| 5 | [`verification-checklist.md`](verification-checklist.md) | 1.3.0 | 236 checks across 6 phases | Active — Updated Per Phase |
-| 6 | [`cheatsheets.md`](cheatsheets.md) | 1.2.0 | Quick reference for daily development | Approved — Quick Reference |
-| 7 | [`demo-video.md`](demo-video.md) | 1.0.0 | Demo video script and production plan | Draft — Planning |
-| 8 | `README.md` | 1.1.0 | This file — docs index | Active — Documentation Index |
+| 1 | [`blueprint.md`](blueprint.md) | 1.3.0 | Architecture, tech stack, 6 phases, decisions log | Approved — Source of Truth |
+| 2 | [`design-system.md`](design-system.md) | 1.3.0 | Colors, typography, spacing, components, dark mode | Approved — Source of Truth |
+| 3 | [`content-guide.md`](content-guide.md) | 1.2.0 | How to write katalog & blog content | Approved — Source of Truth |
+| 4 | [`deployment-guide.md`](deployment-guide.md) | 1.3.0 | GitHub Pages deploy step-by-step | Approved — Source of Truth |
+| 5 | [`verification-checklist.md`](verification-checklist.md) | 1.4.0 | 236 checks across 6 phases | Active — Updated Per Phase |
+| 6 | [`cheatsheets.md`](cheatsheets.md) | 1.3.0 | Quick reference for daily development | Approved — Quick Reference |
+| 7 | [`demo-video.md`](demo-video.md) | 1.1.0 | Demo video script and production plan | Draft — Ready to Record after Phase 6 |
+| 8 | `README.md` | 1.2.0 | This file — docs index | Active — Documentation Index |
 
 ### 3.2 Documents at Root (not in `docs/`)
 
@@ -232,7 +240,7 @@ Every document has:
 | Active — Updated Per Phase | Updated as phases complete |
 | Active — Updated Per Change | Updated on every change |
 | Approved — Quick Reference | Convenience only, not authoritative |
-| Draft — Planning | Not yet final |
+| Draft — Ready to Record after Phase 6 | Plan complete, awaiting Phase 6 sign-off |
 
 ### 7.4 Change Logs
 
@@ -356,27 +364,26 @@ docs/
 
 **Rule:** Root README = project-facing (for visitors, recruiters, contributors). `docs/README.md` = documentation-facing (for navigating the docs). Do not duplicate content — link instead.
 
-### 9.1 Root README Changes Needed
+### 9.1 Root README Status
 
-The current root `README.md` (`katalogarkan.txt`) has several inconsistencies with the current docs. These should be fixed to match:
+The root `README.md` should be updated to reflect Phase 5 state. Current status of root README fixes:
 
-| # | Issue | Fix |
-|:-:|-------|-----|
-| 1 | React badge says `19.x` | Change to `18.x` (matches blueprint §4.1) |
-| 2 | Node prerequisite says `20+` | Change to `22+` (matches blueprint §3.1, deploy.yml) |
-| 3 | Verification badge says `229/229` | Change to `57/236` (Phase 1 only complete) |
-| 4 | Verification table says all 6 phases ✅ | Change to Phase 1 ✅, Phases 2–6 ⏳ |
-| 5 | Lighthouse says `100/100/100/100` | Change to "Target: ≥ 95 (not yet measured)" — Lighthouse not run until Phase 6 |
-| 6 | Troubleshooting says `Node 20` | Change to `Node 22` |
-| 7 | Troubleshooting says `tailwind.config.mjs` | Change to `global.css` `@theme` (Tailwind 4) |
-| 8 | Troubleshooting says `config.ts` schema | Change to `content.config.ts` |
-| 9 | Architecture says `tailwind.config.mjs` maps tokens | Change to `@theme` in `global.css` |
-| 10 | Architecture says `src/content/config.ts` | Change to `src/content.config.ts` |
-| 11 | Project structure says `tailwind.config.mjs` | Remove — no such file in Tailwind 4 |
-| 12 | Docs table lists `docs/CHANGELOG.md` | Change to root `CHANGELOG.md` |
-| 13 | Quick Commands says `ls src/content/katalog/ \| wc -l` | Keep (valid) |
-| 14 | Status badge says `production` | Change to `phase 1 complete` or `in development` |
-| 15 | "12 Routes" says 9 static + 2 dynamic + 1 error | Correct (matches blueprint §6.1) |
+| # | Issue | Fix | Status |
+|:-:|-------|-----|:---:|
+| 1 | React badge says `19.x` | Change to `18.x` (matches blueprint §4.1) | ⏳ Pending |
+| 2 | Node prerequisite says `20+` | Change to `22+` (matches blueprint §3.1, deploy.yml) | ⏳ Pending |
+| 3 | Verification badge says `229/229` | Change to `132/236` (Phase 1–5 complete) | ⏳ Pending |
+| 4 | Verification table says all 6 phases ✅ | Change to Phases 1–5 ✅, Phase 6 ⏳ | ⏳ Pending |
+| 5 | Lighthouse says `100/100/100/100` | Change to "Target: ≥ 95 (not yet measured)" — Lighthouse runs in Phase 6 | ⏳ Pending |
+| 6 | Troubleshooting says `Node 20` | Change to `Node 22` | ⏳ Pending |
+| 7 | Troubleshooting says `tailwind.config.mjs` | Change to `global.css` `@theme` (Tailwind 4) | ⏳ Pending |
+| 8 | Troubleshooting says `config.ts` schema | Change to `content.config.ts` | ⏳ Pending |
+| 9 | Architecture says `tailwind.config.mjs` maps tokens | Change to `@theme` in `global.css` | ⏳ Pending |
+| 10 | Architecture says `src/content/config.ts` | Change to `src/content.config.ts` | ⏳ Pending |
+| 11 | Project structure says `tailwind.config.mjs` | Remove — no such file in Tailwind 4 | ⏳ Pending |
+| 12 | Docs table lists `docs/CHANGELOG.md` | Change to root `CHANGELOG.md` | ⏳ Pending |
+| 13 | Status badge says `production` | Change to `phase 5 complete` or `in development` | ⏳ Pending |
+| 14 | "12 Routes" says 9 static + 2 dynamic + 1 error | Correct (matches blueprint §6.1) | ✅ Done |
 
 **Rule:** Root README must match the current state of the project, not the target state. Update it when a phase completes.
 
@@ -386,6 +393,7 @@ The current root `README.md` (`katalogarkan.txt`) has several inconsistencies wi
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.2.0 | 2026-11-04 | Synced with `blueprint.md` v1.3.0 after Phase 5: `Project Version` bumped to 0.5.0; document versions updated (blueprint 1.3.0, design-system 1.3.0, content-guide 1.2.0, deployment-guide 1.3.0, verification-checklist 1.4.0, cheatsheets 1.3.0, demo-video 1.1.0); demo-video status updated to "Ready to Record after Phase 6"; added §2.5 "If You Are Recording the Demo Video"; §9.1 root README status updated (14 items, verification `132/236`, Phase 1–5 complete). |
 | 1.1.0 | 2026-11-04 | Synced with `blueprint.md` v1.2.0 after Phase 1: updated document versions; added `demo-video.md`; documented single root `CHANGELOG.md`; added document map, source of truth priority, conventions; added §9 relationship to root README + list of root README fixes needed. |
 | 1.0.0 | 2026-10-26 | Initial docs index. |
 

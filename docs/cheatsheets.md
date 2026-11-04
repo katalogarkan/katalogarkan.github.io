@@ -6,8 +6,8 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.2.0 |
-| Project Version | 0.1.0 (Phase 1 Complete) |
+| Document Version | 1.3.0 |
+| Project Version | 0.5.0 (Phase 5 Complete) |
 | Last Updated | 2026-11-04 |
 | Status | Approved — Quick Reference |
 | Project | Personal branding & katalog website |
@@ -166,6 +166,7 @@ Remove-Item -Recurse -Force node_modules, dist, .astro
 | Verification checklist | `docs/verification-checklist.md` |
 | Cheatsheets | `docs/cheatsheets.md` |
 | Deployment guide | `docs/deployment-guide.md` |
+| Demo video plan | `docs/demo-video.md` |
 
 **Note:** Changelog lives at root (`CHANGELOG.md`), not in `docs/`.
 
@@ -972,6 +973,7 @@ Full list: `blueprint.md` §23.
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.3.0 | 2026-11-04 | Synced with `blueprint.md` v1.3.0 after Phase 5: `Project Version` bumped to 0.5.0; added `demo-video.md` to docs table; all content verified against current state (Astro 5, Tailwind 4, Node 22, `src/content.config.ts`, single root `CHANGELOG.md`); component list confirmed at 6 (+1 React island). |
 | 1.2.0 | 2026-11-04 | Synced with `blueprint.md` v1.2.0 + `design-system.md` v1.2.0: Astro 5 + Tailwind 4; removed all `tailwind.config.mjs` references; `@theme` is the config; `src/content.config.ts` path; Node 22; `client:only="react"` fixed; dark mode via CSS variables (no `dark:` prefix); `prose dark:prose-invert` documented as only exception; `content:` commit type added; single root `CHANGELOG.md`; new §8.4 React island example; new §8.5 mobile menu pattern. |
 | 1.1.0 | 2026-10-26 | Dark mode via CSS variables; deploy workflow references explicit version; `LICENSE` + `docs/README.md` added to file paths; added `border-border` troubleshooting. |
 | 1.0.1 | 2026-10-26 | Document Info split into `Document Version` vs `Project Version`. |

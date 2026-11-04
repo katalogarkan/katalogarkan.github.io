@@ -6,8 +6,8 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.2.0 |
-| Project Version | 0.1.0 (Phase 1 Complete) |
+| Document Version | 1.3.0 |
+| Project Version | 0.5.0 (Phase 5 Complete) |
 | Last Updated | 2026-11-04 |
 | Status | Approved — Source of Truth |
 | Project | Personal branding & katalog website |
@@ -164,6 +164,7 @@ Before first deploy, the repo must contain:
 | File | Purpose |
 |------|---------|
 | `package.json` | Dependencies (Astro 5, Tailwind 4, React 18) |
+| `package-lock.json` | Locked dependencies (required for `npm ci`) |
 | `astro.config.mjs` | Astro config with `site` + `@tailwindcss/vite` |
 | `.github/workflows/deploy.yml` | Deploy workflow |
 | `src/pages/index.astro` | At least one page |
@@ -375,10 +376,11 @@ export default defineConfig({
 | 4 | `astro.config.mjs` uses `@tailwindcss/vite` (no `@astrojs/tailwind`) | ☐ |
 | 5 | `src/styles/global.css` starts with `@import "tailwindcss"` | ☐ |
 | 6 | `.github/workflows/deploy.yml` exists and matches §5.2 | ☐ |
-| 7 | GitHub Pages source = GitHub Actions | ☐ |
-| 8 | Workflow permissions = Read and write | ☐ |
-| 9 | Repo is Public | ☐ |
-| 10 | `LICENSE` file exists | ☐ |
+| 7 | `package-lock.json` committed | ☐ |
+| 8 | GitHub Pages source = GitHub Actions | ☐ |
+| 9 | Workflow permissions = Read and write | ☐ |
+| 10 | Repo is Public | ☐ |
+| 11 | `LICENSE` file exists | ☐ |
 
 ### 7.2 Deploy Steps
 
@@ -451,6 +453,17 @@ git push origin main
 
 **No limit** on deploys — GitHub Actions free tier allows unlimited minutes for public repos.
 
+### 8.4 Deploys by Phase (Current State)
+
+| Phase | Deploy Status |
+|-------|---------------|
+| Phase 1 | ✅ Deployed (Astro 5 + Tailwind 4 foundation) |
+| Phase 2 | ✅ Deployed (Home + layout) |
+| Phase 3 | ✅ Deployed (7 static pages) |
+| Phase 4 | ✅ Deployed (Katalog + React filter) |
+| Phase 5 | ✅ Deployed (Blog + 2 detail routes, 12 pages) |
+| Phase 6 | ⏳ Pending (SEO, Lighthouse, final deploy) |
+
 ---
 
 ## 9. Verification
@@ -473,8 +486,8 @@ git push origin main
 |---------|-----|
 | New project | `https://katalogarkan.github.io/katalog/{slug}` |
 | New article | `https://katalogarkan.github.io/blog/{slug}` |
-| Sitemap | `https://katalogarkan.github.io/sitemap-index.xml` |
-| Robots | `https://katalogarkan.github.io/robots.txt` |
+| Sitemap | `https://katalogarkan.github.io/sitemap-index.xml` (Phase 6) |
+| Robots | `https://katalogarkan.github.io/robots.txt` (Phase 6) |
 
 ### 9.3 Check Deploy Logs
 
@@ -735,6 +748,7 @@ nslookup katalogarkan.com
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.3.0 | 2026-11-04 | Synced with `blueprint.md` v1.3.0 after Phase 5: `Project Version` bumped to 0.5.0; pre-deploy checklist added `package-lock.json` requirement (§7.1); added §8.4 deploys-by-phase table (Phase 1–5 ✅, Phase 6 ⏳); §9.2 sitemap/robots URLs marked Phase 6; no changes to workflow (§5.2) or Astro config (§6.1) — already correct. |
 | 1.2.0 | 2026-11-04 | Synced with `blueprint.md` v1.2.0 after Phase 1: Node 22 in §3.1 and §5.2; Astro config now uses `@tailwindcss/vite` (§6.1); new §6.3 explaining Tailwind 4 (no `tailwind.config.mjs`, no `@astrojs/tailwind`); pre-deploy checklist updated (§7.1); troubleshooting updated for Tailwind 4 (§12.2). |
 | 1.1.0 | 2026-10-26 | Removed `withastro/action@v3` alternative; explicit workflow in §5.2 is single source of truth; added note matching `blueprint.md` §18.2; added `LICENSE` to prerequisites and checklist; added dark mode CSS variable troubleshooting. |
 | 1.0.1 | 2026-10-26 | Document Info split into `Document Version` vs `Project Version`. |

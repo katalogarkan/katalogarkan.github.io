@@ -6,8 +6,8 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.2.0 |
-| Project Version | 0.1.0 (Phase 1 Complete) |
+| Document Version | 1.3.0 |
+| Project Version | 0.5.0 (Phase 5 Complete) |
 | Last Updated | 2026-11-04 |
 | Status | Approved — Source of Truth |
 | Project | Personal branding & katalog website |
@@ -20,7 +20,8 @@
 | Total Static Pages | 9 |
 | Total Dynamic Routes | 2 |
 | Total Error Pages | 1 |
-| Total Components | 8 |
+| Total Components | 6 |
+| Total Layouts | 2 |
 | Total Phases | 6 |
 | UI Language | English |
 | Content Language | English |
@@ -811,7 +812,8 @@ katalogarkan.github.io/
 │   ├── content-guide.md
 │   ├── verification-checklist.md
 │   ├── cheatsheets.md
-│   └── deployment-guide.md
+│   ├── deployment-guide.md
+│   └── demo-video.md
 │
 ├── screenshots/                     # Architecture diagrams for README
 │   ├── page-structure.png
@@ -820,6 +822,7 @@ katalogarkan.github.io/
 │
 ├── astro.config.mjs                 # Astro config (integrations, site)
 ├── package.json                     # Dependencies + scripts
+├── package-lock.json                # Locked dependencies
 ├── tsconfig.json                    # TypeScript config
 ├── CHANGELOG.md                     # Single source of truth for changes
 ├── LICENSE                          # MIT
@@ -1254,7 +1257,7 @@ export default defineConfig({
 
 ## 20. Execution Phases
 
-### Phase 1 — Fondasi Proyek ✅ Complete
+### Phase 1 — Fondasi Proyek ✅ Complete (2026-11-01)
 
 **Goal:** Astro project runs locally and deploys to GitHub Pages.
 
@@ -1285,26 +1288,28 @@ export default defineConfig({
 - Push to `main` triggers GitHub Action
 - `katalogarkan.github.io` shows "Hello"
 
+**Verification:** 57/57 checks passed.
+
 ---
 
-### Phase 2 — Desain & Home
+### Phase 2 — Desain & Home ✅ Complete (2026-11-04)
 
 **Goal:** Home page looks professional, responsive, dark mode works.
 
 **Prerequisites:** Phase 1 complete.
 
-| # | Task | File | Verify |
-|---|------|------|--------|
-| 1 | Finalize Header (9 nav, hamburger) | `Header.astro` | All 9 links work, hamburger on mobile |
-| 2 | Finalize Footer (4 columns) | `Footer.astro` | All 4 columns render |
-| 3 | Verify design tokens | `global.css` | Colors match §5.1 + §5.10 |
-| 4 | Hero section | `index.astro` | Name, tagline, 2 CTAs |
-| 5 | Featured projects | `index.astro` | Empty state hides section |
-| 6 | Skills summary | `index.astro` | Tech badges render |
-| 7 | Testimonials section | `index.astro` | Empty state hides section |
-| 8 | CTA section | `index.astro` | Contact link works |
-| 9 | Mobile responsive check | — | 3 breakpoints (640/768/1024) |
-| 10 | Dark mode check | — | Change OS theme, verify |
+| # | Task | File | Verify | Status |
+|---|------|------|--------|:---:|
+| 1 | Finalize Header (9 nav, hamburger) | `Header.astro` | All 9 links work, hamburger on mobile | ✅ |
+| 2 | Finalize Footer (4 columns) | `Footer.astro` | All 4 columns render | ✅ |
+| 3 | Verify design tokens | `global.css` | Colors match §5.1 + §5.10 | ✅ |
+| 4 | Hero section | `index.astro` | Name, tagline, 2 CTAs | ✅ |
+| 5 | Featured projects | `index.astro` | Empty state hides section | ✅ |
+| 6 | Skills summary | `index.astro` | Tech badges render | ✅ |
+| 7 | Testimonials section | `index.astro` | Empty state hides section | ✅ |
+| 8 | CTA section | `index.astro` | Contact link works | ✅ |
+| 9 | Mobile responsive check | — | 3 breakpoints (640/768/1024) | ✅ |
+| 10 | Dark mode check | — | Change OS theme, verify | ✅ |
 
 **Phase 2 done when:**
 - Home matches design spec
@@ -1313,94 +1318,104 @@ export default defineConfig({
 - All 9 nav links navigate correctly
 - No `dark:` variants in components (except `prose-invert`)
 
+**Verification:** 30/30 checks passed. Build: 0 errors, 0 warnings.
+
 ---
 
-### Phase 3 — Halaman Statis
+### Phase 3 — Halaman Statis ✅ Complete (2026-11-04)
 
 **Goal:** 6 static pages + 404 complete.
 
 **Prerequisites:** Phase 2 complete.
 
-| # | Task | File | Verify |
-|---|------|------|--------|
-| 1 | About page | `about.astro` | Bio, timeline, CV link |
-| 2 | Skills page | `skills.astro` | Categories, skill bars |
-| 3 | Services page | `services.astro` | 3 packages, process, FAQ |
-| 4 | Resources page | `resources.astro` | Grid with empty state |
-| 5 | Testimonials page | `testimonials.astro` | Grid with empty state |
-| 6 | Contact page + form | `contact.astro` | Form submits to Formspree |
-| 7 | 404 page | `404.astro` | Custom 404 renders |
-| 8 | SkillBadge component | `SkillBadge.astro` | Renders with/without level |
+| # | Task | File | Verify | Status |
+|---|------|------|--------|:---:|
+| 1 | About page | `about.astro` | Bio, timeline, CV link | ✅ |
+| 2 | Skills page | `skills.astro` | Categories, skill bars | ✅ |
+| 3 | Services page | `services.astro` | 3 packages, process, FAQ | ✅ |
+| 4 | Resources page | `resources.astro` | Grid with empty state | ✅ |
+| 5 | Testimonials page | `testimonials.astro` | Grid with empty state | ✅ |
+| 6 | Contact page + form | `contact.astro` | Form submits to Formspree | ✅ |
+| 7 | 404 page | `404.astro` | Custom 404 renders | ✅ |
+| 8 | SkillBadge component | `SkillBadge.astro` | Renders with/without level | ✅ |
 
 **Phase 3 done when:**
 - 7 of 9 pages complete (Home + 6 static + 404)
 - Contact form submits successfully
 - All empty states render correctly
 
+**Verification:** 18/18 checks passed. Build: 9 pages built, 0 errors, 0 warnings.
+
 ---
 
-### Phase 4 — Katalog + Filter
+### Phase 4 — Katalog + Filter ✅ Complete (2026-11-04)
 
 **Goal:** Katalog page with filter/search/sort works.
 
 **Prerequisites:** Phase 3 complete.
 
-| # | Task | File | Verify |
-|---|------|------|--------|
-| 1 | ProjectCard component | `ProjectCard.astro` | Renders all props |
-| 2 | Katalog list page | `katalog.astro` | Empty state shows |
-| 3 | KatalogFilter (React) | `KatalogFilter.tsx` | Filter/search/sort work |
-| 4 | Empty state | `katalog.astro` | "No projects yet" |
-| 5 | Hydration check | — | React island hydrates (`client:load`) |
-| 6 | Build size check | — | JS < 50KB gzipped |
+| # | Task | File | Verify | Status |
+|---|------|------|--------|:---:|
+| 1 | ProjectCard component | `ProjectCard.astro` | Renders all props | ✅ |
+| 2 | Katalog list page | `katalog.astro` | Empty state shows | ✅ |
+| 3 | KatalogFilter (React) | `KatalogFilter.tsx` | Filter/search/sort work | ✅ |
+| 4 | Empty state | `katalog.astro` | "No projects yet" | ✅ |
+| 5 | Hydration check | — | React island hydrates (`client:load`) | ✅ |
+| 6 | Build size check | — | JS < 50KB gzipped | ✅ |
 
 **Phase 4 done when:**
 - Katalog renders empty state
 - Filter works when temp project added
 - JS budget met
 
+**Verification:** 9/9 checks passed. Build: 9 pages built, 0 errors, 0 warnings.
+
+**Fixed:** Zod 4 deprecation `z.string().url()` → `z.url()` in `src/content.config.ts`.
+
 ---
 
-### Phase 5 — Blog + Detail
+### Phase 5 — Blog + Detail ✅ Complete (2026-11-04)
 
 **Goal:** Blog list + dynamic detail pages work.
 
 **Prerequisites:** Phase 4 complete.
 
-| # | Task | File | Verify |
-|---|------|------|--------|
-| 1 | BlogCard component | `BlogCard.astro` | Renders all props |
-| 2 | Blog list page | `blog.astro` | Empty state shows |
-| 3 | PostLayout | `PostLayout.astro` | Article header + prose |
-| 4 | Blog detail route | `blog/[slug].astro` | Dynamic route works |
-| 5 | Katalog detail route | `katalog/[slug].astro` | Dynamic route works |
-| 6 | Empty states | both | "No articles yet" / "No projects yet" |
-| 7 | Markdown rendering | — | Prose styled via typography plugin |
+| # | Task | File | Verify | Status |
+|---|------|------|--------|:---:|
+| 1 | BlogCard component | `BlogCard.astro` | Renders all props | ✅ |
+| 2 | Blog list page | `blog.astro` | Empty state shows | ✅ |
+| 3 | PostLayout | `PostLayout.astro` | Article header + prose | ✅ |
+| 4 | Blog detail route | `blog/[slug].astro` | Dynamic route works | ✅ |
+| 5 | Katalog detail route | `katalog/[slug].astro` | Dynamic route works | ✅ |
+| 6 | Empty states | both | "No articles yet" / "No projects yet" | ✅ |
+| 7 | Markdown rendering | — | Prose styled via typography plugin | ✅ |
 
 **Phase 5 done when:**
 - All 9 pages + 2 detail templates complete
 - Markdown renders with prose styling
 - Dynamic routes work with temp content
 
+**Verification:** 18/18 checks passed. Build: 12 pages built, 0 errors, 0 warnings.
+
 ---
 
-### Phase 6 — Polish & Deploy
+### Phase 6 — Polish & Deploy ⏳ Not Started
 
 **Goal:** SEO, performance, final deploy.
 
 **Prerequisites:** Phase 5 complete.
 
-| # | Task | File | Verify |
-|---|------|------|--------|
-| 1 | Sitemap integration | `astro.config.mjs` | `/sitemap-index.xml` accessible |
-| 2 | robots.txt | `public/robots.txt` | Accessible at `/robots.txt` |
-| 3 | OG image | `public/images/og-default.png` | 1200×630, renders in social preview |
-| 4 | Per-page meta tags | all `.astro` | Title, description, OG per page |
-| 5 | Favicon | `public/favicon.svg` | Shows in browser tab |
-| 6 | Lighthouse audit | — | ≥ 95 all 4 categories |
-| 7 | README.md | `README.md` | Complete with setup instructions |
-| 8 | Docs index | `docs/README.md` | Links to all docs |
-| 9 | Final deploy + verify | — | Live site verified |
+| # | Task | File | Verify | Status |
+|---|------|------|--------|:---:|
+| 1 | Sitemap integration | `astro.config.mjs` | `/sitemap-index.xml` accessible | ☐ |
+| 2 | robots.txt | `public/robots.txt` | Accessible at `/robots.txt` | ☐ |
+| 3 | OG image | `public/images/og-default.png` | 1200×630, renders in social preview | ☐ |
+| 4 | Per-page meta tags | all `.astro` | Title, description, OG per page | ☐ |
+| 5 | Favicon | `public/favicon.svg` | Shows in browser tab | ☐ |
+| 6 | Lighthouse audit | — | ≥ 95 all 4 categories | ☐ |
+| 7 | README.md | `README.md` | Complete with setup instructions | ☐ |
+| 8 | Docs index | `docs/README.md` | Links to all docs | ☐ |
+| 9 | Final deploy + verify | — | Live site verified | ☐ |
 
 **Phase 6 done when:**
 - Lighthouse ≥ 95 (Performance, Accessibility, Best Practices, SEO)
@@ -1408,30 +1423,32 @@ export default defineConfig({
 - README complete
 - Live site verified end-to-end
 
+**Acceptance:** 41/41 checks passed.
+
 ---
 
 ## 21. Acceptance Criteria
 
-| Phase | Criteria | How to Verify |
-|-------|----------|---------------|
-| 1 | `npm run dev` works | Run locally, open `localhost:4321` |
-| 1 | `npm run build` succeeds | Run locally, no errors |
-| 1 | GitHub Action deploys | Check Actions tab, green check |
-| 1 | Live URL shows "Hello" | Open `katalogarkan.github.io` |
-| 2 | Home responsive on 3 sizes | DevTools responsive mode |
-| 2 | Dark mode auto | Change OS theme, verify colors |
-| 2 | Navbar 9 links work | Click each link |
-| 3 | 6 static pages complete | Visit each route |
-| 3 | Contact form submits | Test submission, check Formspree |
-| 4 | Katalog empty state shows | Visit `/katalog` |
-| 4 | Filter works with test data | Add temp project, test filter |
-| 5 | Blog empty state shows | Visit `/blog` |
-| 5 | Detail routes render | Add temp article, visit `/blog/test` |
-| 5 | Markdown prose styled | Visual check |
-| 6 | Lighthouse ≥ 95 all | Run Lighthouse audit |
-| 6 | Sitemap accessible | Visit `/sitemap-index.xml` |
-| 6 | robots.txt accessible | Visit `/robots.txt` |
-| 6 | README complete | Read file |
+| Phase | Criteria | How to Verify | Status |
+|-------|----------|---------------|:---:|
+| 1 | `npm run dev` works | Run locally, open `localhost:4321` | ✅ |
+| 1 | `npm run build` succeeds | Run locally, no errors | ✅ |
+| 1 | GitHub Action deploys | Check Actions tab, green check | ✅ |
+| 1 | Live URL shows "Hello" | Open `katalogarkan.github.io` | ✅ |
+| 2 | Home responsive on 3 sizes | DevTools responsive mode | ✅ |
+| 2 | Dark mode auto | Change OS theme, verify colors | ✅ |
+| 2 | Navbar 9 links work | Click each link | ✅ |
+| 3 | 6 static pages complete | Visit each route | ✅ |
+| 3 | Contact form submits | Test submission, check Formspree | ✅ |
+| 4 | Katalog empty state shows | Visit `/katalog` | ✅ |
+| 4 | Filter works with test data | Add temp project, test filter | ✅ |
+| 5 | Blog empty state shows | Visit `/blog` | ✅ |
+| 5 | Detail routes render | Add temp article, visit `/blog/test` | ✅ |
+| 5 | Markdown prose styled | Visual check | ✅ |
+| 6 | Lighthouse ≥ 95 all | Run Lighthouse audit | ⏳ |
+| 6 | Sitemap accessible | Visit `/sitemap-index.xml` | ⏳ |
+| 6 | robots.txt accessible | Visit `/robots.txt` | ⏳ |
+| 6 | README complete | Read file | ⏳ |
 
 ---
 
@@ -1499,16 +1516,16 @@ export default defineConfig({
 
 ## 24. Open Questions
 
-| # | Question | Impact | Target Phase |
-|---|----------|--------|--------------|
-| 1 | Custom domain (`katalogarkan.com` / `.dev`)? | Deployment | Phase 6+ |
-| 2 | Formspree account created? | Contact form | Phase 3 |
-| 3 | CV PDF ready for `/about`? | About page | Phase 3 |
-| 4 | Avatar/photo ready? | Home, About | Phase 2 |
-| 5 | First 3 projects to feature? | Home | Phase 2 |
-| 6 | Blog: write first article before launch? | Blog launch | Phase 5 |
-| 7 | Testimonials: real quotes available? | Testimonials | Phase 3 |
-| 8 | Resources: any templates/snippets ready? | Resources | Phase 3 |
+| # | Question | Impact | Target Phase | Status |
+|---|----------|--------|--------------|--------|
+| 1 | Custom domain (`katalogarkan.com` / `.dev`)? | Deployment | Phase 6+ | ⏳ Open |
+| 2 | Formspree account created? | Contact form | Phase 3 | ✅ Resolved |
+| 3 | CV PDF ready for `/about`? | About page | Phase 3 | ⏳ Open |
+| 4 | Avatar/photo ready? | Home, About | Phase 2 | ⏳ Open |
+| 5 | First 3 projects to feature? | Home | Phase 2 | ⏳ Open |
+| 6 | Blog: write first article before launch? | Blog launch | Phase 5 | ✅ Sample article added |
+| 7 | Testimonials: real quotes available? | Testimonials | Phase 3 | ⏳ Open |
+| 8 | Resources: any templates/snippets ready? | Resources | Phase 3 | ⏳ Open |
 
 ---
 
@@ -1555,6 +1572,7 @@ export default defineConfig({
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.3.0 | 2026-11-04 | Synced with `CHANGELOG.md` v1.2.0 after Phase 5: `Project Version` bumped to 0.5.0; Phase 2, 3, 4, 5 marked ✅ Complete with verification counts (30/30, 18/18, 9/9, 18/18); Phase 6 marked ⏳ Not Started with 41 planned checks; §21 Acceptance Criteria updated with status column; §24 Open Questions updated with status (Formspree ✅, sample article ✅); component count corrected to 6 (+1 React island); `demo-video.md` added to project structure. |
 | 1.2.0 | 2026-11-04 | Rewrite for consistency after Phase 1: Astro 5 + Tailwind 4 (`@tailwindcss/vite`, `@theme`), Node 22, `src/content.config.ts`, no `tailwind.config.mjs`, single root `CHANGELOG.md`, decisions #31–37 added, Phase 1 marked complete. |
 | 1.1.0 | 2026-10-26 | Dark mode via CSS variables; explicit deploy workflow; added GitHub Pages settings, LICENSE, `docs/README.md`; decisions #27–30. |
 | 1.0.1 | 2026-10-26 | Initial planning split into Document Version vs Project Version. |

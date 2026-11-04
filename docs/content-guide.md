@@ -6,8 +6,8 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.1.0 |
-| Project Version | 0.1.0 (Phase 1 Complete) |
+| Document Version | 1.2.0 |
+| Project Version | 0.5.0 (Phase 5 Complete) |
 | Last Updated | 2026-11-04 |
 | Status | Approved — Source of Truth |
 | Project | Personal branding & katalog website |
@@ -95,18 +95,18 @@ src/content.config.ts
 | File | URL |
 |------|-----|
 | `src/content/katalog/portfolio-v2.md` | `/katalog/portfolio-v2` |
-| `src/content/blog/astro-content-collections.md` | `/blog/astro-content-collections` |
+| `src/content/blog/first-post.md` | `/blog/first-post` |
 
 ### 2.4 Folder Structure
 
 ```
 src/content/
 ├── katalog/
-│   ├── project-one.md
+│   ├── portfolio-v2.md
 │   ├── project-two.md
 │   └── project-three.md
 └── blog/
-    ├── first-article.md
+    ├── first-post.md
     └── second-article.md
 ```
 
@@ -419,7 +419,7 @@ Tailwind 4 is CSS-first and faster to configure once you get used to `@theme`. T
 | Content file | Thumbnail |
 |--------------|-----------|
 | `portfolio-v2.md` | `portfolio-v2.png` |
-| `astro-content-collections.md` | `astro-content-collections.png` |
+| `first-post.md` | `first-post.png` |
 
 ### 6.3 Dimensions
 
@@ -649,6 +649,7 @@ grep -r "old-slug" src/
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.2.0 | 2026-11-04 | Synced with `blueprint.md` v1.3.0 after Phase 5: `Project Version` bumped to 0.5.0; examples updated to match actual Phase 5 content (`portfolio-v2.md`, `first-post.md`); file naming examples corrected; image naming examples aligned with real slugs; no structural changes to schema or writing rules. |
 | 1.1.0 | 2026-11-04 | Synced with `blueprint.md` v1.2.0: schema path updated to `src/content.config.ts` (Astro 5 API); examples updated to Astro 5 + Tailwind 4; image rules clarified (all images in `public/`, no `src/assets/`); added rename-slug workflow; added diagnostic commands. |
 | 1.0.0 | 2026-10-26 | Initial content guide. |
 

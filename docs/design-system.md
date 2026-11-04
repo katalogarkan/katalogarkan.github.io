@@ -6,8 +6,8 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.2.0 |
-| Project Version | 0.1.0 (Phase 1 Complete) |
+| Document Version | 1.3.0 |
+| Project Version | 0.5.0 (Phase 5 Complete) |
 | Last Updated | 2026-11-04 |
 | Status | Approved — Source of Truth |
 | Project | Personal branding & katalog website |
@@ -945,6 +945,7 @@ This section **must match `blueprint.md` §5.10 exactly**.
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.3.0 | 2026-11-04 | Synced with `blueprint.md` v1.3.0 after Phase 5: `Project Version` bumped to 0.5.0; no changes to tokens, `@theme` block (§18), or `global.css` (§19) — already correct; verified `@theme` §18 and `global.css` §19 still match `blueprint.md` §5.9 and §5.10 exactly. |
 | 1.2.0 | 2026-11-04 | Synced with `blueprint.md` v1.2.0: Tailwind 4 CSS-first config (`@theme` in `global.css`, no `tailwind.config.mjs`); removed `darkMode: 'media'` (Tailwind 4 uses CSS variables); §18 rewritten as "Tailwind 4 Theme Reference"; §19 full `global.css` with `@import "tailwindcss"` + `@plugin` + `@theme`; §11.4 card now uses `border-border`; `container-page` utility documented; Do/Don't updated. |
 | 1.1.0 | 2026-10-26 | Dark mode via CSS variables; §18 Tailwind config uses `var(--color-*)`; §19 full CSS variables; §9.2 "How Dark Mode Works"; `prose dark:prose-invert` documented as only allowed exception. |
 | 1.0.1 | 2026-10-26 | Document Info split into `Document Version` vs `Project Version`. |

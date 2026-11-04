@@ -6,8 +6,8 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.1.0 |
-| Project Version | 0.1.0 (Phase 1 Complete) |
+| Document Version | 1.2.0 |
+| Project Version | 0.5.0 (Phase 5 Complete) |
 | Last Updated | 2026-11-04 |
 | Status | Active — Updated Per Change |
 | Format | Keep a Changelog + Semantic Versioning |
@@ -139,6 +139,101 @@ Every entry uses one of these categories:
 
 ## 5. Release History
 
+### [0.5.0] — 2026-11-04 — Phase 5 Complete
+
+**Status:** Complete — Blog & Detail pages ready.
+
+**Added:**
+
+| File | Purpose |
+|------|---------|
+| `src/layouts/PostLayout.astro` | Article layout with prose + dark mode |
+| `src/components/BlogCard.astro` | Article card component |
+| `src/pages/blog.astro` | Blog list page with draft filtering |
+| `src/pages/blog/[slug].astro` | Dynamic route for article rendering |
+| `src/pages/katalog/[slug].astro` | Dynamic route for project detail rendering |
+| `src/content/blog/first-post.md` | Sample article |
+
+**Verification:**
+- Phase 5: 18/18 auto-checks passed.
+- Build: 12 pages built, 0 errors, 0 warnings.
+
+**Next:** Phase 6 — Polish & Deploy.
+
+---
+
+### [0.4.0] — 2026-11-04 — Phase 4 Complete
+
+**Status:** Complete — Katalog & React Filter ready.
+
+**Added:**
+
+| File | Purpose |
+|------|---------|
+| `src/components/ProjectCard.astro` | Project card with thumbnail, title, tech badges |
+| `src/components/KatalogFilter.tsx` | React island for category filter, search, and sort |
+| `src/pages/katalog.astro` | Katalog list page with client:load hydration |
+| `src/content/katalog/portfolio-v2.md` | Sample project |
+
+**Changed:**
+
+| File | Change |
+|------|--------|
+| `src/content.config.ts` | Fixed Zod 4 deprecation: `z.string().url()` → `z.url()` |
+
+**Verification:**
+- Phase 4: 9/9 auto-checks passed.
+- Build: 9 pages built, 0 errors, 0 warnings.
+
+**Next:** Phase 5 — Blog + Detail.
+
+---
+
+### [0.3.0] — 2026-11-04 — Phase 3 Complete
+
+**Status:** Complete — 7 static pages ready.
+
+**Added:**
+
+| File | Purpose |
+|------|---------|
+| `src/pages/about.astro` | Bio, journey timeline, values, info |
+| `src/pages/skills.astro` | 4 categories with progress bars |
+| `src/pages/services.astro` | 3 packages, 4-step process, FAQ |
+| `src/pages/resources.astro` | Grid layout with empty state |
+| `src/pages/testimonials.astro` | Grid layout with empty state |
+| `src/pages/contact.astro` | Formspree integration + honeypot |
+| `src/pages/404.astro` | Custom error page |
+
+**Verification:**
+- Phase 3: 18/18 auto-checks passed.
+- Build: 9 pages built, 0 errors, 0 warnings.
+
+**Next:** Phase 4 — Katalog + Filter.
+
+---
+
+### [0.2.0] — 2026-11-04 — Phase 2 Complete
+
+**Status:** Complete — Home & Layout ready.
+
+**Added:**
+
+| File | Purpose |
+|------|---------|
+| `src/components/Header.astro` | 9 nav links, sticky, mobile hamburger |
+| `src/components/Footer.astro` | 4 columns (name, links, socials, copyright) |
+| `src/components/SkillBadge.astro` | Badge with optional level and icon |
+| `src/pages/index.astro` | Hero, Featured Projects, Skills, Testimonials, CTA |
+
+**Verification:**
+- Phase 2: 30/30 auto-checks passed.
+- Build: 0 errors, 0 warnings.
+
+**Next:** Phase 3 — Halaman Statis.
+
+---
+
 ### [0.1.0] — 2026-11-01 — Phase 1 Complete
 
 **Status:** Complete — Phase 1 foundation ready.
@@ -202,7 +297,7 @@ Astro 5 + Tailwind 4 project runs locally, deploys to GitHub Pages, and passes 5
 
 **Overview:**
 
-Full documentation rewrite to align with actual Phase 1 stack (Astro 5, Tailwind 4, Node 22). Resolved 5 critical inconsistencies found in the docs audit.
+Full documentation rewrite to align with actual Phase 1 stack (Astro 5, Tailwind 4, Node 22). Resolved 8 critical inconsistencies found in the docs audit.
 
 **Changed (Docs):**
 
@@ -214,7 +309,7 @@ Full documentation rewrite to align with actual Phase 1 stack (Astro 5, Tailwind
 | `docs/content-guide.md` | v1.0.0 → v1.1.0: `src/content.config.ts` path, image rules (all in `public/`), rename-slug workflow, diagnostic commands |
 | `docs/cheatsheets.md` | v1.1.0 → v1.2.0: Astro 5 + Tailwind 4 patterns, no `tailwind.config.mjs`, React island example, mobile menu pattern |
 | `docs/verification-checklist.md` | v1.2.0 → v1.3.0: Phase 1 = 57/57, Phase 2 expanded, regression checks R.01–R.10, total 236 checks |
-| `docs/demo-video.md` | **New** v1.0.0: 90–120s demo video script, shot list, recording setup, editing guide, publishing |
+| `docs/Demo-Video.md` | **New** v1.0.0: 90–120s demo video script, shot list, recording setup, editing guide, publishing |
 
 **Removed:**
 
@@ -237,7 +332,7 @@ Full documentation rewrite to align with actual Phase 1 stack (Astro 5, Tailwind
 
 **Verification:**
 
-- All 8 docs present in `docs/` (blueprint, design-system, content-guide, verification-checklist, cheatsheets, deployment-guide, demo-video, README)
+- All 8 docs present in `docs/`
 - All cross-references resolve
 - No conflicting config between blueprint, design-system, deployment-guide
 - Total checks: 236
@@ -440,106 +535,6 @@ Initial planning phase. All documentation created before any code is written. Fo
 
 ## 6. Unreleased
 
-### [0.2.0] — Phase 2 — Desain & Home
-
-**Status:** Not started.
-
-**Planned:**
-
-| Category | Item |
-|----------|------|
-| Added | Final Header with 9 nav links + hamburger (`src/components/Header.astro`) |
-| Added | Final Footer with 4 columns (`src/components/Footer.astro`) |
-| Added | Hero section (`src/pages/index.astro`) |
-| Added | Featured projects section (empty state) |
-| Added | Skills summary section |
-| Added | Testimonials section (empty state) |
-| Added | CTA section |
-| Changed | Design tokens verified in `src/styles/global.css` |
-
-**Acceptance:**
-
-- Home responsive at 320/768/1024/1440px
-- Dark mode follows OS
-- All 9 nav links work
-- No `dark:` variants in components (except `prose-invert`)
-- Verification: 39/39 checks passed
-
----
-
-### [0.3.0] — Phase 3 — Halaman Statis
-
-**Status:** Not started.
-
-**Planned:**
-
-| Category | Item |
-|----------|------|
-| Added | `src/pages/about.astro` |
-| Added | `src/pages/skills.astro` |
-| Added | `src/pages/services.astro` |
-| Added | `src/pages/resources.astro` |
-| Added | `src/pages/testimonials.astro` |
-| Added | `src/pages/contact.astro` with Formspree |
-| Added | `src/pages/404.astro` |
-| Added | `src/components/SkillBadge.astro` |
-
-**Acceptance:**
-
-- 7 of 9 pages complete
-- Contact form submits to Formspree
-- All empty states render
-- Verification: 36/36 checks passed
-
----
-
-### [0.4.0] — Phase 4 — Katalog + Filter
-
-**Status:** Not started.
-
-**Planned:**
-
-| Category | Item |
-|----------|------|
-| Added | `src/components/ProjectCard.astro` |
-| Added | `src/pages/katalog.astro` |
-| Added | `src/components/KatalogFilter.tsx` (React island) |
-| Added | Empty state for `/katalog` |
-| Changed | JS budget check (< 50KB gzipped) |
-
-**Acceptance:**
-
-- Katalog empty state renders
-- Filter/search/sort work with temp data
-- JS budget met
-- Verification: 25/25 checks passed
-
----
-
-### [0.5.0] — Phase 5 — Blog + Detail
-
-**Status:** Not started.
-
-**Planned:**
-
-| Category | Item |
-|----------|------|
-| Added | `src/components/BlogCard.astro` |
-| Added | `src/pages/blog.astro` |
-| Added | `src/layouts/PostLayout.astro` |
-| Added | `src/pages/blog/[slug].astro` |
-| Added | `src/pages/katalog/[slug].astro` |
-| Added | Empty states for `/blog` and `/katalog` |
-
-**Acceptance:**
-
-- All 9 pages + 2 detail templates complete
-- Markdown renders with prose styling
-- Dynamic routes work with temp content
-- Verification: 38/38 checks passed
-
----
-
 ### [0.6.0] — Phase 6 — Polish & Deploy
 
 **Status:** Not started.
@@ -657,6 +652,7 @@ Initial planning phase. All documentation created before any code is written. Fo
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.2.0 | 2026-11-04 | Updated release history for Phase 2, 3, 4, and 5 completion. Project version bumped to 0.5.0. |
 | 1.1.0 | 2026-11-04 | Synced with `blueprint.md` v1.2.0 after Phase 1: documented actual Phase 1 release (0.1.0) with Astro 5 + Tailwind 4 + Node 22; added [0.0.4] documentation sync release; consolidated changelog to root only (removed `docs/CHANGELOG.md`); updated Phase 2–6 acceptance counts (39/36/25/38/41 = 236); added `demo-video.md` reference; rules updated to enforce single location. |
 | 1.0.0 | 2026-11-01 | Initial root changelog reflecting Phase 1 completion (v0.1.0). |
 
