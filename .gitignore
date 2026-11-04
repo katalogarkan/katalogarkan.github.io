@@ -49,6 +49,7 @@ clean.py
 create_assets.py
 create_blog_assets.py
 missing-files.py
+debug_images.py
 
 # ============================================
 # Python (for setup & verification scripts)
@@ -90,10 +91,3 @@ desktop.ini
 *.bak
 *.backup
 *.old
-
-# ============================================
-# Images & Assets (Debug/Redundant)
-# ============================================
-# If you're sure the images already exist in public/images/,
-# the line below can exclude the root images/ folder from being committed.
-images/
