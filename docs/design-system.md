@@ -6,15 +6,16 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.1.0 |
-| Project Version | 0.0.1 (Planning) |
-| Last Updated | 2026-10-26 |
+| Document Version | 1.2.0 |
+| Project Version | 0.1.0 (Phase 1 Complete) |
+| Last Updated | 2026-11-04 |
 | Status | Approved — Source of Truth |
 | Project | Personal branding & katalog website |
 | Owner | Arkan (Full Stack Web Developer) |
 | Related | `blueprint.md` §5 (Design Tokens) |
-| Framework | Astro + Tailwind CSS |
-| Dark Mode | `prefers-color-scheme` (media) + CSS variables |
+| Framework | Astro 5 + Tailwind CSS 4 |
+| Tailwind Config | CSS-first via `@theme` (no `tailwind.config.mjs`) |
+| Dark Mode | `prefers-color-scheme` + CSS variables |
 | Font | Inter (Google Fonts) |
 | Primary Color | `#0969da` |
 
@@ -39,7 +40,7 @@
 15. [Form Elements](#15-form-elements)
 16. [Image Treatment](#16-image-treatment)
 17. [Code & Prose](#17-code--prose)
-18. [Tailwind Config Reference](#18-tailwind-config-reference)
+18. [Tailwind 4 Theme Reference](#18-tailwind-4-theme-reference)
 19. [Global CSS Reference](#19-global-css-reference)
 20. [Do & Don't](#20-do--dont)
 21. [Change Log](#21-change-log)
@@ -68,7 +69,7 @@ The single source of truth for all visual decisions in the katalogarkan website.
 | Color palette table | Usage rules, contrast, examples |
 | Typography table | Full type scale, weights, line heights |
 | Spacing table | Layout patterns, component spacing |
-| §5.9 Tailwind Config | §18 mirrors it exactly |
+| §5.9 Tailwind config (`@theme`) | §18 mirrors it exactly |
 | §5.10 Global CSS | §19 mirrors it exactly |
 
 **Rule:** If a value exists in both documents, this document wins for implementation details. Blueprint wins for architectural decisions. §18 and §19 here must match `blueprint.md` §5.9 and §5.10 exactly.
@@ -93,18 +94,18 @@ The single source of truth for all visual decisions in the katalogarkan website.
 
 ### 3.1 Semantic Color Tokens
 
-| Token | Light | Dark | Tailwind Class | Usage |
-|-------|-------|------|----------------|-------|
-| `primary` | `#0969da` | `#58a6ff` | `text-primary` `bg-primary` | Links, buttons, accents |
-| `primary-hover` | `#0550ae` | `#79c0ff` | `hover:bg-primary-hover` | Hover states |
-| `bg` | `#ffffff` | `#0d1117` | `bg-bg` | Page background |
-| `bg-subtle` | `#f6f8fa` | `#161b22` | `bg-bg-subtle` | Card background |
-| `text` | `#1f2328` | `#e6edf3` | `text-text` | Body text |
-| `text-muted` | `#656d76` | `#8b949e` | `text-text-muted` | Secondary text |
-| `border` | `#d0d7de` | `#30363d` | `border-border` | Borders |
-| `success` | `#1a7f37` | `#3fb950` | `text-success` | Success states |
-| `warning` | `#9a6700` | `#d29922` | `text-warning` | Warning states |
-| `danger` | `#cf222e` | `#f85149` | `text-danger` | Error states |
+| Token | Light | Dark | CSS Variable | Tailwind Class | Usage |
+|-------|-------|------|--------------|----------------|-------|
+| `primary` | `#0969da` | `#58a6ff` | `--color-primary` | `text-primary` `bg-primary` | Links, buttons, accents |
+| `primary-hover` | `#0550ae` | `#79c0ff` | `--color-primary-hover` | `hover:bg-primary-hover` | Hover states |
+| `bg` | `#ffffff` | `#0d1117` | `--color-bg` | `bg-bg` | Page background |
+| `bg-subtle` | `#f6f8fa` | `#161b22` | `--color-bg-subtle` | `bg-bg-subtle` | Card background |
+| `text` | `#1f2328` | `#e6edf3` | `--color-text` | `text-text` | Body text |
+| `text-muted` | `#656d76` | `#8b949e` | `--color-text-muted` | `text-text-muted` | Secondary text |
+| `border` | `#d0d7de` | `#30363d` | `--color-border` | `border-border` | Borders |
+| `success` | `#1a7f37` | `#3fb950` | `--color-success` | `text-success` | Success states |
+| `warning` | `#9a6700` | `#d29922` | `--color-warning` | `text-warning` | Warning states |
+| `danger` | `#cf222e` | `#f85149` | `--color-danger` | `text-danger` | Error states |
 
 ### 3.2 Contrast Ratios
 
@@ -142,7 +143,7 @@ The single source of truth for all visual decisions in the katalogarkan website.
 </div>
 ```
 
-**Note:** These classes resolve to light-mode hex values by default. Dark mode is applied automatically via CSS variables — no `dark:` prefix needed.
+**Note:** These classes resolve to CSS variables defined in `global.css`. Dark mode is applied automatically — no `dark:` prefix needed.
 
 ---
 
@@ -229,6 +230,14 @@ The single source of truth for all visual decisions in the katalogarkan website.
 
 ```html
 <div class="max-w-6xl mx-auto px-4 md:px-8">
+  <!-- content -->
+</div>
+```
+
+Or use the `.container-page` utility defined in `global.css` (§19):
+
+```html
+<div class="container-page">
   <!-- content -->
 </div>
 ```
@@ -321,15 +330,16 @@ The single source of truth for all visual decisions in the katalogarkan website.
 | Property | Value |
 |----------|-------|
 | Method | `prefers-color-scheme` media query + CSS variables |
-| Tailwind config | `darkMode: 'media'` |
 | Toggle | None |
 | JavaScript | None required |
 | Default | Light (if OS has no preference) |
-| Single source of truth | `global.css` (§19) — CSS variables overridden in `@media (prefers-color-scheme: dark)` |
+| Single source of truth | `src/styles/global.css` (§19) — CSS variables overridden in `@media (prefers-color-scheme: dark)` |
+
+**No `darkMode` key** — Tailwind 4 handles dark mode via CSS variables, not a config option.
 
 ### 9.2 How Dark Mode Works
 
-**Do NOT write `dark:` variants manually.** All colors are defined via CSS variables in `global.css`. The Tailwind config (§18) maps utility classes to those variables. When the OS switches to dark mode, the variables change and every component updates automatically.
+**Do NOT write `dark:` variants manually.** All colors are defined via CSS variables in `global.css`. Tailwind 4 auto-generates utility classes from `@theme`, and those classes resolve to CSS variables. When the OS switches to dark mode, the variables change and every component updates automatically.
 
 ```html
 <!-- Correct: uses token classes, dark mode automatic -->
@@ -396,7 +406,7 @@ The single source of truth for all visual decisions in the katalogarkan website.
 
 ```html
 <section class="py-12 md:py-16">
-  <div class="max-w-6xl mx-auto px-4 md:px-8">
+  <div class="container-page">
     <h2 class="text-2xl font-bold mb-8">Section Title</h2>
     <!-- content -->
   </div>
@@ -700,7 +710,7 @@ The single source of truth for all visual decisions in the katalogarkan website.
 |------|--------|
 | Always set `alt` | Descriptive or empty (`alt=""`) for decorative |
 | Use `loading="lazy"` | Except hero image |
-| Use Astro `<Image>` | For optimization |
+| No optimization at launch | Images served from `public/` as-is (see `content-guide.md` §6) |
 | Max width | 100% of container |
 | No stretching | Use `object-cover` |
 
@@ -747,53 +757,61 @@ Blog articles and katalog detail use `@tailwindcss/typography`:
 
 ---
 
-## 18. Tailwind Config Reference
+## 18. Tailwind 4 Theme Reference
 
 This section **must match `blueprint.md` §5.9 exactly**.
 
-```js
-// tailwind.config.mjs
-import typography from '@tailwindcss/typography';
+Tailwind 4 uses **CSS-first configuration**. There is **no `tailwind.config.mjs`**. All tokens are declared in `src/styles/global.css` via `@theme`.
 
-export default {
-  content: ['./src/**/*.{astro,html,js,jsx,ts,tsx,md,mdx}'],
-  darkMode: 'media',
-  theme: {
-    extend: {
-      colors: {
-        primary: {
-          DEFAULT: '#0969da',
-          hover: '#0550ae',
-        },
-        bg: {
-          DEFAULT: '#ffffff',
-          subtle: '#f6f8fa',
-        },
-        text: {
-          DEFAULT: '#1f2328',
-          muted: '#656d76',
-        },
-        border: {
-          DEFAULT: '#d0d7de',
-        },
-        success: '#1a7f37',
-        warning: '#9a6700',
-        danger: '#cf222e',
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
-      },
-      maxWidth: {
-        prose: '65ch',
-      },
-    },
-  },
-  plugins: [typography],
-};
+```css
+/* src/styles/global.css — @theme block */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary: #0969da;
+  --color-primary-hover: #0550ae;
+  --color-bg: #ffffff;
+  --color-bg-subtle: #f6f8fa;
+  --color-text: #1f2328;
+  --color-text-muted: #656d76;
+  --color-border: #d0d7de;
+  --color-success: #1a7f37;
+  --color-warning: #9a6700;
+  --color-danger: #cf222e;
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --container-prose: 65ch;
+}
 ```
 
-**Why `border: { DEFAULT: '#d0d7de' }`:** This makes `border-border` a valid class. If defined as a plain string, `border-border` would not generate.
+### 18.1 How Tailwind 4 Generates Utilities
+
+| `@theme` declaration | Auto-generated utilities |
+|----------------------|--------------------------|
+| `--color-primary` | `bg-primary`, `text-primary`, `border-primary` |
+| `--color-primary-hover` | `hover:bg-primary-hover`, `hover:text-primary-hover` |
+| `--color-bg` | `bg-bg` |
+| `--color-bg-subtle` | `bg-bg-subtle` |
+| `--color-text` | `text-text` |
+| `--color-text-muted` | `text-text-muted` |
+| `--color-border` | `border-border` |
+| `--font-sans` | `font-sans` |
+| `--font-mono` | `font-mono` |
+| `--container-prose` | `max-w-prose` |
+
+### 18.2 Why No `tailwind.config.mjs`
+
+| Concern | Tailwind 3 (old) | Tailwind 4 (current) |
+|---------|------------------|----------------------|
+| Config location | `tailwind.config.mjs` | `@theme` in `global.css` |
+| Integration | `@astrojs/tailwind` | `@tailwindcss/vite` |
+| Import | `@tailwind base/components/utilities` | `@import "tailwindcss"` |
+| Plugin | `plugins: [typography]` | `@plugin "@tailwindcss/typography"` |
+
+**Rule:** Do not create `tailwind.config.mjs`. Do not add `@astrojs/tailwind`. All tokens live in `@theme`.
 
 ---
 
@@ -803,23 +821,30 @@ This section **must match `blueprint.md` §5.10 exactly**.
 
 ```css
 /* src/styles/global.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary: #0969da;
+  --color-primary-hover: #0550ae;
+  --color-bg: #ffffff;
+  --color-bg-subtle: #f6f8fa;
+  --color-text: #1f2328;
+  --color-text-muted: #656d76;
+  --color-border: #d0d7de;
+  --color-success: #1a7f37;
+  --color-warning: #9a6700;
+  --color-danger: #cf222e;
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --container-prose: 65ch;
+}
 
 @layer base {
   :root {
     color-scheme: light dark;
-    --color-primary: #0969da;
-    --color-primary-hover: #0550ae;
-    --color-bg: #ffffff;
-    --color-bg-subtle: #f6f8fa;
-    --color-text: #1f2328;
-    --color-text-muted: #656d76;
-    --color-border: #d0d7de;
-    --color-success: #1a7f37;
-    --color-warning: #9a6700;
-    --color-danger: #cf222e;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -838,13 +863,14 @@ This section **must match `blueprint.md` §5.10 exactly**.
   }
 
   html {
-    @apply scroll-smooth;
+    scroll-behavior: smooth;
   }
 
   body {
     background-color: var(--color-bg);
     color: var(--color-text);
-    @apply font-sans antialiased;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -857,82 +883,27 @@ This section **must match `blueprint.md` §5.10 exactly**.
 
 @layer components {
   .container-page {
-    @apply max-w-6xl mx-auto px-4 md:px-8;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
   }
 }
 ```
 
-**Important:** For token classes like `bg-bg`, `text-text`, `border-border` to use CSS variables, the Tailwind config must reference the variables. Update §18 colors to use `var(--color-*)`:
+**How it works:**
 
-```js
-// In tailwind.config.mjs, replace the color section with:
-colors: {
-  primary: {
-    DEFAULT: 'var(--color-primary)',
-    hover: 'var(--color-primary-hover)',
-  },
-  bg: {
-    DEFAULT: 'var(--color-bg)',
-    subtle: 'var(--color-bg-subtle)',
-  },
-  text: {
-    DEFAULT: 'var(--color-text)',
-    muted: 'var(--color-text-muted)',
-  },
-  border: {
-    DEFAULT: 'var(--color-border)',
-  },
-  success: 'var(--color-success)',
-  warning: 'var(--color-warning)',
-  danger: 'var(--color-danger)',
-},
-```
+1. `@import "tailwindcss"` — loads Tailwind 4
+2. `@plugin "@tailwindcss/typography"` — loads prose plugin
+3. `@theme` — declares design tokens; Tailwind auto-generates utilities
+4. `@layer base` — sets `color-scheme`, dark mode variable overrides, body styles, reduced motion
+5. `@layer components` — defines `.container-page` utility
 
-**Final Tailwind config (replaces §18):**
-
-```js
-// tailwind.config.mjs
-import typography from '@tailwindcss/typography';
-
-export default {
-  content: ['./src/**/*.{astro,html,js,jsx,ts,tsx,md,mdx}'],
-  darkMode: 'media',
-  theme: {
-    extend: {
-      colors: {
-        primary: {
-          DEFAULT: 'var(--color-primary)',
-          hover: 'var(--color-primary-hover)',
-        },
-        bg: {
-          DEFAULT: 'var(--color-bg)',
-          subtle: 'var(--color-bg-subtle)',
-        },
-        text: {
-          DEFAULT: 'var(--color-text)',
-          muted: 'var(--color-text-muted)',
-        },
-        border: {
-          DEFAULT: 'var(--color-border)',
-        },
-        success: 'var(--color-success)',
-        warning: 'var(--color-warning)',
-        danger: 'var(--color-danger)',
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
-      },
-      maxWidth: {
-        prose: '65ch',
-      },
-    },
-  },
-  plugins: [typography],
-};
-```
-
-**Note:** This final config supersedes the one shown earlier in this section. `blueprint.md` §5.9 must be updated to match this version (using `var(--color-*)`).
+**Single source of truth:** `src/styles/global.css`. Do not duplicate these values elsewhere.
 
 ---
 
@@ -951,6 +922,7 @@ export default {
 | 7 | Use `loading="lazy"` on below-fold images |
 | 8 | Respect `prefers-reduced-motion` |
 | 9 | Use `prose dark:prose-invert` for Markdown (only allowed `dark:` variant) |
+| 10 | Declare all tokens in `@theme` (no `tailwind.config.mjs`) |
 
 ### 20.2 Don't
 
@@ -958,13 +930,26 @@ export default {
 |---|-------|
 | 1 | Hardcode hex colors in components |
 | 2 | Use `dark:` variants manually (except `dark:prose-invert`) |
-| 3 | Use `!important` |
-| 4 | Skip heading levels (H1 → H3) |
-| 5 | Use color alone to convey meaning |
-| 6 | Animate on page load |
-| 7 | Use `focus:` instead of `focus-visible:` |
-| 8 | Use desktop-first breakpoints (`max-*`) |
-| 9 | Add shadows/animations that distract from content |
+| 3 | Create `tailwind.config.mjs` |
+| 4 | Add `@astrojs/tailwind` integration |
+| 5 | Use `!important` |
+| 6 | Skip heading levels (H1 → H3) |
+| 7 | Use color alone to convey meaning |
+| 8 | Animate on page load |
+| 9 | Use `focus:` instead of `focus-visible:` |
+| 10 | Use desktop-first breakpoints (`max-*`) |
+
+---
+
+## 21. Change Log
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.2.0 | 2026-11-04 | Synced with `blueprint.md` v1.2.0: Tailwind 4 CSS-first config (`@theme` in `global.css`, no `tailwind.config.mjs`); removed `darkMode: 'media'` (Tailwind 4 uses CSS variables); §18 rewritten as "Tailwind 4 Theme Reference"; §19 full `global.css` with `@import "tailwindcss"` + `@plugin` + `@theme`; §11.4 card now uses `border-border`; `container-page` utility documented; Do/Don't updated. |
+| 1.1.0 | 2026-10-26 | Dark mode via CSS variables; §18 Tailwind config uses `var(--color-*)`; §19 full CSS variables; §9.2 "How Dark Mode Works"; `prose dark:prose-invert` documented as only allowed exception. |
+| 1.0.1 | 2026-10-26 | Document Info split into `Document Version` vs `Project Version`. |
+| 1.0.0 | 2026-10-26 | Initial design system. |
+
 ---
 
 *End of document.*

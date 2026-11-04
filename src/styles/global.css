@@ -1,16 +1,11 @@
 /* src/styles/global.css */
-/* Tailwind CSS v4 — Astro 7 */
+/* Tailwind CSS v4 — Astro 5 */
 
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* ============================================
    THEME TOKENS (Tailwind v4 @theme)
-   Otomatis menghasilkan utility classes:
-   - bg-bg, bg-bg-subtle
-   - text-text, text-text-muted
-   - border-border
-   - text-primary, bg-primary
-   - text-success, text-warning, text-danger
    ============================================ */
 @theme {
   /* Colors — Light mode (default) */
@@ -29,8 +24,8 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Max width */
-  --max-width-prose: 65ch;
+  /* Max width — use --container-* for max-w-* utilities */
+  --container-prose: 65ch;
 }
 
 /* ============================================
@@ -41,7 +36,6 @@
     color-scheme: light dark;
   }
 
-  /* Dark mode overrides — automatic via OS preference */
   @media (prefers-color-scheme: dark) {
     :root {
       --color-primary: #58a6ff;
@@ -69,7 +63,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -81,7 +74,6 @@
     }
   }
 
-  /* Focus ring default */
   :focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
@@ -92,29 +84,26 @@
    COMPONENTS LAYER
    ============================================ */
 @layer components {
-  /* Page container */
   .container-page {
     width: 100%;
-    max-width: 72rem; /* max-w-6xl = 1152px */
+    max-width: 72rem;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem;   /* px-4 */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 
   @media (min-width: 768px) {
     .container-page {
-      padding-left: 2rem;  /* md:px-8 */
+      padding-left: 2rem;
       padding-right: 2rem;
     }
   }
 
-  /* Prose (Markdown content) */
   .prose-custom {
-    max-width: var(--max-width-prose);
+    max-width: var(--container-prose);   /* ← fixed */
   }
 
-  /* Skip link */
   .skip-link {
     position: absolute;
     top: -100px;
@@ -134,15 +123,13 @@
 }
 
 /* ============================================
-   UTILITIES LAYER (optional helpers)
+   UTILITIES LAYER
    ============================================ */
 @layer utilities {
-  /* Text balance for headings */
   .text-balance {
     text-wrap: balance;
   }
 
-  /* Hide scrollbar but keep scrollable */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;

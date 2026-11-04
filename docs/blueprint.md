@@ -6,16 +6,16 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.1.0 |
-| Project Version | 0.0.1 (Planning) |
-| Last Updated | 2026-10-26 |
+| Document Version | 1.2.0 |
+| Project Version | 0.1.0 (Phase 1 Complete) |
+| Last Updated | 2026-11-04 |
 | Status | Approved — Source of Truth |
 | Project | Personal branding & katalog website |
 | Owner | Arkan (Full Stack Web Developer) |
 | Repository | `katalogarkan/katalogarkan.github.io` |
 | Live URL | https://katalogarkan.github.io |
-| Framework | Astro |
-| Styling | Tailwind CSS |
+| Framework | Astro 5 |
+| Styling | Tailwind CSS 4 |
 | Hosting | GitHub Pages |
 | Total Static Pages | 9 |
 | Total Dynamic Routes | 2 |
@@ -115,7 +115,7 @@ Writer (Arkan)
 Markdown file in src/content/katalog/ or src/content/blog/
     │
     ▼
-Astro reads file, validates against schema (config.ts)
+Astro reads file, validates against schema (content.config.ts)
     │
     ▼
 Astro generates static HTML page at build time
@@ -165,7 +165,7 @@ Adding a new project = create one `.md` file, commit, push. GitHub Actions rebui
 
 | # | Assumption |
 |---|-----------|
-| 1 | Owner has Node.js 20+ installed locally |
+| 1 | Owner has Node.js 22+ installed locally |
 | 2 | Owner has Git installed and configured |
 | 3 | Owner has GitHub account `katalogarkan` |
 | 4 | Owner writes content in Markdown |
@@ -183,7 +183,7 @@ Adding a new project = create one `.md` file, commit, push. GitHub Actions rebui
 | 3 | No authentication | No private pages |
 | 4 | Content via files in repository | Adding content = commit + push |
 | 5 | Build output must be `dist/` | Astro default |
-| 6 | Node version pinned to 20 in CI | GitHub Actions workflow |
+| 6 | Node version pinned to 22 in CI | GitHub Actions workflow |
 | 7 | Repository name fixed: `katalogarkan.github.io` | Cannot rename without breaking URL |
 | 8 | All content in English | No i18n at launch |
 
@@ -195,27 +195,28 @@ Adding a new project = create one `.md` file, commit, push. GitHub Actions rebui
 
 | Layer | Technology | Version | Why |
 |-------|-----------|---------|-----|
-| Framework | Astro | latest stable | Content-driven, minimal JS, built for static sites |
-| Styling | Tailwind CSS | latest stable | Utility-first, consistent, fast |
+| Framework | Astro | 5.x | Content-driven, minimal JS, built for static sites |
+| Styling | Tailwind CSS | 4.x | Utility-first, CSS-first config via `@theme` |
+| Tailwind integration | `@tailwindcss/vite` | 4.x | Native Vite plugin (no `tailwind.config.mjs`) |
 | Content | Astro Content Collections | built-in | Typed Markdown with Zod validation |
-| Interactivity | React (island) | latest stable | Katalog filter needs client state |
-| Language | TypeScript | latest stable | Type safety |
-| Typography | `@tailwindcss/typography` | latest stable | Prose styling for Markdown |
+| Interactivity | React (island) | 18.x | Katalog filter needs client state |
+| Language | TypeScript | 5.x | Type safety |
+| Typography | `@tailwindcss/typography` | latest | Prose styling for Markdown |
 | Hosting | GitHub Pages | — | Free, repo already exists |
 | CI/CD | GitHub Actions | — | Auto-deploy on push |
 
 ### 4.2 Dependencies
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `astro` | latest | Framework |
-| `@astrojs/tailwind` | latest | Tailwind integration |
-| `@astrojs/react` | latest | React island integration |
-| `@astrojs/sitemap` | latest | Auto-generate sitemap |
-| `react` | latest | React runtime |
-| `react-dom` | latest | React DOM |
-| `tailwindcss` | latest | Utility CSS |
-| `@tailwindcss/typography` | latest | Markdown prose styling |
+| Package | Purpose |
+|---------|---------|
+| `astro` | Framework |
+| `@tailwindcss/vite` | Tailwind 4 Vite plugin |
+| `@astrojs/react` | React island integration |
+| `@astrojs/sitemap` | Auto-generate sitemap |
+| `react` | React runtime |
+| `react-dom` | React DOM |
+| `tailwindcss` | Utility CSS |
+| `@tailwindcss/typography` | Markdown prose styling |
 
 ### 4.3 Not Used (and Why)
 
@@ -228,6 +229,8 @@ Adding a new project = create one `.md` file, commit, push. GitHub Actions rebui
 | Server runtime | GitHub Pages limitation |
 | Analytics | Privacy — skipped at launch |
 | CSS-in-JS | Tailwind is simpler for this scale |
+| `@astrojs/tailwind` | Superseded by `@tailwindcss/vite` for Tailwind 4 |
+| `tailwind.config.mjs` | Tailwind 4 uses CSS-first `@theme` config |
 
 ---
 
@@ -235,18 +238,18 @@ Adding a new project = create one `.md` file, commit, push. GitHub Actions rebui
 
 ### 5.1 Color Palette
 
-| Token | Light Mode | Dark Mode | Usage |
-|-------|-----------|-----------|-------|
-| `primary` | `#0969da` | `#58a6ff` | Links, buttons, accents |
-| `primary-hover` | `#0550ae` | `#79c0ff` | Hover states |
-| `bg` | `#ffffff` | `#0d1117` | Page background |
-| `bg-subtle` | `#f6f8fa` | `#161b22` | Card background |
-| `text` | `#1f2328` | `#e6edf3` | Body text |
-| `text-muted` | `#656d76` | `#8b949e` | Secondary text |
-| `border` | `#d0d7de` | `#30363d` | Borders |
-| `success` | `#1a7f37` | `#3fb950` | Success states |
-| `warning` | `#9a6700` | `#d29922` | Warning states |
-| `danger` | `#cf222e` | `#f85149` | Error states |
+| Token | Light Mode | Dark Mode | CSS Variable | Usage |
+|-------|-----------|-----------|--------------|-------|
+| `primary` | `#0969da` | `#58a6ff` | `--color-primary` | Links, buttons, accents |
+| `primary-hover` | `#0550ae` | `#79c0ff` | `--color-primary-hover` | Hover states |
+| `bg` | `#ffffff` | `#0d1117` | `--color-bg` | Page background |
+| `bg-subtle` | `#f6f8fa` | `#161b22` | `--color-bg-subtle` | Card background |
+| `text` | `#1f2328` | `#e6edf3` | `--color-text` | Body text |
+| `text-muted` | `#656d76` | `#8b949e` | `--color-text-muted` | Secondary text |
+| `border` | `#d0d7de` | `#30363d` | `--color-border` | Borders |
+| `success` | `#1a7f37` | `#3fb950` | `--color-success` | Success states |
+| `warning` | `#9a6700` | `#d29922` | `--color-warning` | Warning states |
+| `danger` | `#cf222e` | `#f85149` | `--color-danger` | Error states |
 
 ### 5.2 Typography
 
@@ -320,61 +323,43 @@ Adding a new project = create one `.md` file, commit, push. GitHub Actions rebui
 | Strategy | `prefers-color-scheme` (OS preference) |
 | Manual toggle | No |
 | Persistence | N/A |
-| Implementation | Tailwind `darkMode: 'media'` + CSS variables with `dark:` overrides |
+| Implementation | CSS variables overridden in `@media (prefers-color-scheme: dark)` in `global.css` |
 | Default | Light (if OS has no preference) |
 
-### 5.9 Tailwind Config (Single Source of Truth)
+### 5.9 Tailwind Config (Single Source of Truth — Tailwind 4)
 
-```js
-// tailwind.config.mjs
-import typography from '@tailwindcss/typography';
+Tailwind 4 uses **CSS-first configuration** via the `@theme` directive. There is **no `tailwind.config.mjs`**.
 
-export default {
-  content: ['./src/**/*.{astro,html,js,jsx,ts,tsx,md,mdx}'],
-  darkMode: 'media',
-  theme: {
-    extend: {
-      colors: {
-        primary: {
-          DEFAULT: '#0969da',
-          hover: '#0550ae',
-        },
-        bg: {
-          DEFAULT: '#ffffff',
-          subtle: '#f6f8fa',
-        },
-        text: {
-          DEFAULT: '#1f2328',
-          muted: '#656d76',
-        },
-        border: {
-          DEFAULT: '#d0d7de',
-        },
-        success: '#1a7f37',
-        warning: '#9a6700',
-        danger: '#cf222e',
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
-      },
-      maxWidth: {
-        prose: '65ch',
-      },
-    },
-  },
-  plugins: [typography],
-};
+```css
+/* src/styles/global.css */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary: #0969da;
+  --color-primary-hover: #0550ae;
+  --color-bg: #ffffff;
+  --color-bg-subtle: #f6f8fa;
+  --color-text: #1f2328;
+  --color-text-muted: #656d76;
+  --color-border: #d0d7de;
+  --color-success: #1a7f37;
+  --color-warning: #9a6700;
+  --color-danger: #cf222e;
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --container-prose: 65ch;
+}
 ```
+
+**Rule:** All color tokens are declared in `@theme`. Tailwind 4 auto-generates utility classes (`bg-primary`, `text-text-muted`, `border-border`, etc.) from these variables.
 
 ### 5.10 Dark Mode Overrides (Global CSS)
 
 ```css
-/* src/styles/global.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/* src/styles/global.css — continued after @theme block */
 @layer base {
   :root {
     color-scheme: light dark;
@@ -394,10 +379,41 @@ export default {
       --color-danger: #f85149;
     }
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
 }
 ```
 
-**Rule:** Light mode uses the Tailwind config hex values. Dark mode uses CSS variables overridden in `global.css`. This keeps a single source of truth in `tailwind.config.mjs` for light mode, and a single source of truth in `global.css` for dark mode.
+**Rule:** Light mode uses `@theme` values in `global.css`. Dark mode overrides the same CSS variables in `@media (prefers-color-scheme: dark)`. Single source of truth: `src/styles/global.css`.
 
 ---
 
@@ -760,9 +776,10 @@ katalogarkan.github.io/
 │   │   └── KatalogFilter.tsx        # React island
 │   │
 │   ├── content/                     # Content Collections
-│   │   ├── config.ts                # Zod schemas
 │   │   ├── katalog/                 # Project Markdown files
 │   │   └── blog/                    # Article Markdown files
+│   │
+│   ├── content.config.ts            # Zod schemas (Astro 5 API)
 │   │
 │   ├── layouts/                     # Page layouts
 │   │   ├── BaseLayout.astro
@@ -785,7 +802,7 @@ katalogarkan.github.io/
 │   │   └── 404.astro                # /404
 │   │
 │   └── styles/
-│       └── global.css               # Tailwind directives + base styles
+│       └── global.css               # Tailwind 4 @import + @theme + dark mode
 │
 ├── docs/                            # Documentation
 │   ├── README.md                    # Docs index
@@ -794,19 +811,29 @@ katalogarkan.github.io/
 │   ├── content-guide.md
 │   ├── verification-checklist.md
 │   ├── cheatsheets.md
-│   ├── deployment-guide.md
-│   └── CHANGELOG.md
+│   └── deployment-guide.md
+│
+├── screenshots/                     # Architecture diagrams for README
+│   ├── page-structure.png
+│   ├── content-flow.png
+│   └── dark-mode-architecture.png
 │
 ├── astro.config.mjs                 # Astro config (integrations, site)
-├── tailwind.config.mjs              # Tailwind config (colors, font)
 ├── package.json                     # Dependencies + scripts
 ├── tsconfig.json                    # TypeScript config
+├── CHANGELOG.md                     # Single source of truth for changes
 ├── LICENSE                          # MIT
 ├── .gitignore                       # Ignore node_modules, dist, .astro
 └── .github/
     └── workflows/
         └── deploy.yml               # GitHub Pages deploy
 ```
+
+**Notes:**
+- No `tailwind.config.mjs` — Tailwind 4 config lives in `src/styles/global.css` via `@theme`.
+- Content config lives at `src/content.config.ts` (Astro 5+ API), not `src/content/config.ts`.
+- Single `CHANGELOG.md` at repository root (see §27).
+- `docs/` contains planning & reference docs only.
 
 ---
 
@@ -838,13 +865,13 @@ katalogarkan.github.io/
 2. Astro reads all pages + content collections
    │
    ▼
-3. Validates frontmatter against config.ts (Zod)
+3. Validates frontmatter against content.config.ts (Zod)
    │
    ▼
 4. Generates static HTML for each route
    │
    ▼
-5. Bundles CSS (Tailwind) + minimal JS (React island)
+5. Bundles CSS (Tailwind 4 via @tailwindcss/vite) + minimal JS (React island)
    │
    ▼
 6. Outputs to dist/
@@ -861,7 +888,7 @@ For `/katalog/[slug]`:
 export async function getStaticPaths() {
   const projects = await getCollection('katalog');
   return projects.map(project => ({
-    params: { slug: project.slug },
+    params: { slug: project.id },
     props: { project },
   }));
 }
@@ -897,7 +924,7 @@ Same pattern for `/blog/[slug]`.
 | Strategy | CSS `prefers-color-scheme` |
 | Toggle | None |
 | JavaScript | None required |
-| Implementation | Tailwind `darkMode: 'media'` + CSS variables in `global.css` (see §5.10) |
+| Implementation | CSS variables in `global.css` (see §5.10) |
 | Default | Light (if OS has no preference) |
 
 ### 12.3 Mobile Menu
@@ -1070,6 +1097,7 @@ Conventional Commits:
 | `style:` | Formatting |
 | `refactor:` | Code restructure |
 | `chore:` | Config, deps |
+| `content:` | New/updated project or article |
 
 Example: `feat: add katalog filter component`
 
@@ -1125,7 +1153,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install dependencies
@@ -1156,13 +1184,16 @@ jobs:
 ```js
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://katalogarkan.github.io',
-  integrations: [tailwind(), react(), sitemap()],
+  integrations: [react(), sitemap()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
 ```
 
@@ -1175,7 +1206,7 @@ export default defineConfig({
 2. GitHub Actions triggers (deploy.yml)
    │
    ▼
-3. Actions: checkout → setup Node 20 → npm ci → npm run build
+3. Actions: checkout → setup Node 22 → npm ci → npm run build
    │
    ▼
 4. Actions: upload dist/ as artifact
@@ -1223,30 +1254,30 @@ export default defineConfig({
 
 ## 20. Execution Phases
 
-### Phase 1 — Fondasi Proyek
+### Phase 1 — Fondasi Proyek ✅ Complete
 
 **Goal:** Astro project runs locally and deploys to GitHub Pages.
 
-**Prerequisites:** Node.js 20+, Git, GitHub account, repository exists.
+**Prerequisites:** Node.js 22+, Git, GitHub account, repository exists.
 
-| # | Task | File | Verify |
-|---|------|------|--------|
-| 1 | Init project | `npm create astro@latest` | Project folder created |
-| 2 | Install deps | `package.json` | `npm install` succeeds |
-| 3 | Astro config | `astro.config.mjs` | Tailwind + React + sitemap configured |
-| 4 | Tailwind config | `tailwind.config.mjs` | Colors + font configured (see §5.9) |
-| 5 | TypeScript config | `tsconfig.json` | — |
-| 6 | Gitignore | `.gitignore` | `node_modules/`, `dist/`, `.astro/` ignored |
-| 7 | Global CSS | `src/styles/global.css` | Tailwind directives + dark mode variables (see §5.10) |
-| 8 | Base layout | `src/layouts/BaseLayout.astro` | HTML shell, font, meta |
-| 9 | Header placeholder | `src/components/Header.astro` | Renders |
-| 10 | Footer placeholder | `src/components/Footer.astro` | Renders |
-| 11 | Temporary Home | `src/pages/index.astro` | Shows "Hello" |
-| 12 | Content schema | `src/content/config.ts` | Zod schemas defined |
-| 13 | Content folders | `src/content/katalog/`, `src/content/blog/` | Folders exist |
-| 14 | Deploy workflow | `.github/workflows/deploy.yml` | Matches §18.2 exactly |
-| 15 | LICENSE | `LICENSE` | MIT license file present |
-| 16 | Verify | — | `npm run dev`, `npm run build`, push → live |
+| # | Task | File | Status |
+|---|------|------|:---:|
+| 1 | Init project | `package.json` | ✅ |
+| 2 | Install deps (Astro 5, React 18, Tailwind 4) | `package.json` | ✅ |
+| 3 | Astro config | `astro.config.mjs` | ✅ |
+| 4 | Tailwind config via `@theme` (see §5.9) | `src/styles/global.css` | ✅ |
+| 5 | TypeScript config | `tsconfig.json` | ✅ |
+| 6 | Gitignore | `.gitignore` | ✅ |
+| 7 | Global CSS + dark mode variables (see §5.10) | `src/styles/global.css` | ✅ |
+| 8 | Base layout | `src/layouts/BaseLayout.astro` | ✅ |
+| 9 | Header placeholder | `src/components/Header.astro` | ✅ |
+| 10 | Footer placeholder | `src/components/Footer.astro` | ✅ |
+| 11 | Temporary Home | `src/pages/index.astro` | ✅ |
+| 12 | Content schema | `src/content.config.ts` | ✅ |
+| 13 | Content folders | `src/content/katalog/`, `src/content/blog/` | ✅ |
+| 14 | Deploy workflow (see §18.2) | `.github/workflows/deploy.yml` | ✅ |
+| 15 | LICENSE | `LICENSE` | ✅ |
+| 16 | Verify build + deploy | — | ✅ |
 
 **Phase 1 done when:**
 - `npm run dev` shows "Hello" at `localhost:4321`
@@ -1266,7 +1297,7 @@ export default defineConfig({
 |---|------|------|--------|
 | 1 | Finalize Header (9 nav, hamburger) | `Header.astro` | All 9 links work, hamburger on mobile |
 | 2 | Finalize Footer (4 columns) | `Footer.astro` | All 4 columns render |
-| 3 | Finalize design tokens | `tailwind.config.mjs` + `global.css` | Colors match §5.1 + §5.10 |
+| 3 | Verify design tokens | `global.css` | Colors match §5.1 + §5.10 |
 | 4 | Hero section | `index.astro` | Name, tagline, 2 CTAs |
 | 5 | Featured projects | `index.astro` | Empty state hides section |
 | 6 | Skills summary | `index.astro` | Tech badges render |
@@ -1280,6 +1311,7 @@ export default defineConfig({
 - Responsive on mobile, tablet, desktop
 - Dark mode follows OS preference
 - All 9 nav links navigate correctly
+- No `dark:` variants in components (except `prose-invert`)
 
 ---
 
@@ -1407,14 +1439,15 @@ export default defineConfig({
 
 | Issue | Cause | Solution |
 |-------|-------|----------|
-| `npm run dev` fails | Node version or missing deps | Check Node 20+, run `npm install` |
-| Build fails on CI | Node version mismatch | Check `deploy.yml` uses Node 20 |
+| `npm run dev` fails | Node version or missing deps | Check Node 22+, run `npm install` |
+| Build fails on CI | Node version mismatch | Check `deploy.yml` uses Node 22 |
 | GitHub Pages 404 | Repo name wrong or Pages not enabled | Check repo name `katalogarkan.github.io`, enable Pages in Settings |
 | Assets 404 on Pages | `site` missing in `astro.config.mjs` | Set `site: 'https://katalogarkan.github.io'` |
-| Tailwind classes not applied | `content` paths wrong | Check `tailwind.config.mjs` content array |
-| Dark mode not working | `darkMode` or CSS variables not set | Check `darkMode: 'media'` + §5.10 in `global.css` |
+| Tailwind classes not applied | `@import "tailwindcss"` missing | Check `global.css` starts with `@import "tailwindcss"` |
+| Tailwind 4 plugin error | Missing `@tailwindcss/vite` in Vite plugins | Check `astro.config.mjs` `vite.plugins` |
+| Dark mode not working | CSS variables not overridden | Check `@media (prefers-color-scheme: dark)` block in `global.css` |
 | React island not hydrating | Missing directive | Check `client:load` on component |
-| Content collection error | Frontmatter doesn't match schema | Check `config.ts` Zod schema |
+| Content collection error | Frontmatter doesn't match schema | Check `content.config.ts` Zod schema |
 | Formspree not submitting | Endpoint wrong or spam filter | Check endpoint URL, check spam |
 | Font not loading | Missing Google Fonts link | Check `BaseLayout.astro` head |
 
@@ -1454,6 +1487,13 @@ export default defineConfig({
 | 28 | Tailwind dark mode | CSS variables in `global.css` (§5.10) | Avoids hardcoded `dark:` variants everywhere; single source of truth |
 | 29 | License | MIT | Permissive, portfolio-friendly |
 | 30 | Docs location | `docs/` with `README.md` index | Centralized, navigable |
+| 31 | Astro version | Astro 5.x | Current stable; Content Layer API |
+| 32 | Tailwind integration | `@tailwindcss/vite` (not `@astrojs/tailwind`) | Tailwind 4 requires Vite plugin; `@astrojs/tailwind` deprecated |
+| 33 | Tailwind config | CSS-first `@theme` (no `tailwind.config.mjs`) | Tailwind 4 native approach |
+| 34 | Node version | Node 22 in CI | Current LTS; matches local dev |
+| 35 | Content config path | `src/content.config.ts` | Astro 5+ API (moved from `src/content/config.ts`) |
+| 36 | Changelog location | Root `CHANGELOG.md` | Keep a Changelog convention; single source of truth |
+| 37 | Screenshots folder | `screenshots/` at repo root | Used by README architecture diagrams |
 
 ---
 
@@ -1489,6 +1529,8 @@ export default defineConfig({
 | MDX | Markdown + JSX (not used at launch) |
 | Hydration | Process of attaching JS to static HTML |
 | CSS Variables | Custom properties (`--color-*`) used for dark mode overrides |
+| `@theme` | Tailwind 4 CSS directive for defining design tokens |
+| `@tailwindcss/vite` | Vite plugin that compiles Tailwind 4 |
 
 ---
 
@@ -1498,6 +1540,7 @@ export default defineConfig({
 |----------|-----|
 | Astro Docs | https://docs.astro.build |
 | Tailwind Docs | https://tailwindcss.com/docs |
+| Tailwind 4 Theme | https://tailwindcss.com/docs/theme |
 | Astro Content Collections | https://docs.astro.build/en/guides/content-collections/ |
 | Astro GitHub Pages | https://docs.astro.build/en/guides/deploy/github/ |
 | Astro React Integration | https://docs.astro.build/en/guides/integrations-guide/react/ |
@@ -1505,6 +1548,17 @@ export default defineConfig({
 | Inter Font | https://fonts.google.com/specimen/Inter |
 | GitHub Pages | https://pages.github.com |
 | Conventional Commits | https://www.conventionalcommits.org |
+
+---
+
+## 27. Change Log
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.2.0 | 2026-11-04 | Rewrite for consistency after Phase 1: Astro 5 + Tailwind 4 (`@tailwindcss/vite`, `@theme`), Node 22, `src/content.config.ts`, no `tailwind.config.mjs`, single root `CHANGELOG.md`, decisions #31–37 added, Phase 1 marked complete. |
+| 1.1.0 | 2026-10-26 | Dark mode via CSS variables; explicit deploy workflow; added GitHub Pages settings, LICENSE, `docs/README.md`; decisions #27–30. |
+| 1.0.1 | 2026-10-26 | Initial planning split into Document Version vs Project Version. |
+| 1.0.0 | 2026-10-26 | Initial blueprint. |
 
 ---
 

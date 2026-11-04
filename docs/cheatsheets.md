@@ -6,128 +6,105 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.1.0 |
-| Project Version | 0.0.1 (Planning) |
-| Last Updated | 2026-10-26 |
-| Status | Approved — Source of Truth |
+| Document Version | 1.2.0 |
+| Project Version | 0.1.0 (Phase 1 Complete) |
+| Last Updated | 2026-11-04 |
+| Status | Approved — Quick Reference |
 | Project | Personal branding & katalog website |
 | Owner | Arkan (Full Stack Web Developer) |
-| Related | `blueprint.md`, `design-system.md`, `content-guide.md`, `verification-checklist.md` |
-| Purpose | Quick reference for daily development |
-| Framework | Astro + Tailwind CSS |
-| Hosting | GitHub Pages |
+| Related | `blueprint.md`, `design-system.md`, `deployment-guide.md`, `content-guide.md` |
+| Framework | Astro 5 + Tailwind CSS 4 |
+| Node Version | 22 |
 
 ---
 
 ## Table of Contents
 
-1. [Quick Start](#1-quick-start)
-2. [Project Commands](#2-project-commands)
+1. [Purpose](#1-purpose)
+2. [Daily Commands](#2-daily-commands)
 3. [File Paths](#3-file-paths)
-4. [Content Commands](#4-content-commands)
-5. [Git Commands](#5-git-commands)
-6. [Deploy Commands](#6-deploy-commands)
-7. [Tailwind Quick Reference](#7-tailwind-quick-reference)
-8. [Astro Quick Reference](#8-astro-quick-reference)
-9. [Content Schema Quick Reference](#9-content-schema-quick-reference)
-10. [Common Patterns](#10-common-patterns)
-11. [Environment](#11-environment)
-12. [URLs](#12-urls)
+4. [Astro Cheatsheet](#4-astro-cheatsheet)
+5. [Tailwind 4 Cheatsheet](#5-tailwind-4-cheatsheet)
+6. [Git & Deploy](#6-git--deploy)
+7. [Design Tokens](#7-design-tokens)
+8. [Component Patterns](#8-component-patterns)
+9. [Content Cheatsheet](#9-content-cheatsheet)
+10. [SEO & Meta](#10-seo--meta)
+11. [Accessibility](#11-accessibility)
+12. [Performance](#12-performance)
 13. [Troubleshooting](#13-troubleshooting)
-14. [One-Liners](#14-one-liners)
-15. [Documentation Links](#15-documentation-links)
+14. [Decision Quick Reference](#14-decision-quick-reference)
+15. [Links](#15-links)
 16. [Change Log](#16-change-log)
 
 ---
 
-## 1. Quick Start
+## 1. Purpose
 
-### 1.1 First Time Setup
+### 1.1 What This Document Is
 
-```bash
-# 1. Clone repo
-git clone https://github.com/katalogarkan/katalogarkan.github.io.git
-cd katalogarkan.github.io
+A one-stop quick reference for daily development on the katalogarkan project. Copy-paste commands, file paths, component patterns, and troubleshooting — no long explanations.
 
-# 2. Install dependencies
-npm install
+### 1.2 When to Use
 
-# 3. Start dev server
-npm run dev
+| Situation | Section |
+|-----------|---------|
+| Starting dev server | §2 Daily Commands |
+| Forgot where a file lives | §3 File Paths |
+| Writing an Astro component | §4 Astro Cheatsheet |
+| Writing Tailwind classes | §5 Tailwind 4 Cheatsheet |
+| Committing / deploying | §6 Git & Deploy |
+| Picking a color / spacing | §7 Design Tokens |
+| Building a card / button | §8 Component Patterns |
+| Adding a project / article | §9 Content Cheatsheet |
+| Adding meta tags | §10 SEO & Meta |
+| Checking accessibility | §11 Accessibility |
+| Checking performance | §12 Performance |
+| Something broken | §13 Troubleshooting |
+| "Why did we choose X?" | §14 Decision Quick Reference |
 
-# 4. Open browser
-# http://localhost:4321
-```
+### 1.3 Rule
 
-### 1.2 Daily Workflow
-
-```bash
-# 1. Pull latest
-git pull origin main
-
-# 2. Start dev server
-npm run dev
-
-# 3. Edit files (Astro auto-reloads)
-
-# 4. Test at http://localhost:4321
-
-# 5. Build to verify
-npm run build
-
-# 6. Commit + push
-git add .
-git commit -m "feat: add new project"
-git push origin main
-
-# 7. Wait 1–2 min for GitHub Actions
-# 8. Verify at https://katalogarkan.github.io
-```
+If this document conflicts with `blueprint.md` or `design-system.md`, those documents win. This is a shortcut, not a source of truth.
 
 ---
 
-## 2. Project Commands
+## 2. Daily Commands
 
-### 2.1 NPM Scripts
-
-| Command | Purpose |
-|---------|---------|
-| `npm install` | Install dependencies |
-| `npm run dev` | Start dev server (localhost:4321) |
-| `npm run build` | Build for production (outputs to `dist/`) |
-| `npm run preview` | Preview production build locally |
-| `npm run astro` | Run Astro CLI commands |
-
-### 2.2 Astro CLI
-
-| Command | Purpose |
-|---------|---------|
-| `npx astro add react` | Add React integration |
-| `npx astro add tailwind` | Add Tailwind integration |
-| `npx astro add sitemap` | Add sitemap integration |
-| `npx astro check` | Type-check project |
-| `npx astro --help` | Show all commands |
-
-### 2.3 Dependency Management
+### 2.1 Development
 
 ```bash
-# Install a new package
-npm install package-name
+# Install dependencies
+npm install
 
-# Install as dev dependency
-npm install -D package-name
+# Start dev server (http://localhost:4321)
+npm run dev
 
-# Update all packages
-npm update
+# Build for production (outputs to dist/)
+npm run build
 
-# Check outdated packages
-npm outdated
+# Preview production build locally
+npm run preview
 
-# Audit for vulnerabilities
-npm audit
+# Type check (if configured)
+npx astro check
+```
 
-# Fix vulnerabilities
-npm audit fix
+### 2.2 Cleanup
+
+```bash
+# Remove node_modules + lockfile, reinstall
+rm -rf node_modules package-lock.json && npm install
+
+# Remove build output + Astro cache
+rm -rf dist .astro
+```
+
+### 2.3 Windows Notes
+
+```powershell
+# PowerShell equivalent
+Remove-Item -Recurse -Force node_modules, dist, .astro
 ```
 
 ---
@@ -136,52 +113,52 @@ npm audit fix
 
 ### 3.1 Key Files
 
-| File | Path |
-|------|------|
-| Home page | `src/pages/index.astro` |
-| About page | `src/pages/about.astro` |
-| Skills page | `src/pages/skills.astro` |
-| Katalog page | `src/pages/katalog.astro` |
-| Katalog detail | `src/pages/katalog/[slug].astro` |
-| Services page | `src/pages/services.astro` |
-| Blog page | `src/pages/blog.astro` |
-| Blog detail | `src/pages/blog/[slug].astro` |
-| Resources page | `src/pages/resources.astro` |
-| Testimonials page | `src/pages/testimonials.astro` |
-| Contact page | `src/pages/contact.astro` |
-| 404 page | `src/pages/404.astro` |
+| Purpose | Path |
+|---------|------|
+| Astro config | `astro.config.mjs` |
+| Global CSS + Tailwind theme | `src/styles/global.css` |
+| Content schema (Zod) | `src/content.config.ts` |
 | Base layout | `src/layouts/BaseLayout.astro` |
-| Post layout | `src/layouts/PostLayout.astro` |
+| Post layout (blog/katalog detail) | `src/layouts/PostLayout.astro` |
 | Header | `src/components/Header.astro` |
 | Footer | `src/components/Footer.astro` |
 | Project card | `src/components/ProjectCard.astro` |
 | Blog card | `src/components/BlogCard.astro` |
 | Skill badge | `src/components/SkillBadge.astro` |
-| Katalog filter | `src/components/KatalogFilter.tsx` |
-| Content schema | `src/content/config.ts` |
-| Global CSS | `src/styles/global.css` |
-| Astro config | `astro.config.mjs` |
-| Tailwind config | `tailwind.config.mjs` |
-| TypeScript config | `tsconfig.json` |
-| Package manifest | `package.json` |
+| Katalog filter (React) | `src/components/KatalogFilter.tsx` |
+| Home page | `src/pages/index.astro` |
+| Katalog list | `src/pages/katalog.astro` |
+| Katalog detail | `src/pages/katalog/[slug].astro` |
+| Blog list | `src/pages/blog.astro` |
+| Blog detail | `src/pages/blog/[slug].astro` |
+| 404 page | `src/pages/404.astro` |
 | Deploy workflow | `.github/workflows/deploy.yml` |
+| Changelog | `CHANGELOG.md` |
 | License | `LICENSE` |
 
 ### 3.2 Content Folders
 
-| Folder | Purpose |
-|--------|---------|
-| `src/content/katalog/` | Project Markdown files |
-| `src/content/blog/` | Article Markdown files |
-| `public/images/projects/` | Project thumbnails |
-| `public/images/blog/` | Blog cover images |
-| `public/images/` | Avatar, OG image |
-| `public/` | Favicon, robots.txt, cv.pdf |
+| Content | Path | URL |
+|---------|------|-----|
+| Projects | `src/content/katalog/{slug}.md` | `/katalog/{slug}` |
+| Articles | `src/content/blog/{slug}.md` | `/blog/{slug}` |
 
-### 3.3 Docs
+### 3.3 Asset Folders
 
-| File | Path |
-|------|------|
+| Asset | Path | Reference |
+|-------|------|-----------|
+| Project thumbnails | `public/images/projects/` | `/images/projects/{name}.png` |
+| Blog covers | `public/images/blog/` | `/images/blog/{name}.png` |
+| Avatar | `public/images/avatar.png` | `/images/avatar.png` |
+| OG image | `public/images/og-default.png` | `/images/og-default.png` |
+| CV | `public/cv.pdf` | `/cv.pdf` |
+| Favicon | `public/favicon.svg` | `/favicon.svg` |
+| Robots | `public/robots.txt` | `/robots.txt` |
+
+### 3.4 Docs Folder
+
+| Document | Path |
+|----------|------|
 | Docs index | `docs/README.md` |
 | Blueprint | `docs/blueprint.md` |
 | Design system | `docs/design-system.md` |
@@ -189,293 +166,379 @@ npm audit fix
 | Verification checklist | `docs/verification-checklist.md` |
 | Cheatsheets | `docs/cheatsheets.md` |
 | Deployment guide | `docs/deployment-guide.md` |
-| Changelog | `docs/CHANGELOG.md` |
+
+**Note:** Changelog lives at root (`CHANGELOG.md`), not in `docs/`.
 
 ---
 
-## 4. Content Commands
+## 4. Astro Cheatsheet
 
-### 4.1 Add New Project
+### 4.1 Component Structure
 
-```bash
-# 1. Create file
-touch src/content/katalog/my-project.md
+```astro
+---
+// Component script (runs at build time)
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Default" } = Astro.props;
+---
 
-# 2. Edit frontmatter (see content-guide.md §3.2)
+<!-- Template -->
+<article>
+  <h2>{title}</h2>
+  {description && <p>{description}</p>}
+</article>
 
-# 3. Add thumbnail
-# Place at public/images/projects/my-project.png
+<style>
+  /* Scoped CSS */
+</style>
 
-# 4. Preview
-npm run dev
-# Open http://localhost:4321/katalog
-
-# 5. Build to validate
-npm run build
-
-# 6. Commit + push
-git add .
-git commit -m "feat: add my-project"
-git push
+<script>
+  // Client-side JS (runs in browser)
+</script>
 ```
 
-### 4.2 Add New Article
+### 4.2 Frontmatter
 
-```bash
-# 1. Create file
-touch src/content/blog/my-article.md
+| Syntax | Purpose |
+|--------|---------|
+| `---` ... `---` | Component script block |
+| `Astro.props` | Access props |
+| `Astro.url` | Current URL |
+| `Astro.params` | Dynamic route params |
+| `Astro.request` | Request object |
 
-# 2. Edit frontmatter (see content-guide.md §4.2)
-# Start with draft: true
+### 4.3 Directives
 
-# 3. Add cover image (optional)
-# Place at public/images/blog/my-article.png
+| Directive | Purpose |
+|-----------|---------|
+| `client:load` | Hydrate immediately (React island) |
+| `client:idle` | Hydrate when browser idle |
+| `client:visible` | Hydrate when visible |
+| `client:only="react"` | Skip SSR, client only |
+| `is:global` | Global CSS (in `<style>`) |
+| `set:html` | Render raw HTML |
+| `class:list` | Conditional classes |
 
-# 4. Preview
-npm run dev
-# Open http://localhost:4321/blog
+### 4.4 Content Collections
 
-# 5. When ready, set draft: false
+```js
+// src/pages/katalog/[slug].astro
+import { getCollection } from 'astro:content';
 
-# 6. Build to validate
-npm run build
+export async function getStaticPaths() {
+  const projects = await getCollection('katalog');
+  return projects.map(project => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
 
-# 7. Commit + push
-git add .
-git commit -m "content: add my-article"
-git push
+const { project } = Astro.props;
+const { Content } = await project.render();
 ```
 
-### 4.3 Validate All Content
+| Function | Purpose |
+|----------|---------|
+| `getCollection('katalog')` | All projects |
+| `getCollection('blog', ({ data }) => !data.draft)` | Published articles only |
+| `getEntry('katalog', 'slug')` | Single entry |
+| `entry.render()` | Render Markdown body |
+| `entry.id` | Slug (from filename) |
+| `entry.data` | Validated frontmatter |
 
-```bash
-# Build validates all frontmatter against Zod schema
-npm run build
+### 4.5 Layouts
 
-# If errors, check terminal output
-# Fix frontmatter and rebuild
+```astro
+---
+// src/layouts/BaseLayout.astro
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Arkan — Full Stack Web Developer" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only ...">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
 ```
 
-### 4.4 List All Content
+### 4.6 Gotchas
 
-```bash
-# List projects
-ls src/content/katalog/
-
-# List articles
-ls src/content/blog/
-
-# Count projects
-ls src/content/katalog/ | wc -l
-
-# Count articles
-ls src/content/blog/ | wc -l
-```
+| Issue | Fix |
+|-------|-----|
+| `Astro.props` undefined | Destructure in frontmatter |
+| `getCollection` not found | Import from `astro:content` |
+| Content not rendering | Call `await entry.render()` |
+| `content.config.ts` not found | Must be at `src/content.config.ts` (not `src/content/config.ts`) |
+| Image 404 | Use `/images/...` (absolute), not `./images/...` |
 
 ---
 
-## 5. Git Commands
+## 5. Tailwind 4 Cheatsheet
 
-### 5.1 Daily Commands
+### 5.1 Setup (Already Done)
 
-```bash
-# Check status
-git status
+```css
+/* src/styles/global.css */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-# Stage all changes
-git add .
-
-# Stage specific file
-git add src/pages/index.astro
-
-# Commit
-git commit -m "feat: add hero section"
-
-# Push
-git push origin main
-
-# Pull latest
-git pull origin main
+@theme {
+  --color-primary: #0969da;
+  /* ... */
+}
 ```
 
-### 5.2 Commit Convention
+```js
+// astro.config.mjs
+import tailwindcss from '@tailwindcss/vite';
 
-| Type | Usage | Example |
-|------|-------|---------|
-| `feat:` | New feature | `feat: add katalog filter` |
-| `fix:` | Bug fix | `fix: correct dark mode colors` |
-| `docs:` | Documentation | `docs: update content guide` |
-| `style:` | Formatting | `style: format header component` |
-| `refactor:` | Restructure | `refactor: extract card component` |
-| `chore:` | Config, deps | `chore: update tailwind config` |
-| `content:` | New/updated content | `content: add portfolio-v2 project` |
-
-### 5.3 Branch Commands (Optional)
-
-```bash
-# Create feature branch
-git checkout -b feat/katalog-filter
-
-# Switch back to main
-git checkout main
-
-# Merge feature branch
-git merge feat/katalog-filter
-
-# Delete feature branch
-git branch -d feat/katalog-filter
+export default defineConfig({
+  vite: { plugins: [tailwindcss()] },
+});
 ```
 
-### 5.4 Undo Commands
+**No `tailwind.config.mjs`. No `@astrojs/tailwind`.**
 
-```bash
-# Undo unstaged changes to a file
-git checkout -- src/pages/index.astro
+### 5.2 Token Classes
 
-# Undo staged changes
-git reset HEAD src/pages/index.astro
+| Class | Resolves To |
+|-------|-------------|
+| `bg-bg` | `var(--color-bg)` |
+| `bg-bg-subtle` | `var(--color-bg-subtle)` |
+| `text-text` | `var(--color-text)` |
+| `text-text-muted` | `var(--color-text-muted)` |
+| `text-primary` | `var(--color-primary)` |
+| `bg-primary` | `var(--color-primary)` |
+| `hover:bg-primary-hover` | `var(--color-primary-hover)` |
+| `border-border` | `var(--color-border)` |
+| `text-success` | `var(--color-success)` |
+| `text-warning` | `var(--color-warning)` |
+| `text-danger` | `var(--color-danger)` |
 
-# Undo last commit (keep changes)
-git reset --soft HEAD~1
+### 5.3 Dark Mode
 
-# Undo last commit (discard changes)
-git reset --hard HEAD~1
+| Rule | Example |
+|------|---------|
+| ✅ Correct — automatic | `class="bg-bg-subtle text-text"` |
+| ❌ Wrong — hardcoded | `class="bg-white dark:bg-gray-900"` |
+| ✅ Allowed exception | `class="prose dark:prose-invert"` |
 
-# View commit history
-git log --oneline -10
-```
+**No `dark:` prefix.** CSS variables handle it.
 
----
-
-## 6. Deploy Commands
-
-### 6.1 Deploy to GitHub Pages
-
-```bash
-# 1. Commit changes
-git add .
-git commit -m "feat: add new content"
-
-# 2. Push to main
-git push origin main
-
-# 3. GitHub Actions auto-deploys
-# Wait 1–2 minutes
-
-# 4. Verify
-# Open https://katalogarkan.github.io
-```
-
-### 6.2 Check Deploy Status
-
-```bash
-# Open GitHub Actions
-# https://github.com/katalogarkan/katalogarkan.github.io/actions
-
-# Or via CLI (if gh installed)
-gh run list
-gh run view
-```
-
-### 6.3 Manual Deploy (Force)
-
-```bash
-# If Actions fails, trigger manually
-git commit --allow-empty -m "chore: trigger deploy"
-git push origin main
-```
-
-### 6.4 Rollback
-
-```bash
-# Revert to previous commit
-git revert HEAD
-git push origin main
-
-# Or reset to specific commit (destructive)
-git reset --hard <commit-hash>
-git push --force origin main
-```
-
----
-
-## 7. Tailwind Quick Reference
-
-### 7.1 Color Classes
-
-| Class | Resolves To (Light) | Resolves To (Dark) |
-|-------|---------------------|---------------------|
-| `text-primary` | `#0969da` | `#58a6ff` |
-| `bg-primary` | `#0969da` | `#58a6ff` |
-| `bg-bg` | `#ffffff` | `#0d1117` |
-| `bg-bg-subtle` | `#f6f8fa` | `#161b22` |
-| `text-text` | `#1f2328` | `#e6edf3` |
-| `text-text-muted` | `#656d76` | `#8b949e` |
-| `border-border` | `#d0d7de` | `#30363d` |
-
-**Note:** These classes use CSS variables (`var(--color-*)`) from `global.css`. Dark mode is automatic — no `dark:` prefix needed. See `design-system.md` §9 and §19.
-
-### 7.2 Dark Mode
-
-```html
-<!-- Correct: token classes, dark mode automatic -->
-<div class="bg-bg-subtle border border-border">
-<p class="text-text">
-<p class="text-text-muted">
-
-<!-- Wrong: hardcoded dark variant -->
-<div class="bg-white dark:bg-gray-900">
-```
-
-**Exception:** `prose dark:prose-invert` for Markdown content (typography plugin does not read CSS variables).
-
-### 7.3 Spacing
-
-| Class | Value |
-|-------|-------|
-| `p-1` / `m-1` / `gap-1` | 4px |
-| `p-2` / `m-2` / `gap-2` | 8px |
-| `p-4` / `m-4` / `gap-4` | 16px |
-| `p-6` / `m-6` / `gap-6` | 24px |
-| `p-8` / `m-8` / `gap-8` | 32px |
-| `p-12` / `m-12` / `gap-12` | 48px |
-| `p-16` / `m-16` / `gap-16` | 64px |
-
-### 7.4 Responsive
-
-```html
-<!-- Mobile first -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-<nav class="hidden md:flex">
-<button class="md:hidden">
-```
-
-### 7.5 Common Patterns
+### 5.4 Common Patterns
 
 ```html
 <!-- Container -->
 <div class="max-w-6xl mx-auto px-4 md:px-8">
 
-<!-- Card -->
-<div class="bg-bg-subtle border border-border rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+<!-- Or the utility -->
+<div class="container-page">
 
-<!-- Button primary -->
-<button class="bg-primary text-white font-medium px-4 py-2 rounded-md hover:bg-primary-hover focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-colors">
-
-<!-- Badge -->
-<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+<!-- Grid: 1 col mobile, 2 tablet, 3 desktop -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
 <!-- Section -->
 <section class="py-12 md:py-16">
-  <div class="max-w-6xl mx-auto px-4 md:px-8">
+  <div class="container-page">
     <h2 class="text-2xl font-bold mb-8">Title</h2>
   </div>
 </section>
+
+<!-- Card -->
+<div class="bg-bg-subtle border border-border rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+
+<!-- Button -->
+<button class="bg-primary text-white font-medium px-4 py-2 rounded-md hover:bg-primary-hover focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-colors">
+
+<!-- Text -->
+<p class="text-text-muted text-sm">Secondary text</p>
+
+<!-- Link -->
+<a class="text-primary underline hover:text-primary-hover" href="/katalog">Katalog</a>
+
+<!-- Badge -->
+<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">Astro</span>
+
+<!-- Prose (Markdown body) -->
+<article class="prose dark:prose-invert max-w-none">
 ```
+
+### 5.5 Spacing Shortcuts
+
+| Tailwind | Value |
+|----------|-------|
+| `p-1` `m-1` `gap-1` | 4px |
+| `p-2` `m-2` `gap-2` | 8px |
+| `p-4` `m-4` `gap-4` | 16px |
+| `p-6` `m-6` `gap-6` | 24px |
+| `p-8` `m-8` `gap-8` | 32px |
+| `p-12` `m-12` `gap-12` | 48px |
+| `p-16` `m-16` `gap-16` | 64px |
+
+### 5.6 Gotchas
+
+| Issue | Fix |
+|-------|-----|
+| Classes not applied | Check `@import "tailwindcss"` at top of `global.css` |
+| `@theme` not working | Must be before `@layer base` |
+| `border-border` not working | Ensure `--color-border` is in `@theme` |
+| Dark mode not switching | Check `@media (prefers-color-scheme: dark)` block |
+| `prose` not styled | Add `@plugin "@tailwindcss/typography"` |
+| Arbitrary value fails | Use `bg-[var(--color-primary)]` or token class |
 
 ---
 
-## 8. Astro Quick Reference
+## 6. Git & Deploy
+
+### 6.1 Commit Convention
+
+| Type | Usage | Example |
+|------|-------|---------|
+| `feat:` | New feature | `feat: add katalog filter` |
+| `fix:` | Bug fix | `fix: correct nav link` |
+| `docs:` | Documentation | `docs: update blueprint` |
+| `style:` | Formatting | `style: format header` |
+| `refactor:` | Code restructure | `refactor: extract card` |
+| `chore:` | Config, deps | `chore: bump astro` |
+| `content:` | New/updated content | `content: add project X` |
+
+### 6.2 Commit Flow
+
+```bash
+# Check status
+git status
+
+# Stage all
+git add .
+
+# Commit
+git commit -m "feat: add katalog filter"
+
+# Push (triggers deploy)
+git push origin main
+```
+
+### 6.3 Deploy
+
+| Step | Command |
+|------|---------|
+| Build locally | `npm run build` |
+| Commit + push | `git add . && git commit -m "..." && git push origin main` |
+| Watch Actions | https://github.com/katalogarkan/katalogarkan.github.io/actions |
+| Verify live | https://katalogarkan.github.io |
+
+### 6.4 Rollback
+
+```bash
+# Find commit
+git log --oneline -10
+
+# Revert (safe)
+git revert <commit-hash>
+git push origin main
+
+# Reset (destructive)
+git reset --hard <commit-hash>
+git push --force origin main
+```
+
+### 6.5 Workflow File
+
+Must match `blueprint.md` §18.2 / `deployment-guide.md` §5.2 exactly. Key points:
+
+- Node 22
+- `npm ci` (not `npm install`)
+- Upload `./dist`
+- Deploy via `actions/deploy-pages@v4`
+
+---
+
+## 7. Design Tokens
+
+### 7.1 Colors
+
+| Token | Light | Dark | Classes |
+|-------|-------|------|---------|
+| `primary` | `#0969da` | `#58a6ff` | `text-primary` `bg-primary` `border-primary` |
+| `primary-hover` | `#0550ae` | `#79c0ff` | `hover:bg-primary-hover` `hover:text-primary-hover` |
+| `bg` | `#ffffff` | `#0d1117` | `bg-bg` |
+| `bg-subtle` | `#f6f8fa` | `#161b22` | `bg-bg-subtle` |
+| `text` | `#1f2328` | `#e6edf3` | `text-text` |
+| `text-muted` | `#656d76` | `#8b949e` | `text-text-muted` |
+| `border` | `#d0d7de` | `#30363d` | `border-border` |
+| `success` | `#1a7f37` | `#3fb950` | `text-success` |
+| `warning` | `#9a6700` | `#d29922` | `text-warning` |
+| `danger` | `#cf222e` | `#f85149` | `text-danger` |
+
+All tokens are CSS variables in `@theme`. Dark mode overrides them automatically.
+
+### 7.2 Typography
+
+| Element | Size | Class |
+|---------|------|-------|
+| Hero | 60px | `text-6xl font-bold` |
+| H1 | 36px | `text-4xl font-bold` |
+| H2 | 24px | `text-2xl font-bold` |
+| H3 | 20px | `text-xl font-bold` |
+| H4 | 18px | `text-lg font-bold` |
+| Body | 16px | `text-base` |
+| Small | 14px | `text-sm` |
+| Badge | 12px | `text-xs` |
+
+### 7.3 Radius
+
+| Class | Value | Usage |
+|-------|-------|-------|
+| `rounded-sm` | 4px | Badges |
+| `rounded-md` | 8px | Buttons, inputs |
+| `rounded-lg` | 12px | Cards |
+| `rounded-full` | 9999px | Avatars, pills |
+
+### 7.4 Shadow
+
+| Class | Usage |
+|-------|-------|
+| `shadow-sm` | Header, button default |
+| `shadow-md` | Card default |
+| `shadow-lg` | Card hover, dropdown |
+
+### 7.5 Breakpoints
+
+| Prefix | Min width | Target |
+|--------|-----------|--------|
+| (none) | 0 | Mobile |
+| `sm:` | 640px | Large phone |
+| `md:` | 768px | Tablet |
+| `lg:` | 1024px | Small laptop |
+| `xl:` | 1280px | Desktop |
+| `2xl:` | 1536px | Large desktop |
+
+---
+
+## 8. Component Patterns
 
 ### 8.1 Page Template
 
@@ -483,263 +546,338 @@ git push --force origin main
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const title = 'Page Title';
-const description = 'Page description.';
+const title = "Page Title";
+const description = "Page description.";
 ---
 
-<BaseLayout title={title} description={description}>
-  <h1>{title}</h1>
-  <p>{description}</p>
+<BaseLayout {title} {description}>
+  <section class="py-12 md:py-16">
+    <div class="container-page">
+      <h1 class="text-4xl font-bold mb-4">{title}</h1>
+      <p class="text-text-muted text-lg">{description}</p>
+      <!-- content -->
+    </div>
+  </section>
 </BaseLayout>
 ```
 
-### 8.2 Content Collection Query
+### 8.2 Card Grid Page
 
 ```astro
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-// Get all projects
-const projects = await getCollection('katalog');
-
-// Get featured only
-const featured = await getCollection('katalog', ({ data }) => data.featured === true);
-
-// Get published blog (not draft)
-const posts = await getCollection('blog', ({ data }) => data.draft !== true);
-
-// Sort by date
-const sorted = projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const items = await getCollection('katalog');
 ---
+
+<BaseLayout title="Katalog" description="Projects built by Arkan.">
+  <section class="py-12 md:py-16">
+    <div class="container-page">
+      <h1 class="text-4xl font-bold mb-8">Katalog</h1>
+      {items.length === 0 ? (
+        <p class="text-text-muted">No projects yet — coming soon.</p>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {items.map(item => <ProjectCard {...item.data} slug={item.id} />)}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
 ```
 
-### 8.3 Dynamic Route
+### 8.3 Dynamic Detail Page
 
 ```astro
 ---
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('katalog');
-  return projects.map(project => ({
-    params: { slug: project.slug },
-    props: { project },
+  const items = await getCollection('katalog');
+  return items.map(item => ({
+    params: { slug: item.id },
+    props: { item },
   }));
 }
 
-const { project } = Astro.props;
-const { Content } = await project.render();
+const { item } = Astro.props;
+const { Content } = await item.render();
 ---
 
-<h1>{project.data.title}</h1>
-<Content />
+<BaseLayout title={item.data.title} description={item.data.description}>
+  <article class="py-12 md:py-16">
+    <div class="container-page max-w-prose">
+      <h1 class="text-4xl font-bold mb-4">{item.data.title}</h1>
+      <p class="text-text-muted mb-8">{item.data.description}</p>
+      <div class="prose dark:prose-invert max-w-none">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
 ```
 
 ### 8.4 React Island
 
+```tsx
+// src/components/KatalogFilter.tsx
+import { useState } from 'react';
+
+interface Project {
+  title: string;
+  category: string;
+  techStack: string[];
+  date: string;
+}
+
+export default function KatalogFilter({ projects }: { projects: Project[] }) {
+  const [category, setCategory] = useState<string>('all');
+  const [search, setSearch] = useState<string>('');
+  const [sort, setSort] = useState<string>('newest');
+
+  const filtered = projects
+    .filter(p => category === 'all' || p.category === category)
+    .filter(p => p.title.toLowerCase().includes(search.toLowerCase()))
+    .sort((a, b) => sort === 'newest'
+      ? new Date(b.date).getTime() - new Date(a.date).getTime()
+      : new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        placeholder="Search..."
+        className="w-full px-3 py-2 rounded-md border border-border bg-bg text-text"
+      />
+      {/* select category, select sort, grid of filtered */}
+    </div>
+  );
+}
+```
+
 ```astro
----
-import KatalogFilter from '../components/KatalogFilter.tsx';
-import { getCollection } from 'astro:content';
-
-const projects = await getCollection('katalog');
----
-
+<!-- Usage in .astro -->
 <KatalogFilter projects={projects} client:load />
 ```
 
-### 8.5 Hydration Directives
+### 8.5 Mobile Menu Toggle
 
-| Directive | When to Use |
-|-----------|-------------|
-| `client:load` | Immediately (filter) |
-| `client:idle` | After page load |
-| `client:visible` | When scrolled into view |
-| `client:only="react"` | Skip SSR (React-only) — requires framework name |
+```astro
+<!-- Header.astro -->
+<button
+  id="menu-toggle"
+  aria-label="Open menu"
+  aria-expanded="false"
+  aria-controls="mobile-menu"
+  class="md:hidden"
+>
+  <svg class="w-6 h-6" aria-hidden="true">...</svg>
+</button>
+
+<nav id="mobile-menu" class="hidden md:hidden">
+  <!-- links -->
+</nav>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    menu?.classList.toggle('hidden');
+  });
+</script>
+```
 
 ---
 
-## 9. Content Schema Quick Reference
+## 9. Content Cheatsheet
 
 ### 9.1 Katalog Frontmatter
 
 ```yaml
 ---
 title: "Project Name"
-description: "Short description (≤160 chars)."
-techStack: ["Astro", "Tailwind"]
-thumbnail: "/images/projects/project.png"
+description: "Short description (20–160 chars)."
+techStack: ["Astro", "Tailwind CSS", "TypeScript"]
+thumbnail: "/images/projects/project-name.png"
 demoUrl: "https://example.com"
-repoUrl: "https://github.com/katalogarkan/project"
+repoUrl: "https://github.com/katalogarkan/project-name"
 category: "web-app"
 featured: true
-date: 2026-10-01
+date: 2026-11-01
 ---
 ```
 
-**Required:** `title`, `description`, `techStack`, `thumbnail`, `category`, `date`
-**Optional:** `demoUrl`, `repoUrl`, `featured`
-**Category values:** `web-app` / `landing-page` / `api` / `mobile`
+**Categories:** `web-app` | `landing-page` | `api` | `mobile`
 
 ### 9.2 Blog Frontmatter
 
 ```yaml
 ---
 title: "Article Title"
-date: 2026-10-01
-description: "Short summary (≤160 chars)."
+date: 2026-11-04
+description: "Short summary (20–160 chars)."
 category: "tutorial"
 tags: ["astro", "tailwind"]
 draft: false
-coverImage: "/images/blog/article.png"
+coverImage: "/images/blog/article-title.png"
 ---
 ```
 
-**Required:** `title`, `date`, `description`, `category`
-**Optional:** `tags`, `draft`, `coverImage`
-**Category values:** `tutorial` / `tips` / `notes`
+**Categories:** `tutorial` | `tips` | `notes`
 
-### 9.3 Date Format
+### 9.3 File Naming
 
-Always `YYYY-MM-DD`:
-- ✅ `2026-10-01`
-- ❌ `10/01/2026`
-- ❌ `October 1, 2026`
-
----
-
-## 10. Common Patterns
-
-### 10.1 New Page
-
-```bash
-# 1. Create file
-touch src/pages/my-page.astro
-
-# 2. Add content
-# See §8.1
-
-# 3. Add to nav (if needed)
-# Edit src/components/Header.astro
-
-# 4. Test
-npm run dev
-```
-
-### 10.2 New Component
-
-```bash
-# 1. Create file
-touch src/components/MyComponent.astro
-
-# 2. Add content
-# Use props, no React
-
-# 3. Import in page
-# import MyComponent from '../components/MyComponent.astro';
-```
-
-### 10.3 New React Island
-
-```bash
-# 1. Create file
-touch src/components/MyIsland.tsx
-
-# 2. Add React component
-# Use useState, useEffect, etc.
-
-# 3. Import with client directive
-# <MyIsland client:load />
-```
-
-### 10.4 Add Image
-
-```bash
-# 1. Place in public/images/
-cp ~/Downloads/my-image.png public/images/projects/my-image.png
-
-# 2. Reference in frontmatter
-# thumbnail: "/images/projects/my-image.png"
-
-# 3. Or in Markdown
-# ![Alt text](/images/projects/my-image.png)
-```
-
----
-
-## 11. Environment
-
-### 11.1 Versions
-
-| Tool | Version |
+| Rule | Example |
 |------|---------|
-| Node.js | 20+ |
-| npm | 10+ |
-| Astro | latest |
-| Tailwind | latest |
+| lowercase | `my-project.md` |
+| hyphen-separated | `astro-tailwind-guide.md` |
+| no spaces / underscores | ❌ `my project.md`, `my_project.md` |
+| slug = filename | `my-project.md` → `/katalog/my-project` |
 
-### 11.2 Check Versions
+### 9.4 Add Content Checklist
 
-```bash
-node --version
-npm --version
-npx astro --version
-```
+| # | Step |
+|---|------|
+| 1 | Create `src/content/{collection}/{slug}.md` |
+| 2 | Fill frontmatter (all required fields) |
+| 3 | Write body (Markdown) |
+| 4 | Add image to `public/images/{collection}/{slug}.png` |
+| 5 | Run `npm run build` (validates schema) |
+| 6 | Preview `npm run dev` |
+| 7 | Commit + push |
 
-### 11.3 Environment Variables
+### 9.5 Common Validation Errors
 
-**None required at launch.** Formspree endpoint is hardcoded in `contact.astro` (public, safe).
+| Error | Fix |
+|-------|-----|
+| `title` required | Add `title:` |
+| `Invalid enum value` | Use allowed category |
+| `Expected array` | Use `[...]` for `techStack`/`tags` |
+| `Invalid date` | Use `YYYY-MM-DD` |
+| `Unknown key` | Check field name spelling |
 
-If needed in future:
+---
 
-```bash
-# .env (gitignored)
-PUBLIC_FORMSPREE_ID=your-id
-```
+## 10. SEO & Meta
+
+### 10.1 Required Meta Tags
 
 ```astro
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title} — Arkan</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={`https://katalogarkan.github.io${Astro.url.pathname}`} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={`${title} — Arkan`} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content="https://katalogarkan.github.io/images/og-default.png" />
+  <meta property="og:url" content={`https://katalogarkan.github.io${Astro.url.pathname}`} />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+</head>
+```
+
+### 10.2 Page Title Format
+
+| Page | Title |
+|------|-------|
+| Home | `Arkan — Full Stack Web Developer` |
+| Katalog | `Katalog — Arkan` |
+| Blog | `Blog — Arkan` |
+| Detail | `{entry.title} — Arkan` |
+
+### 10.3 Sitemap & Robots
+
+| File | Path | Content |
+|------|------|---------|
+| Sitemap | `/sitemap-index.xml` | Auto-generated by `@astrojs/sitemap` |
+| Robots | `public/robots.txt` | `User-agent: *` / `Allow: /` / `Sitemap: https://katalogarkan.github.io/sitemap-index.xml` |
+
 ---
-const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
----
+
+## 11. Accessibility
+
+### 11.1 Checklist Per Component
+
+| # | Check |
+|---|-------|
+| 1 | Semantic HTML (`<header>`, `<nav>`, `<main>`, `<article>`) |
+| 2 | One `<h1>` per page |
+| 3 | Heading levels not skipped |
+| 4 | All images have `alt` |
+| 5 | All inputs have `<label>` |
+| 6 | Icon-only buttons have `aria-label` |
+| 7 | Focus visible (`focus-visible:ring-2`) |
+| 8 | Color contrast ≥ 4.5:1 |
+| 9 | Keyboard navigable |
+| 10 | Reduced motion respected |
+
+### 11.2 Common Patterns
+
+```html
+<!-- Skip link -->
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-md">
+  Skip to content
+</a>
+
+<!-- Icon-only button -->
+<button aria-label="Open menu">
+  <svg class="w-6 h-6" aria-hidden="true">...</svg>
+</button>
+
+<!-- Decorative icon -->
+<svg class="w-5 h-5" aria-hidden="true">...</svg>
+
+<!-- Form label -->
+<label for="email" class="block text-sm font-medium text-text mb-1">Email</label>
+<input id="email" type="email" class="..." />
 ```
 
 ---
 
-## 12. URLs
+## 12. Performance
 
-### 12.1 Local
+### 12.1 Targets
 
-| Service | URL |
-|---------|-----|
-| Dev server | http://localhost:4321 |
-| Home | http://localhost:4321/ |
-| Katalog | http://localhost:4321/katalog |
-| Blog | http://localhost:4321/blog |
+| Metric | Target |
+|--------|--------|
+| Lighthouse Performance | ≥ 95 |
+| Lighthouse Accessibility | ≥ 95 |
+| Lighthouse Best Practices | ≥ 95 |
+| Lighthouse SEO | ≥ 95 |
+| LCP | < 2.5s |
+| CLS | < 0.1 |
+| INP | < 200ms |
 
-### 12.2 Live
+### 12.2 Budget
 
-| Page | URL |
-|------|-----|
-| Home | https://katalogarkan.github.io |
-| About | https://katalogarkan.github.io/about |
-| Skills | https://katalogarkan.github.io/skills |
-| Katalog | https://katalogarkan.github.io/katalog |
-| Services | https://katalogarkan.github.io/services |
-| Blog | https://katalogarkan.github.io/blog |
-| Resources | https://katalogarkan.github.io/resources |
-| Testimonials | https://katalogarkan.github.io/testimonials |
-| Contact | https://katalogarkan.github.io/contact |
-| Sitemap | https://katalogarkan.github.io/sitemap-index.xml |
-| Robots | https://katalogarkan.github.io/robots.txt |
+| Asset | Budget |
+|-------|--------|
+| JS (Katalog page) | < 50KB gzipped |
+| JS (other pages) | < 10KB gzipped |
+| CSS | < 20KB gzipped |
+| Page weight | < 500KB |
 
-### 12.3 Repository
+### 12.3 Image Rules
 
-| Resource | URL |
-|----------|-----|
-| Repo | https://github.com/katalogarkan/katalogarkan.github.io |
-| Actions | https://github.com/katalogarkan/katalogarkan.github.io/actions |
-| Settings | https://github.com/katalogarkan/katalogarkan.github.io/settings |
-| Pages settings | https://github.com/katalogarkan/katalogarkan.github.io/settings/pages |
+| Rule | Detail |
+|------|--------|
+| Lazy load | `loading="lazy"` on below-fold |
+| Hero image | No lazy, preload |
+| Dimensions | Set width/height to avoid CLS |
+| Format | `.webp` preferred, `.png` fallback |
 
 ---
 
@@ -747,113 +885,98 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
 
 ### 13.1 Build Errors
 
-| Error | Fix |
-|-------|-----|
-| `Cannot find module 'astro'` | `npm install` |
-| `Node version too old` | Install Node 20+ |
-| `Frontmatter validation failed` | Check `content-guide.md` §7.2 |
-| `Cannot find package '@astrojs/react'` | `npm install @astrojs/react react react-dom` |
-| `Tailwind classes not applied` | Check `content` paths in `tailwind.config.mjs` |
-| `border-border` class not working | Check `border: { DEFAULT: ... }` in Tailwind config |
+| Symptom | Fix |
+|---------|-----|
+| `content.config.ts` not found | Must be `src/content.config.ts` (not `src/content/config.ts`) |
+| `Invalid frontmatter` | Check `blueprint.md` §9 schema |
+| `@tailwindcss/vite` not found | `npm install @tailwindcss/vite` |
+| `@astrojs/tailwind` found | Remove it — not used in Tailwind 4 |
 
-### 13.2 Runtime Errors
+### 13.2 Styling Errors
 
-| Error | Fix |
-|-------|-----|
-| React island not hydrating | Check `client:load` directive |
-| Dark mode not working | Check `darkMode: 'media'` + CSS variables in `global.css` |
-| Images 404 | Check path starts with `/` and file exists in `public/` |
-| Font not loading | Check Google Fonts link in `BaseLayout.astro` |
-| Nav links 404 | Check route exists in `src/pages/` |
-| Content not showing | Check `draft: true` (for blog) or build not run |
+| Symptom | Fix |
+|---------|-----|
+| Tailwind classes not applied | Check `@import "tailwindcss"` at top of `global.css` |
+| `@theme` tokens not working | Ensure `@theme` is before `@layer base` |
+| `border-border` not working | Check `--color-border` in `@theme` |
+| Dark mode not switching | Check `@media (prefers-color-scheme: dark)` block |
+| `prose` not styled | Add `@plugin "@tailwindcss/typography"` |
 
 ### 13.3 Deploy Errors
 
-| Error | Fix |
-|-------|-----|
-| GitHub Pages 404 | Enable Pages in Settings → Pages → Source: GitHub Actions |
-| Action fails on build | Check Node version in `deploy.yml` is 20 |
-| Assets 404 on live | Check `site` in `astro.config.mjs` matches repo URL |
-| Deploy stuck | Check Actions tab for error; re-run failed job |
+| Symptom | Fix |
+|---------|-----|
+| CI fails on `npm ci` | Commit `package-lock.json` |
+| CI fails on build | Run `npm run build` locally first |
+| 404 on live | Check Pages source = GitHub Actions |
+| Assets 404 | Check `site` in `astro.config.mjs` |
+| Old content | Hard refresh (Ctrl+Shift+R) |
 
-### 13.4 Git Errors
-
-| Error | Fix |
-|-------|-----|
-| `Permission denied` | Check SSH key or use HTTPS |
-| `Merge conflict` | `git pull`, resolve, commit |
-| `Detached HEAD` | `git checkout main` |
-| `Rejected push` | `git pull --rebase`, then push |
-
----
-
-## 14. One-Liners
-
-### 14.1 Setup
+### 13.4 Quick Diagnostic
 
 ```bash
-# Clone + install + dev
-git clone https://github.com/katalogarkan/katalogarkan.github.io.git && cd katalogarkan.github.io && npm install && npm run dev
+# Full clean rebuild
+rm -rf node_modules dist .astro package-lock.json && npm install && npm run build
 
-# Update + install + dev
-git pull && npm install && npm run dev
+# Check what Astro sees
+npx astro check
 
-# Clean rebuild
-rm -rf node_modules dist .astro && npm install && npm run build
-```
-
-### 14.2 Content
-
-```bash
-# Count projects
-ls src/content/katalog/ | wc -l
-
-# Count articles
-ls src/content/blog/ | wc -l
-
-# Find draft articles
-grep -l "draft: true" src/content/blog/*.md
-
-# List all project titles
-grep "^title:" src/content/katalog/*.md
-```
-
-### 14.3 Git
-
-```bash
-# Quick commit + push
-git add . && git commit -m "feat: update" && git push
-
-# Undo last commit (keep changes)
-git reset --soft HEAD~1
-
-# View last 5 commits
-git log --oneline -5
-```
-
-### 14.4 Deploy
-
-```bash
-# Trigger deploy (empty commit)
-git commit --allow-empty -m "chore: trigger deploy" && git push
+# Find broken references
+grep -r "old-slug" src/
 ```
 
 ---
 
-## 15. Documentation Links
+## 14. Decision Quick Reference
+
+| # | Decision | Value |
+|---|----------|-------|
+| 1 | Framework | Astro 5 |
+| 2 | Styling | Tailwind CSS 4 (`@tailwindcss/vite`) |
+| 3 | Tailwind config | CSS-first `@theme` (no `tailwind.config.mjs`) |
+| 4 | Content | Astro Content Collections + Zod |
+| 5 | Content config path | `src/content.config.ts` |
+| 6 | Interactivity | React 18 island (katalog filter only) |
+| 7 | Node version | 22 |
+| 8 | Hosting | GitHub Pages |
+| 9 | Deploy | GitHub Actions (explicit workflow) |
+| 10 | Primary color | `#0969da` |
+| 11 | Font | Inter |
+| 12 | Dark mode | `prefers-color-scheme` + CSS variables |
+| 13 | Contact form | Formspree |
+| 14 | Changelog location | Root `CHANGELOG.md` |
+| 15 | License | MIT |
+| 16 | Content language | English |
+
+Full list: `blueprint.md` §23.
+
+---
+
+## 15. Links
 
 | Resource | URL |
 |----------|-----|
+| Live site | https://katalogarkan.github.io |
+| Repository | https://github.com/katalogarkan/katalogarkan.github.io |
+| Actions | https://github.com/katalogarkan/katalogarkan.github.io/actions |
 | Astro Docs | https://docs.astro.build |
 | Tailwind Docs | https://tailwindcss.com/docs |
-| Astro Content Collections | https://docs.astro.build/en/guides/content-collections/ |
-| Astro GitHub Pages | https://docs.astro.build/en/guides/deploy/github/ |
-| Astro React Integration | https://docs.astro.build/en/guides/integrations-guide/react/ |
+| Tailwind Theme | https://tailwindcss.com/docs/theme |
+| Content Collections | https://docs.astro.build/en/guides/content-collections/ |
 | Formspree | https://formspree.io |
 | Inter Font | https://fonts.google.com/specimen/Inter |
-| GitHub Pages | https://pages.github.com |
-| Conventional Commits | https://www.conventionalcommits.org |
-| Zod | https://zod.dev |
+
+---
+
+## 16. Change Log
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.2.0 | 2026-11-04 | Synced with `blueprint.md` v1.2.0 + `design-system.md` v1.2.0: Astro 5 + Tailwind 4; removed all `tailwind.config.mjs` references; `@theme` is the config; `src/content.config.ts` path; Node 22; `client:only="react"` fixed; dark mode via CSS variables (no `dark:` prefix); `prose dark:prose-invert` documented as only exception; `content:` commit type added; single root `CHANGELOG.md`; new §8.4 React island example; new §8.5 mobile menu pattern. |
+| 1.1.0 | 2026-10-26 | Dark mode via CSS variables; deploy workflow references explicit version; `LICENSE` + `docs/README.md` added to file paths; added `border-border` troubleshooting. |
+| 1.0.1 | 2026-10-26 | Document Info split into `Document Version` vs `Project Version`. |
+| 1.0.0 | 2026-10-26 | Initial cheatsheets. |
+
 ---
 
 *End of document.*

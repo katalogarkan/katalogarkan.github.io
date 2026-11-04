@@ -6,9 +6,9 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.1.0 |
-| Project Version | 0.0.1 (Planning) |
-| Last Updated | 2026-10-26 |
+| Document Version | 1.2.0 |
+| Project Version | 0.1.0 (Phase 1 Complete) |
+| Last Updated | 2026-11-04 |
 | Status | Approved — Source of Truth |
 | Project | Personal branding & katalog website |
 | Owner | Arkan (Full Stack Web Developer) |
@@ -16,7 +16,7 @@
 | Repository | `katalogarkan/katalogarkan.github.io` |
 | Hosting | GitHub Pages |
 | CI/CD | GitHub Actions |
-| Node Version | 20 |
+| Node Version | 22 |
 | Build Output | `dist/` |
 
 ---
@@ -94,7 +94,7 @@ The step-by-step guide to deploying the katalogarkan website to GitHub Pages. Co
 │  GITHUB ACTIONS                                      │
 │                                                      │
 │  5. Checkout repo                                    │
-│  6. Setup Node 20                                    │
+│  6. Setup Node 22                                    │
 │  7. npm ci                                           │
 │  8. npm run build                                    │
 │  9. Upload dist/ as artifact                         │
@@ -119,7 +119,7 @@ The step-by-step guide to deploying the katalogarkan website to GitHub Pages. Co
 | Repository | `katalogarkan/katalogarkan.github.io` |
 | Branch | `main` |
 | Build output | `dist/` |
-| Node version | 20 |
+| Node version | 22 |
 | Workflow | Explicit (see §5.2) |
 | Deploy time | ~1–2 minutes |
 | HTTPS | Auto-enabled |
@@ -144,7 +144,7 @@ By naming the repo `katalogarkan.github.io`, the site lives at the root URL `htt
 
 | Requirement | Version | Check |
 |-------------|---------|-------|
-| Node.js | 20+ | `node --version` |
+| Node.js | 22+ | `node --version` |
 | npm | 10+ | `npm --version` |
 | Git | 2.40+ | `git --version` |
 
@@ -163,10 +163,11 @@ Before first deploy, the repo must contain:
 
 | File | Purpose |
 |------|---------|
-| `package.json` | Dependencies |
-| `astro.config.mjs` | Astro config with `site` |
+| `package.json` | Dependencies (Astro 5, Tailwind 4, React 18) |
+| `astro.config.mjs` | Astro config with `site` + `@tailwindcss/vite` |
 | `.github/workflows/deploy.yml` | Deploy workflow |
 | `src/pages/index.astro` | At least one page |
+| `src/styles/global.css` | Tailwind 4 `@import` + `@theme` |
 | `LICENSE` | MIT license |
 
 ---
@@ -244,7 +245,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install dependencies
@@ -279,7 +280,7 @@ jobs:
 | `permissions` | Read repo, write Pages, OIDC token |
 | `concurrency` | One deploy at a time |
 | `checkout` | Clone repo |
-| `setup-node` | Install Node 20 + cache npm |
+| `setup-node` | Install Node 22 + cache npm |
 | `npm ci` | Install exact deps from `package-lock.json` |
 | `npm run build` | Build Astro → `dist/` |
 | `upload-pages-artifact` | Package `dist/` for Pages |
@@ -307,13 +308,16 @@ The official Astro action is simpler but hides the build steps. The explicit wor
 ```js
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://katalogarkan.github.io',
-  integrations: [tailwind(), react(), sitemap()],
+  integrations: [react(), sitemap()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
 ```
 
@@ -328,7 +332,20 @@ export default defineConfig({
 
 **Rule:** `site` must match the live URL exactly, no trailing slash.
 
-### 6.3 No `base` Needed
+### 6.3 Tailwind 4 via `@tailwindcss/vite`
+
+Tailwind 4 uses the Vite plugin directly — there is **no `tailwind.config.mjs`** and **no `@astrojs/tailwind` integration**.
+
+| Concern | Tailwind 3 (old) | Tailwind 4 (current) |
+|---------|------------------|----------------------|
+| Integration | `@astrojs/tailwind` | `@tailwindcss/vite` (via `vite.plugins`) |
+| Config | `tailwind.config.mjs` | `@theme` in `global.css` |
+| Import | `@tailwind base/components/utilities` | `@import "tailwindcss"` |
+| Plugin | `plugins: [typography]` | `@plugin "@tailwindcss/typography"` |
+
+**Rule:** Do not add `@astrojs/tailwind` to `integrations` and do not create `tailwind.config.mjs`. All token config lives in `src/styles/global.css` (see `blueprint.md` §5.9).
+
+### 6.4 No `base` Needed
 
 Because the repo is named `katalogarkan.github.io`, the site is served at the root (`/`). No `base` config needed.
 
@@ -355,11 +372,13 @@ export default defineConfig({
 | 1 | `npm run build` succeeds locally | ☐ |
 | 2 | `dist/` folder created | ☐ |
 | 3 | `astro.config.mjs` has `site` | ☐ |
-| 4 | `.github/workflows/deploy.yml` exists and matches §5.2 | ☐ |
-| 5 | GitHub Pages source = GitHub Actions | ☐ |
-| 6 | Workflow permissions = Read and write | ☐ |
-| 7 | Repo is Public | ☐ |
-| 8 | `LICENSE` file exists | ☐ |
+| 4 | `astro.config.mjs` uses `@tailwindcss/vite` (no `@astrojs/tailwind`) | ☐ |
+| 5 | `src/styles/global.css` starts with `@import "tailwindcss"` | ☐ |
+| 6 | `.github/workflows/deploy.yml` exists and matches §5.2 | ☐ |
+| 7 | GitHub Pages source = GitHub Actions | ☐ |
+| 8 | Workflow permissions = Read and write | ☐ |
+| 9 | Repo is Public | ☐ |
+| 10 | `LICENSE` file exists | ☐ |
 
 ### 7.2 Deploy Steps
 
@@ -585,7 +604,7 @@ If the live site is broken and needs to be taken down immediately:
 | Action red X | Build error | Check `build` job logs |
 | `npm ci` fails | `package-lock.json` out of sync | Run `npm install` locally, commit lockfile |
 | `npm run build` fails | Code error | Run `npm run build` locally, fix errors |
-| `Node version` error | Wrong Node in workflow | Check `node-version: 20` in `deploy.yml` |
+| `Node version` error | Wrong Node in workflow | Check `node-version: 22` in `deploy.yml` |
 | `Permission denied` | Workflow permissions | Settings → Actions → Read and write |
 
 ### 12.2 Deploy Succeeds but Site Broken
@@ -594,9 +613,10 @@ If the live site is broken and needs to be taken down immediately:
 |---------|-------|-----|
 | 404 on all pages | Pages source not set | Settings → Pages → Source: GitHub Actions |
 | Assets 404 | `site` missing or wrong | Check `astro.config.mjs` `site` |
-| CSS not loading | Build output incomplete | Check `dist/` has CSS files |
+| CSS not loading | Tailwind not compiled | Check `@tailwindcss/vite` in `vite.plugins` |
+| Tailwind classes missing | `@import "tailwindcss"` missing | Check top of `global.css` |
 | Images 404 | Wrong path | Check `/images/...` not `./images/...` |
-| Dark mode not working | CSS variables missing | Check `global.css` has `prefers-color-scheme` block |
+| Dark mode not working | CSS variables missing | Check `@media (prefers-color-scheme: dark)` block in `global.css` |
 | Old content | CDN cache | Wait 5 min, hard refresh (Ctrl+Shift+R) |
 
 ### 12.3 Custom Domain Issues
@@ -708,6 +728,18 @@ nslookup katalogarkan.com
 | Global | Yes |
 | Cache | Static assets cached |
 | Invalidation | Automatic on deploy |
+
+---
+
+## 15. Change Log
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.2.0 | 2026-11-04 | Synced with `blueprint.md` v1.2.0 after Phase 1: Node 22 in §3.1 and §5.2; Astro config now uses `@tailwindcss/vite` (§6.1); new §6.3 explaining Tailwind 4 (no `tailwind.config.mjs`, no `@astrojs/tailwind`); pre-deploy checklist updated (§7.1); troubleshooting updated for Tailwind 4 (§12.2). |
+| 1.1.0 | 2026-10-26 | Removed `withastro/action@v3` alternative; explicit workflow in §5.2 is single source of truth; added note matching `blueprint.md` §18.2; added `LICENSE` to prerequisites and checklist; added dark mode CSS variable troubleshooting. |
+| 1.0.1 | 2026-10-26 | Document Info split into `Document Version` vs `Project Version`. |
+| 1.0.0 | 2026-10-26 | Initial deployment guide. |
+
 ---
 
 *End of document.*

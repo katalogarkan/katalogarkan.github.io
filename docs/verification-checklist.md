@@ -6,16 +6,16 @@
 
 | Property | Value |
 |----------|-------|
-| Document Version | 1.1.0 |
-| Project Version | 0.0.1 (Planning) |
-| Last Updated | 2026-10-26 |
-| Status | Approved — Source of Truth |
+| Document Version | 1.3.0 |
+| Project Version | 0.1.0 (Phase 1 Complete) |
+| Last Updated | 2026-11-04 |
+| Status | Active — Updated Per Phase |
 | Project | Personal branding & katalog website |
 | Owner | Arkan (Full Stack Web Developer) |
 | Related | `blueprint.md` §20 (Execution Phases), §21 (Acceptance Criteria) |
-| Total Checks | 221 |
-| Total Phases | 6 |
-| Legend | ☐ = pending · ✅ = passed · ❌ = failed |
+| Framework | Astro 5 + Tailwind CSS 4 |
+| Node Version | 22 |
+| Total Checks | 222 |
 
 ---
 
@@ -23,14 +23,14 @@
 
 1. [Purpose](#1-purpose)
 2. [How to Use](#2-how-to-use)
-3. [Phase 1 — Fondasi Proyek](#3-phase-1--fondasi-proyek)
-4. [Phase 2 — Desain & Home](#4-phase-2--desain--home)
-5. [Phase 3 — Halaman Statis](#5-phase-3--halaman-statis)
-6. [Phase 4 — Katalog + Filter](#6-phase-4--katalog--filter)
-7. [Phase 5 — Blog + Detail](#7-phase-5--blog--detail)
-8. [Phase 6 — Polish & Deploy](#8-phase-6--polish--deploy)
-9. [Overall Summary](#9-overall-summary)
-10. [Quick Verification Commands](#10-quick-verification-commands)
+3. [Check Format](#3-check-format)
+4. [Phase 1 — Fondasi Proyek](#4-phase-1--fondasi-proyek)
+5. [Phase 2 — Desain & Home](#5-phase-2--desain--home)
+6. [Phase 3 — Halaman Statis](#6-phase-3--halaman-statis)
+7. [Phase 4 — Katalog + Filter](#7-phase-4--katalog--filter)
+8. [Phase 5 — Blog + Detail](#8-phase-5--blog--detail)
+9. [Phase 6 — Polish & Deploy](#9-phase-6--polish--deploy)
+10. [Summary](#10-summary)
 11. [Change Log](#11-change-log)
 
 ---
@@ -39,609 +39,654 @@
 
 ### 1.1 What This Document Is
 
-A phase-by-phase checklist to verify each step of the katalogarkan project is complete and working. Every item is binary: done or not done. Total: 221 checks across 6 phases.
+A per-phase checklist to verify that each phase of `blueprint.md` §20 is actually complete. Every check is binary (pass/fail), tied to a specific file or behavior, and references the section of `blueprint.md` it validates.
 
-### 1.2 How It Differs from Blueprint
+### 1.2 Why It Exists
 
-| Blueprint §21 | This Document |
-|---------------|---------------|
-| High-level acceptance criteria | Granular, per-task checks |
-| 18 criteria | 221 checks |
-| Summary | Step-by-step verification |
+| Reason | Benefit |
+|--------|---------|
+| Prevent "done" without proof | Every check has evidence |
+| Catch regressions | Re-run after changes |
+| Onboard contributors | Clear definition of done |
+| Feed the changelog | Verification count goes into `CHANGELOG.md` |
+| Feed the demo video | Real content is verified before recording |
 
-**Rule:** Blueprint defines what "done" means. This document tracks whether each item is done.
+### 1.3 Relationship to Other Docs
+
+| Document | Relationship |
+|----------|--------------|
+| `blueprint.md` §20 | Defines the phases |
+| `blueprint.md` §21 | Defines acceptance criteria |
+| **This document** | Turns criteria into checkboxes |
+| `CHANGELOG.md` | Records verification count per release |
+
+**Rule:** A phase is **not complete** until every check in its section is ✅.
 
 ---
 
 ## 2. How to Use
 
-### 2.1 Workflow
+### 2.1 Per Phase
 
-```
-1. Start a phase
-   │
-   ▼
-2. Work through tasks (blueprint §20)
-   │
-   ▼
-3. After each task, open this file
-   │
-   ▼
-4. Check the box (☐ → ✅)
-   │
-   ▼
-5. If a check fails, fix and re-verify
-   │
-   ▼
-6. Phase complete when all boxes ✅
-   │
-   ▼
-7. Move to next phase
-```
+| # | Step | Action |
+|---|------|--------|
+| 1 | Open the phase section | §4–§9 |
+| 2 | Work top to bottom | Check each item |
+| 3 | Mark ✅ or ❌ | Use the `Done` column |
+| 4 | Fix any ❌ | Before moving on |
+| 5 | Count checks | Update `CHANGELOG.md` |
+| 6 | Commit | `docs: verify phase N` |
 
-### 2.2 Status Symbols
+### 2.2 When to Re-Run
 
-| Symbol | Meaning |
+| Trigger | Re-run |
+|---------|--------|
+| Phase complete | Full phase |
+| Any config change | Relevant section |
+| Deploy failure | §4 (deploy checks) |
+| Before launch | All phases |
+| After a refactor | Affected sections |
+
+### 2.3 Evidence
+
+Every check should be verifiable by:
+
+| Evidence Type | Example |
+|---------------|---------|
+| File exists | `ls src/content.config.ts` |
+| Command output | `npm run build` exits 0 |
+| Visual | Screenshot of page |
+| Network | DevTools shows 200 for asset |
+| Live URL | Open `katalogarkan.github.io` |
+
+**Rule:** If you can't verify it, it's not a check — rewrite it.
+
+---
+
+## 3. Check Format
+
+Each check is a table row:
+
+| Column | Meaning |
 |--------|---------|
-| ☐ | Pending — not yet verified |
-| ✅ | Passed — verified working |
-| ❌ | Failed — needs fix |
+| `#` | Sequential ID (e.g., `1.01`) |
+| `Check` | What to verify |
+| `How` | Command, URL, or visual |
+| `Ref` | `blueprint.md` section |
+| `Done` | ✅ / ❌ |
 
-### 2.3 Verification Methods
+**Example:**
 
-| Method | When to Use |
-|--------|-------------|
-| **Visual** | Open page in browser, check appearance |
-| **Command** | Run terminal command, check output |
-| **DevTools** | Inspect element, check network/console |
-| **Lighthouse** | Run audit in Chrome DevTools |
-| **Manual** | Click, type, interact |
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 1.01 | `package.json` exists | `ls package.json` | §10 | ✅ |
 
 ---
 
-## 3. Phase 1 — Fondasi Proyek
+## 4. Phase 1 — Fondasi Proyek
 
-**Goal:** Astro project runs locally and deploys to GitHub Pages.
+**Status:** ✅ Complete (2026-11-01)
 
-**Prerequisites:** Node.js 20+, Git, GitHub account, repository exists.
+### 4.1 Project Setup
 
-### 3.1 Project Setup
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 1.01 | `package.json` exists | `ls package.json` | §10 | ✅ |
+| 1.02 | `package.json` lists `astro` | Read file | §4.2 | ✅ |
+| 1.03 | `package.json` lists `@tailwindcss/vite` | Read file | §4.2 | ✅ |
+| 1.04 | `package.json` lists `@astrojs/react` | Read file | §4.2 | ✅ |
+| 1.05 | `package.json` lists `@astrojs/sitemap` | Read file | §4.2 | ✅ |
+| 1.06 | `package.json` does NOT list `@astrojs/tailwind` | Read file | §4.3 | ✅ |
+| 1.07 | `package-lock.json` committed | `ls package-lock.json` | §18.2 | ✅ |
+| 1.08 | `tsconfig.json` exists | `ls tsconfig.json` | §10 | ✅ |
+| 1.09 | `.gitignore` ignores `node_modules/`, `dist/`, `.astro/` | Read file | §10 | ✅ |
+| 1.10 | `LICENSE` exists (MIT) | `ls LICENSE` | §23 #29 | ✅ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 1.1 | Project folder created via `npm create astro@latest` | Command | ☐ |
-| 1.2 | `npm install` completes without errors | Command | ☐ |
-| 1.3 | `node_modules/` folder exists | Visual | ☐ |
-| 1.4 | `package.json` has `astro` dependency | Visual | ☐ |
+### 4.2 Astro Config
 
-### 3.2 Configuration Files
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 1.11 | `astro.config.mjs` exists | `ls astro.config.mjs` | §18.3 | ✅ |
+| 1.12 | `site: 'https://katalogarkan.github.io'` set | Read file | §18.3 | ✅ |
+| 1.13 | `@tailwindcss/vite` in `vite.plugins` | Read file | §18.3 | ✅ |
+| 1.14 | No `@astrojs/tailwind` in `integrations` | Read file | §4.3 | ✅ |
+| 1.15 | `react()` in `integrations` | Read file | §18.3 | ✅ |
+| 1.16 | `sitemap()` in `integrations` | Read file | §18.3 | ✅ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 1.5 | `astro.config.mjs` exists with `site: 'https://katalogarkan.github.io'` | Visual | ☐ |
-| 1.6 | `astro.config.mjs` has `tailwind()` integration | Visual | ☐ |
-| 1.7 | `astro.config.mjs` has `react()` integration | Visual | ☐ |
-| 1.8 | `astro.config.mjs` has `sitemap()` integration | Visual | ☐ |
-| 1.9 | `tailwind.config.mjs` exists with `darkMode: 'media'` | Visual | ☐ |
-| 1.10 | `tailwind.config.mjs` uses `var(--color-*)` for colors (per design-system §18) | Visual | ☐ |
-| 1.11 | `tailwind.config.mjs` has `border: { DEFAULT: 'var(--color-border)' }` | Visual | ☐ |
-| 1.12 | `tailwind.config.mjs` has `fontFamily.sans` with Inter | Visual | ☐ |
-| 1.13 | `tsconfig.json` exists | Visual | ☐ |
-| 1.14 | `.gitignore` ignores `node_modules/`, `dist/`, `.astro/` | Visual | ☐ |
-| 1.15 | `LICENSE` file exists (MIT) | Visual | ☐ |
+### 4.3 Tailwind 4 Config
 
-### 3.3 Base Files
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 1.17 | `tailwind.config.mjs` does NOT exist | `ls tailwind.config.mjs` → not found | §5.9 | ✅ |
+| 1.18 | `src/styles/global.css` exists | `ls src/styles/global.css` | §10 | ✅ |
+| 1.19 | `@import "tailwindcss"` at top | Read file | §5.9 | ✅ |
+| 1.20 | `@plugin "@tailwindcss/typography"` present | Read file | §5.9 | ✅ |
+| 1.21 | `@theme` block present | Read file | §5.9 | ✅ |
+| 1.22 | `--color-primary: #0969da` in `@theme` | Read file | §5.9 | ✅ |
+| 1.23 | `--color-bg` in `@theme` | Read file | §5.9 | ✅ |
+| 1.24 | `--color-text` in `@theme` | Read file | §5.9 | ✅ |
+| 1.25 | `--color-border` in `@theme` | Read file | §5.9 | ✅ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 1.16 | `src/styles/global.css` exists with Tailwind directives | Visual | ☐ |
-| 1.17 | `global.css` defines CSS variables in `:root` (per design-system §19) | Visual | ☐ |
-| 1.18 | `global.css` overrides CSS variables in `@media (prefers-color-scheme: dark)` | Visual | ☐ |
-| 1.19 | `src/layouts/BaseLayout.astro` exists | Visual | ☐ |
-| 1.20 | `BaseLayout.astro` has `<html lang="en">` | Visual | ☐ |
-| 1.21 | `BaseLayout.astro` imports `global.css` | Visual | ☐ |
-| 1.22 | `BaseLayout.astro` loads Inter font from Google Fonts | Visual | ☐ |
-| 1.23 | `src/components/Header.astro` exists (placeholder) | Visual | ☐ |
-| 1.24 | `src/components/Footer.astro` exists (placeholder) | Visual | ☐ |
-| 1.25 | `src/pages/index.astro` exists | Visual | ☐ |
-| 1.26 | `index.astro` uses `BaseLayout` | Visual | ☐ |
+### 4.4 Dark Mode
 
-### 3.4 Content Schema
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 1.26 | `@media (prefers-color-scheme: dark)` block present | Read `global.css` | §5.10 | ✅ |
+| 1.27 | Dark `--color-bg: #0d1117` | Read file | §5.10 | ✅ |
+| 1.28 | Dark `--color-text: #e6edf3` | Read file | §5.10 | ✅ |
+| 1.29 | `color-scheme: light dark` on `:root` | Read file | §5.10 | ✅ |
+| 1.30 | No `dark:` variants in `global.css` (except `prose-invert`) | `grep -r "dark:" src/` | §5.10 | ✅ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 1.27 | `src/content/config.ts` exists | Visual | ☐ |
-| 1.28 | `config.ts` defines `katalog` collection | Visual | ☐ |
-| 1.29 | `config.ts` defines `blog` collection | Visual | ☐ |
-| 1.30 | `katalog` schema has `title`, `description`, `techStack`, `thumbnail`, `category`, `date` | Visual | ☐ |
-| 1.31 | `blog` schema has `title`, `date`, `description`, `category` | Visual | ☐ |
-| 1.32 | `src/content/katalog/` folder exists | Visual | ☐ |
-| 1.33 | `src/content/blog/` folder exists | Visual | ☐ |
+### 4.5 Layout & Components
 
-### 3.5 Deploy Pipeline
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 1.31 | `src/layouts/BaseLayout.astro` exists | `ls` | §10 | ✅ |
+| 1.32 | BaseLayout imports `global.css` | Read file | §8.7 | ✅ |
+| 1.33 | BaseLayout has `<html lang="en">` | Read file | §14 | ✅ |
+| 1.34 | BaseLayout has viewport meta | Read file | §13.1 | ✅ |
+| 1.35 | `src/components/Header.astro` exists | `ls` | §10 | ✅ |
+| 1.36 | `src/components/Footer.astro` exists | `ls` | §10 | ✅ |
+| 1.37 | `src/pages/index.astro` exists | `ls` | §10 | ✅ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 1.34 | `.github/workflows/deploy.yml` exists | Visual | ☐ |
-| 1.35 | `deploy.yml` uses explicit workflow (checkout + setup-node + npm ci + build + upload-pages-artifact + deploy-pages) per blueprint §18.2 | Visual | ☐ |
-| 1.36 | `deploy.yml` triggers on push to `main` | Visual | ☐ |
-| 1.37 | `deploy.yml` uses Node 20 | Visual | ☐ |
-| 1.38 | GitHub Pages source set to "GitHub Actions" | Settings → Pages | ☐ |
-| 1.39 | Workflow permissions set to "Read and write" | Settings → Actions | ☐ |
+### 4.6 Content Collections
 
-### 3.6 Local Verification
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 1.38 | `src/content.config.ts` exists | `ls` | §10 | ✅ |
+| 1.39 | `src/content.config.ts` (NOT `src/content/config.ts`) | `ls src/content/config.ts` → not found | §10 | ✅ |
+| 1.40 | `katalog` collection defined | Read file | §9.1 | ✅ |
+| 1.41 | `blog` collection defined | Read file | §9.2 | ✅ |
+| 1.42 | `src/content/katalog/` folder exists | `ls` | §10 | ✅ |
+| 1.43 | `src/content/blog/` folder exists | `ls` | §10 | ✅ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 1.40 | `npm run dev` starts without errors | Command | ☐ |
-| 1.41 | `localhost:4321` shows "Hello" page | Visual | ☐ |
-| 1.42 | `npm run build` succeeds with no errors | Command | ☐ |
-| 1.43 | `dist/` folder created after build | Visual | ☐ |
+### 4.7 Build & Dev
 
-### 3.7 Remote Verification
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 1.44 | `npm install` succeeds | Run | §20 | ✅ |
+| 1.45 | `npm run dev` starts on `localhost:4321` | Run | §20 | ✅ |
+| 1.46 | `npm run build` succeeds | Run | §20 | ✅ |
+| 1.47 | `dist/` folder created after build | `ls dist/` | §11.2 | ✅ |
+| 1.48 | No console errors in browser | DevTools | §16 | ✅ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 1.44 | Push to `main` triggers GitHub Action | Visual (Actions tab) | ☐ |
-| 1.45 | GitHub Action completes with green check | Visual | ☐ |
-| 1.46 | `katalogarkan.github.io` shows "Hello" page | Visual | ☐ |
+### 4.8 Deploy
 
-**Phase 1 Summary:** ☐ / 46 checks
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 1.49 | `.github/workflows/deploy.yml` exists | `ls` | §18.2 | ✅ |
+| 1.50 | Workflow uses `node-version: 22` | Read file | §18.2 | ✅ |
+| 1.51 | Workflow uses `npm ci` | Read file | §18.2 | ✅ |
+| 1.52 | Workflow uploads `./dist` | Read file | §18.2 | ✅ |
+| 1.53 | Workflow uses `actions/deploy-pages@v4` | Read file | §18.2 | ✅ |
+| 1.54 | GitHub Pages source = GitHub Actions | Settings → Pages | §18.5 | ✅ |
+| 1.55 | Workflow permissions = Read and write | Settings → Actions | §18.5 | ✅ |
+| 1.56 | Push to `main` triggers Action | Actions tab | §18.4 | ✅ |
+| 1.57 | Live site loads at `katalogarkan.github.io` | Open URL | §18.1 | ✅ |
 
----
-
-## 4. Phase 2 — Desain & Home
-
-**Goal:** Home page looks professional, responsive, dark mode works.
-
-**Prerequisites:** Phase 1 complete (all checks ✅).
-
-### 4.1 Header Finalization
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 2.1 | Header has logo/name "Arkan" | Visual | ☐ |
-| 2.2 | Header has 9 nav links | Visual | ☐ |
-| 2.3 | Nav links: Home, About, Skills, Katalog, Services, Blog, Resources, Testimonials, Contact | Visual | ☐ |
-| 2.4 | Header is sticky at top | Visual (scroll) | ☐ |
-| 2.5 | Hamburger visible on mobile (< 768px) | DevTools | ☐ |
-| 2.6 | Hamburger toggles menu on click | Manual | ☐ |
-| 2.7 | Desktop nav hidden on mobile | DevTools | ☐ |
-| 2.8 | Hamburger has `aria-label` | Visual (code) | ☐ |
-| 2.9 | Hamburger has `aria-expanded` | Visual (code) | ☐ |
-
-### 4.2 Footer Finalization
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 2.10 | Footer has 4 columns | Visual | ☐ |
-| 2.11 | Column 1: Name + tagline | Visual | ☐ |
-| 2.12 | Column 2: Quick links (Home, About, Katalog, Contact) | Visual | ☐ |
-| 2.13 | Column 3: Social links (GitHub, LinkedIn, Email) | Visual | ☐ |
-| 2.14 | Column 4: Copyright + version | Visual | ☐ |
-| 2.15 | Footer responsive (stack on mobile) | DevTools | ☐ |
-
-### 4.3 Design Tokens
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 2.16 | Primary color applied to links (light mode: `#0969da`) | Visual | ☐ |
-| 2.17 | Inter font loaded and applied | DevTools | ☐ |
-| 2.18 | Dark mode auto-follows OS preference | Manual (change OS theme) | ☐ |
-| 2.19 | Light mode background is white | Visual | ☐ |
-| 2.20 | Dark mode background is `#0d1117` | Visual | ☐ |
-| 2.21 | No `dark:` variants used in components (except `prose-invert`) | Visual (code grep) | ☐ |
-
-### 4.4 Home Page Sections
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 2.22 | Hero section has name | Visual | ☐ |
-| 2.23 | Hero section has tagline | Visual | ☐ |
-| 2.24 | Hero has "View Katalog" button | Visual | ☐ |
-| 2.25 | Hero has "Contact Me" button | Visual | ☐ |
-| 2.26 | Featured projects section exists | Visual | ☐ |
-| 2.27 | Featured section hides if no projects (empty state) | Visual | ☐ |
-| 2.28 | Skills summary section exists | Visual | ☐ |
-| 2.29 | Testimonials section exists | Visual | ☐ |
-| 2.30 | Testimonials section hides if empty | Visual | ☐ |
-| 2.31 | CTA section exists | Visual | ☐ |
-
-### 4.5 Responsive Check
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 2.32 | Home renders at 320px width | DevTools | ☐ |
-| 2.33 | Home renders at 768px width | DevTools | ☐ |
-| 2.34 | Home renders at 1024px width | DevTools | ☐ |
-| 2.35 | No horizontal scroll at any breakpoint | DevTools | ☐ |
-| 2.36 | Text readable at 320px | Visual | ☐ |
-
-### 4.6 Navigation Check
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 2.37 | All 9 nav links navigate correctly | Manual | ☐ |
-| 2.38 | Active link highlighted (if implemented) | Manual | ☐ |
-| 2.39 | Logo click returns to Home | Manual | ☐ |
-
-**Phase 2 Summary:** ☐ / 39 checks
+**Phase 1 total:** 57 checks — **57/57 ✅**
 
 ---
 
-## 5. Phase 3 — Halaman Statis
+## 5. Phase 2 — Desain & Home
 
-**Goal:** 6 static pages + 404 complete.
+**Status:** ⏳ Not started
 
-**Prerequisites:** Phase 2 complete (all checks ✅).
+### 5.1 Header
 
-### 5.1 About Page
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 2.01 | Header has 9 nav links | Visual | §6.2 | ☐ |
+| 2.02 | Nav links: Home, About, Skills, Katalog, Services, Blog, Resources, Testimonials, Contact | Visual | §6.2 | ☐ |
+| 2.03 | Header is sticky | Scroll page | §8.1 | ☐ |
+| 2.04 | Header has `shadow-sm` | Visual | §7.1 | ☐ |
+| 2.05 | Hamburger visible on mobile (< 768px) | DevTools | §8.1 | ☐ |
+| 2.06 | Hamburger has `aria-label` | Read source | §14 | ☐ |
+| 2.07 | Hamburger has `aria-expanded` | Read source | §12.3 | ☐ |
+| 2.08 | Menu toggles on click | Click | §12.3 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 3.1 | `/about` page renders | Visual | ☐ |
-| 3.2 | Bio section with photo | Visual | ☐ |
-| 3.3 | Timeline section | Visual | ☐ |
-| 3.4 | Values section (3 cards) | Visual | ☐ |
-| 3.5 | CV download link (if available) | Visual | ☐ |
-| 3.6 | Info section (location, languages) | Visual | ☐ |
+### 5.2 Footer
 
-### 5.2 Skills Page
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 2.09 | Footer has 4 columns | Visual | §6.3 | ☐ |
+| 2.10 | Column 1: name + tagline | Visual | §6.3 | ☐ |
+| 2.11 | Column 2: quick links | Visual | §6.3 | ☐ |
+| 2.12 | Column 3: social (GitHub, LinkedIn, Email) | Visual | §6.3 | ☐ |
+| 2.13 | Column 4: copyright + version | Visual | §6.3 | ☐ |
+| 2.14 | Footer has `border-t border-border` | Visual | §10.1 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 3.7 | `/skills` page renders | Visual | ☐ |
-| 3.8 | 4 categories: Frontend, Backend, Database, DevOps | Visual | ☐ |
-| 3.9 | Skill bars with level (%) | Visual | ☐ |
-| 3.10 | `SkillBadge` component renders | Visual | ☐ |
+### 5.3 Hero Section
 
-### 5.3 Services Page
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 2.15 | Hero shows name | Visual | §7.1 | ☐ |
+| 2.16 | Hero shows tagline | Visual | §7.1 | ☐ |
+| 2.17 | "View Katalog" button → `/katalog` | Click | §7.1 | ☐ |
+| 2.18 | "Contact Me" button → `/contact` | Click | §7.1 | ☐ |
+| 2.19 | Hero uses `text-6xl` on desktop | DevTools | §4.3 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 3.11 | `/services` page renders | Visual | ☐ |
-| 3.12 | 3 package cards | Visual | ☐ |
-| 3.13 | Process section (4 steps) | Visual | ☐ |
-| 3.14 | FAQ section (3–4 questions) | Visual | ☐ |
+### 5.4 Featured Projects
 
-### 5.4 Resources Page
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 2.20 | Section renders 3 featured projects | Visual | §7.1 | ☐ |
+| 2.21 | Section hides if no featured | Remove `featured: true`, rebuild | §7.1 | ☐ |
+| 2.22 | Cards link to `/katalog/[slug]` | Click | §8.3 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 3.15 | `/resources` page renders | Visual | ☐ |
-| 3.16 | Empty state shows "No resources yet" | Visual | ☐ |
-| 3.17 | Grid layout responsive | DevTools | ☐ |
+### 5.5 Skills Summary
 
-### 5.5 Testimonials Page
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 2.23 | Section renders top 8 skills | Visual | §7.1 | ☐ |
+| 2.24 | SkillBadge renders name | Visual | §8.5 | ☐ |
+| 2.25 | Section hides if no skills | Remove data, rebuild | §7.1 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 3.18 | `/testimonials` page renders | Visual | ☐ |
-| 3.19 | Empty state shows "No testimonials yet" | Visual | ☐ |
-| 3.20 | Grid layout responsive | DevTools | ☐ |
+### 5.6 Testimonials & CTA
 
-### 5.6 Contact Page
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 2.26 | Testimonials section renders 2–3 quotes | Visual | §7.1 | ☐ |
+| 2.27 | Testimonials hides if empty | Remove data, rebuild | §7.1 | ☐ |
+| 2.28 | CTA section has contact link | Click | §7.1 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 3.21 | `/contact` page renders | Visual | ☐ |
-| 3.22 | Form has Name, Email, Subject, Message fields | Visual | ☐ |
-| 3.23 | Form has submit button | Visual | ☐ |
-| 3.24 | Every field has `<label>` | Visual (code) | ☐ |
-| 3.25 | Form submits to Formspree | Manual (test submit) | ☐ |
-| 3.26 | Success message shows after submit | Manual | ☐ |
-| 3.27 | Social links (GitHub, LinkedIn, Email) | Visual | ☐ |
-| 3.28 | Honeypot field exists (spam protection) | Visual (code) | ☐ |
+### 5.7 Responsive
 
-### 5.7 404 Page
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 2.29 | Home works at 320px | DevTools | §8.1 | ☐ |
+| 2.30 | Home works at 768px | DevTools | §8.1 | ☐ |
+| 2.31 | Home works at 1024px | DevTools | §8.1 | ☐ |
+| 2.32 | Home works at 1440px | DevTools | §8.1 | ☐ |
+| 2.33 | No horizontal scroll on any size | DevTools | §8.1 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 3.29 | `/404` page renders | Visual | ☐ |
-| 3.30 | Shows "404 — Page not found" | Visual | ☐ |
-| 3.31 | "Back to Home" button works | Manual | ☐ |
+### 5.8 Dark Mode
 
-### 5.8 Responsive & Dark Mode
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 2.34 | Home switches to dark on OS change | OS settings | §5.8 | ☐ |
+| 2.35 | Colors match §5.1 dark column | Visual | §5.1 | ☐ |
+| 2.36 | No flash on load | Reload | §12.2 | ☐ |
+| 2.37 | No `dark:` variants in components (except `prose-invert`) | `grep -r "dark:" src/` | §5.10 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 3.32 | All 6 pages render at 320px | DevTools | ☐ |
-| 3.33 | All 6 pages render at 768px | DevTools | ☐ |
-| 3.34 | All 6 pages render at 1024px | DevTools | ☐ |
-| 3.35 | All 6 pages work in dark mode | Manual | ☐ |
+### 5.9 Design Tokens
 
-**Phase 3 Summary:** ☐ / 35 checks
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 2.38 | All colors from `@theme` | `grep -r "#[0-9a-f]" src/` → only in `global.css` | §5.9 | ☐ |
+| 2.39 | No hardcoded hex in components | `grep -r "#[0-9a-f]" src/components/` | §20.2 | ☐ |
 
----
-
-## 6. Phase 4 — Katalog + Filter
-
-**Goal:** Katalog page with filter/search/sort works.
-
-**Prerequisites:** Phase 3 complete (all checks ✅).
-
-### 6.1 ProjectCard Component
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 4.1 | `ProjectCard.astro` exists | Visual | ☐ |
-| 4.2 | Renders thumbnail | Visual | ☐ |
-| 4.3 | Renders title | Visual | ☐ |
-| 4.4 | Renders description | Visual | ☐ |
-| 4.5 | Renders tech badges | Visual | ☐ |
-| 4.6 | Renders demo link (if `demoUrl`) | Visual | ☐ |
-| 4.7 | Renders repo link (if `repoUrl`) | Visual | ☐ |
-| 4.8 | Whole card links to `/katalog/[slug]` | Manual | ☐ |
-| 4.9 | Hover effect (shadow lift) | Manual | ☐ |
-
-### 6.2 Katalog Page
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 4.10 | `/katalog` page renders | Visual | ☐ |
-| 4.11 | Empty state shows "No projects yet" | Visual | ☐ |
-| 4.12 | Grid layout (1/2/3 columns) | DevTools | ☐ |
-
-### 6.3 KatalogFilter (React Island)
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 4.13 | `KatalogFilter.tsx` exists | Visual | ☐ |
-| 4.14 | Hydrates with `client:load` | Visual (code) | ☐ |
-| 4.15 | Category filter dropdown works | Manual (with temp data) | ☐ |
-| 4.16 | Search input filters by title | Manual | ☐ |
-| 4.17 | Search input filters by techStack | Manual | ☐ |
-| 4.18 | Sort by date (newest) works | Manual | ☐ |
-| 4.19 | Sort by date (oldest) works | Manual | ☐ |
-| 4.20 | Combined filter + search works | Manual | ☐ |
-
-### 6.4 Performance
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 4.21 | JS bundle for `/katalog` < 50KB gzipped | DevTools (Network) | ☐ |
-| 4.22 | React island hydrates without errors | DevTools (Console) | ☐ |
-| 4.23 | No console errors on `/katalog` | DevTools (Console) | ☐ |
-
-### 6.5 Test with Temp Data
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 4.24 | Add 1 temp project to `src/content/katalog/` | Manual | ☐ |
-| 4.25 | Temp project renders in grid | Visual | ☐ |
-| 4.26 | Filter by category works with temp data | Manual | ☐ |
-| 4.27 | Search works with temp data | Manual | ☐ |
-| 4.28 | Sort works with temp data | Manual | ☐ |
-| 4.29 | Delete temp project after testing | Manual | ☐ |
-
-**Phase 4 Summary:** ☐ / 29 checks
+**Phase 2 total:** 39 checks — **0/39 ✅**
 
 ---
 
-## 7. Phase 5 — Blog + Detail
+## 6. Phase 3 — Halaman Statis
 
-**Goal:** Blog list + dynamic detail pages work.
+**Status:** ⏳ Not started
 
-**Prerequisites:** Phase 4 complete (all checks ✅).
+### 6.1 About Page
 
-### 7.1 BlogCard Component
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 3.01 | `/about` loads | Open URL | §7.2 | ☐ |
+| 3.02 | Bio section (photo + 2–3 paragraphs) | Visual | §7.2 | ☐ |
+| 3.03 | Timeline section | Visual | §7.2 | ☐ |
+| 3.04 | Values section (3 cards) | Visual | §7.2 | ☐ |
+| 3.05 | CV download link works | Click | §7.2 | ☐ |
+| 3.06 | Info section (location, languages, availability) | Visual | §7.2 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 5.1 | `BlogCard.astro` exists | Visual | ☐ |
-| 5.2 | Renders title | Visual | ☐ |
-| 5.3 | Renders date | Visual | ☐ |
-| 5.4 | Renders description | Visual | ☐ |
-| 5.5 | Renders category badge | Visual | ☐ |
-| 5.6 | Renders tags | Visual | ☐ |
-| 5.7 | Whole card links to `/blog/[slug]` | Manual | ☐ |
+### 6.2 Skills Page
 
-### 7.2 Blog Page
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 3.07 | `/skills` loads | Open URL | §7.3 | ☐ |
+| 3.08 | 4 categories: Frontend, Backend, Database, DevOps | Visual | §7.3 | ☐ |
+| 3.09 | Skill bars render | Visual | §7.3 | ☐ |
+| 3.10 | SkillBadge used | Read source | §8.5 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 5.8 | `/blog` page renders | Visual | ☐ |
-| 5.9 | Empty state shows "No articles yet" | Visual | ☐ |
-| 5.10 | Draft articles hidden (`draft: true`) | Manual (add draft) | ☐ |
+### 6.3 Services Page
 
-### 7.3 PostLayout
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 3.11 | `/services` loads | Open URL | §7.6 | ☐ |
+| 3.12 | 3 package cards | Visual | §7.6 | ☐ |
+| 3.13 | 4-step process | Visual | §7.6 | ☐ |
+| 3.14 | FAQ section (3–4 questions) | Visual | §7.6 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 5.11 | `PostLayout.astro` exists | Visual | ☐ |
-| 5.12 | Renders article title | Visual | ☐ |
-| 5.13 | Renders date | Visual | ☐ |
-| 5.14 | Renders category | Visual | ☐ |
-| 5.15 | Renders tags | Visual | ☐ |
-| 5.16 | Renders prose body | Visual | ☐ |
-| 5.17 | Renders back link to `/blog` | Visual | ☐ |
+### 6.4 Resources Page
 
-### 7.4 Dynamic Routes
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 3.15 | `/resources` loads | Open URL | §7.9 | ☐ |
+| 3.16 | Grid layout | Visual | §7.9 | ☐ |
+| 3.17 | Empty state: "No resources yet — coming soon." | Visual | §16.1 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 5.18 | `blog/[slug].astro` exists | Visual | ☐ |
-| 5.19 | `getStaticPaths` implemented | Visual (code) | ☐ |
-| 5.20 | `katalog/[slug].astro` exists | Visual | ☐ |
-| 5.21 | `getStaticPaths` implemented | Visual (code) | ☐ |
+### 6.5 Testimonials Page
 
-### 7.5 Markdown Rendering
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 3.18 | `/testimonials` loads | Open URL | §7.10 | ☐ |
+| 3.19 | Grid layout | Visual | §7.10 | ☐ |
+| 3.20 | Empty state: "No testimonials yet — coming soon." | Visual | §16.1 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 5.22 | H2 renders correctly | Visual | ☐ |
-| 5.23 | H3 renders correctly | Visual | ☐ |
-| 5.24 | Bold renders correctly | Visual | ☐ |
-| 5.25 | Italic renders correctly | Visual | ☐ |
-| 5.26 | Links render correctly | Visual | ☐ |
-| 5.27 | Lists render correctly | Visual | ☐ |
-| 5.28 | Code blocks render with syntax highlighting | Visual | ☐ |
-| 5.29 | Tables render correctly | Visual | ☐ |
-| 5.30 | Blockquotes render correctly | Visual | ☐ |
-| 5.31 | Images render correctly | Visual | ☐ |
+### 6.6 Contact Page
 
-### 7.6 Test with Temp Content
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 3.21 | `/contact` loads | Open URL | §7.11 | ☐ |
+| 3.22 | Form has Name, Email, Subject, Message | Visual | §7.11 | ☐ |
+| 3.23 | Every input has `<label>` | Read source | §14 | ☐ |
+| 3.24 | Form submits to Formspree | Test submission | §12.4 | ☐ |
+| 3.25 | Honeypot field present | Read source | §12.4 | ☐ |
+| 3.26 | Social links (GitHub, LinkedIn, Email, WhatsApp) | Visual | §7.11 | ☐ |
+| 3.27 | Response time message shown | Visual | §7.11 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 5.32 | Add 1 temp article to `src/content/blog/` | Manual | ☐ |
-| 5.33 | Temp article renders in blog list | Visual | ☐ |
-| 5.34 | `/blog/[slug]` renders detail page | Visual | ☐ |
-| 5.35 | Add 1 temp project to `src/content/katalog/` | Manual | ☐ |
-| 5.36 | `/katalog/[slug]` renders detail page | Visual | ☐ |
-| 5.37 | Delete temp content after testing | Manual | ☐ |
+### 6.7 404 Page
 
-### 7.7 Empty States
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 3.28 | `/404` loads (visit bad URL) | Open `/nonexistent` | §7.12 | ☐ |
+| 3.29 | Shows "404 — Page not found" | Visual | §7.12 | ☐ |
+| 3.30 | Shows message | Visual | §7.12 | ☐ |
+| 3.31 | "Back to Home" button → `/` | Click | §7.12 | ☐ |
 
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 5.38 | Blog empty state shows correctly | Visual | ☐ |
-| 5.39 | Katalog empty state shows correctly | Visual | ☐ |
+### 6.8 SkillBadge Component
 
-**Phase 5 Summary:** ☐ / 39 checks
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 3.32 | Renders with `name` only | Test | §8.5 | ☐ |
+| 3.33 | Renders with `name` + `level` | Test | §8.5 | ☐ |
+| 3.34 | Renders with `name` + `level` + `icon` | Test | §8.5 | ☐ |
 
----
+### 6.9 Build & Deploy
 
-## 8. Phase 6 — Polish & Deploy
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 3.35 | `npm run build` succeeds | Run | §20 | ☐ |
+| 3.36 | Live site shows all 7 pages | Open each | §20 | ☐ |
 
-**Goal:** SEO, performance, final deploy.
-
-**Prerequisites:** Phase 5 complete (all checks ✅).
-
-### 8.1 SEO
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 6.1 | `/sitemap-index.xml` accessible | Visual | ☐ |
-| 6.2 | `/robots.txt` accessible | Visual | ☐ |
-| 6.3 | `robots.txt` references sitemap | Visual | ☐ |
-| 6.4 | Every page has unique `<title>` | DevTools | ☐ |
-| 6.5 | Every page has `<meta name="description">` | DevTools | ☐ |
-| 6.6 | Every page has `<link rel="canonical">` | DevTools | ☐ |
-| 6.7 | Every page has OG tags (`og:title`, `og:description`, `og:image`) | DevTools | ☐ |
-| 6.8 | OG image is 1200×630 | Visual | ☐ |
-
-### 8.2 Assets
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 6.9 | `/favicon.svg` exists and shows in tab | Visual | ☐ |
-| 6.10 | All project thumbnails load | Visual | ☐ |
-| 6.11 | All blog cover images load | Visual | ☐ |
-| 6.12 | Avatar loads | Visual | ☐ |
-
-### 8.3 Performance
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 6.13 | Lighthouse Performance ≥ 95 (Home) | Lighthouse | ☐ |
-| 6.14 | Lighthouse Performance ≥ 95 (Katalog) | Lighthouse | ☐ |
-| 6.15 | Lighthouse Accessibility ≥ 95 (Home) | Lighthouse | ☐ |
-| 6.16 | Lighthouse Best Practices ≥ 95 (Home) | Lighthouse | ☐ |
-| 6.17 | Lighthouse SEO ≥ 95 (Home) | Lighthouse | ☐ |
-| 6.18 | LCP < 2.5s (Home) | Lighthouse | ☐ |
-| 6.19 | CLS < 0.1 (Home) | Lighthouse | ☐ |
-| 6.20 | Total page weight < 500KB (Home) | DevTools (Network) | ☐ |
-
-### 8.4 Accessibility
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 6.21 | Skip link works (Tab on load) | Manual | ☐ |
-| 6.22 | All interactive elements reachable via Tab | Manual | ☐ |
-| 6.23 | Focus ring visible on all interactive elements | Manual | ☐ |
-| 6.24 | All images have `alt` | Visual (code) | ☐ |
-| 6.25 | All form inputs have `<label>` | Visual (code) | ☐ |
-| 6.26 | Color contrast ≥ 4.5:1 (body text) | Lighthouse | ☐ |
-| 6.27 | `prefers-reduced-motion` respected | Manual (OS setting) | ☐ |
-
-### 8.5 Documentation
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 6.28 | `README.md` exists | Visual | ☐ |
-| 6.29 | `README.md` has project description | Visual | ☐ |
-| 6.30 | `README.md` has setup instructions | Visual | ☐ |
-| 6.31 | `README.md` has live URL | Visual | ☐ |
-| 6.32 | `README.md` links to `docs/` | Visual | ☐ |
-| 6.33 | `docs/README.md` exists (docs index) | Visual | ☐ |
-| 6.34 | All 8 docs in `docs/` present | Visual | ☐ |
-
-### 8.6 Final Deploy
-
-| # | Check | Method | Status |
-|---|-------|--------|:---:|
-| 6.35 | Push to `main` triggers Action | Visual | ☐ |
-| 6.36 | Action completes with green check | Visual | ☐ |
-| 6.37 | Live site shows Home page | Visual | ☐ |
-| 6.38 | All 9 pages accessible on live site | Manual | ☐ |
-| 6.39 | 404 page works on live site | Manual | ☐ |
-| 6.40 | Dark mode works on live site | Manual | ☐ |
-| 6.41 | Mobile responsive on live site | Manual | ☐ |
-
-**Phase 6 Summary:** ☐ / 41 checks
+**Phase 3 total:** 36 checks — **0/36 ✅**
 
 ---
 
-## 9. Overall Summary
+## 7. Phase 4 — Katalog + Filter
 
-| Phase | Name | Total Checks | Passed | Failed | Status |
-|-------|------|:---:|:---:|:---:|:---:|
-| 1 | Fondasi Proyek | 46 | ☐ | ☐ | ☐ |
-| 2 | Desain & Home | 39 | ☐ | ☐ | ☐ |
-| 3 | Halaman Statis | 35 | ☐ | ☐ | ☐ |
-| 4 | Katalog + Filter | 29 | ☐ | ☐ | ☐ |
-| 5 | Blog + Detail | 39 | ☐ | ☐ | ☐ |
-| 6 | Polish & Deploy | 41 | ☐ | ☐ | ☐ |
-| **TOTAL** | | **229** | ☐ | ☐ | ☐ |
+**Status:** ⏳ Not started
+
+### 7.1 ProjectCard Component
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 4.01 | `src/components/ProjectCard.astro` exists | `ls` | §8.3 | ☐ |
+| 4.02 | Renders thumbnail | Visual | §8.3 | ☐ |
+| 4.03 | Renders title | Visual | §8.3 | ☐ |
+| 4.04 | Renders description | Visual | §8.3 | ☐ |
+| 4.05 | Renders tech badges | Visual | §8.3 | ☐ |
+| 4.06 | Renders demo link | Visual | §8.3 | ☐ |
+| 4.07 | Renders repo link | Visual | §8.3 | ☐ |
+| 4.08 | Whole card links to `/katalog/[slug]` | Click | §8.3 | ☐ |
+| 4.09 | Hover lifts shadow | Hover | §8.3 | ☐ |
+
+### 7.2 Katalog Page
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 4.10 | `/katalog` loads | Open URL | §7.4 | ☐ |
+| 4.11 | Header (title + description) | Visual | §7.4 | ☐ |
+| 4.12 | Empty state: "No projects yet — coming soon." | Visual (no content) | §16.1 | ☐ |
+| 4.13 | Grid renders when projects exist | Add temp project | §7.4 | ☐ |
+
+### 7.3 KatalogFilter (React Island)
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 4.14 | `src/components/KatalogFilter.tsx` exists | `ls` | §8.6 | ☐ |
+| 4.15 | Hydrated with `client:load` | Read `katalog.astro` | §12.1 | ☐ |
+| 4.16 | Category filter works | Select category | §12.1 | ☐ |
+| 4.17 | Search by title works | Type title | §12.1 | ☐ |
+| 4.18 | Search by tech works | Type tech name | §12.1 | ☐ |
+| 4.19 | Sort by date (newest) works | Select sort | §12.1 | ☐ |
+| 4.20 | Sort by date (oldest) works | Select sort | §12.1 | ☐ |
+| 4.21 | Combined filter + search + sort works | Use all three | §12.1 | ☐ |
+
+### 7.4 JS Budget
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 4.22 | JS on `/katalog` < 50KB gzipped | DevTools Network | §15.2 | ☐ |
+| 4.23 | React island hydrates without errors | DevTools Console | §12.1 | ☐ |
+
+### 7.5 Build & Deploy
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 4.24 | `npm run build` succeeds | Run | §20 | ☐ |
+| 4.25 | Filter works on live site | Open live `/katalog` | §20 | ☐ |
+
+**Phase 4 total:** 25 checks — **0/25 ✅**
 
 ---
 
-## 10. Quick Verification Commands
+## 8. Phase 5 — Blog + Detail
 
-```bash
-# Phase 1 — Local dev
-npm run dev
-# Open http://localhost:4321
+**Status:** ⏳ Not started
 
-# Phase 1 — Build
-npm run build
-# Check dist/ folder exists
+### 8.1 BlogCard Component
 
-# Phase 1 — Check deploy
-git push
-# Open GitHub Actions tab
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 5.01 | `src/components/BlogCard.astro` exists | `ls` | §8.4 | ☐ |
+| 5.02 | Renders title | Visual | §8.4 | ☐ |
+| 5.03 | Renders date | Visual | §8.4 | ☐ |
+| 5.04 | Renders description | Visual | §8.4 | ☐ |
+| 5.05 | Renders category badge | Visual | §8.4 | ☐ |
+| 5.06 | Renders tags | Visual | §8.4 | ☐ |
+| 5.07 | Whole card links to `/blog/[slug]` | Click | §8.4 | ☐ |
 
-# Phase 1 — Check dark mode CSS variables
-grep -n "prefers-color-scheme" src/styles/global.css
+### 8.2 Blog List Page
 
-# Phase 1 — Check no manual dark: variants (except prose-invert)
-grep -rn "dark:" src/components/ src/pages/ src/layouts/ | grep -v "prose-invert"
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 5.08 | `/blog` loads | Open URL | §7.7 | ☐ |
+| 5.09 | Empty state: "No articles yet — coming soon." | Visual (no content) | §16.1 | ☐ |
+| 5.10 | Draft articles hidden | Set `draft: true`, rebuild | §9.2 | ☐ |
+| 5.11 | Published articles visible | Set `draft: false`, rebuild | §9.2 | ☐ |
 
-# Phase 2–5 — Test responsive
-# Open DevTools → Toggle device toolbar → test 320/768/1024px
+### 8.3 PostLayout
 
-# Phase 2–5 — Test dark mode
-# Change OS theme to dark, refresh page
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 5.12 | `src/layouts/PostLayout.astro` exists | `ls` | §8.8 | ☐ |
+| 5.13 | Article header (title, date, category, tags) | Visual | §8.8 | ☐ |
+| 5.14 | Prose body styled | Visual | §8.8 | ☐ |
+| 5.15 | Back link to `/blog` or `/katalog` | Click | §8.8 | ☐ |
+| 5.16 | Uses `prose dark:prose-invert` | Read source | §17.1 | ☐ |
 
-# Phase 4 — Test filter (with temp data)
-# Add temp project, run npm run dev, test filter manually
+### 8.4 Blog Detail Route
 
-# Phase 5 — Test dynamic routes (with temp content)
-# Add temp article/project, visit /blog/[slug] or /katalog/[slug]
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 5.17 | `src/pages/blog/[slug].astro` exists | `ls` | §11.1 | ☐ |
+| 5.18 | `getStaticPaths` reads `blog` collection | Read source | §11.3 | ☐ |
+| 5.19 | Dynamic route renders article | Add temp article | §11.1 | ☐ |
+| 5.20 | Markdown body renders | Visual | §11.1 | ☐ |
+| 5.21 | Code blocks styled | Visual | §17.3 | ☐ |
 
-# Phase 6 — Lighthouse
-# Open DevTools → Lighthouse → Analyze page load
+### 8.5 Katalog Detail Route
 
-# Phase 6 — Check sitemap
-# Visit /sitemap-index.xml
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 5.22 | `src/pages/katalog/[slug].astro` exists | `ls` | §11.1 | ☐ |
+| 5.23 | `getStaticPaths` reads `katalog` collection | Read source | §11.3 | ☐ |
+| 5.24 | Dynamic route renders project | Add temp project | §11.1 | ☐ |
+| 5.25 | Header: title, date, category, tech badges | Visual | §7.5 | ☐ |
+| 5.26 | Thumbnail renders | Visual | §7.5 | ☐ |
+| 5.27 | Body renders | Visual | §7.5 | ☐ |
+| 5.28 | Demo + repo buttons | Visual | §7.5 | ☐ |
+| 5.29 | Back link to `/katalog` | Click | §7.5 | ☐ |
 
-# Phase 6 — Check robots
-# Visit /robots.txt
+### 8.6 Empty States
 
-# Phase 6 — Check all routes
-# Visit each: /, /about, /skills, /katalog, /services, /blog, /resources, /testimonials, /contact, /404
-```
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 5.30 | `/katalog` empty state shown (no content) | Visual | §16.1 | ☐ |
+| 5.31 | `/blog` empty state shown (no content) | Visual | §16.1 | ☐ |
+
+### 8.7 Markdown Rendering
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 5.32 | Headings styled | Visual | §17.4 | ☐ |
+| 5.33 | Links styled | Visual | §17.4 | ☐ |
+| 5.34 | Lists styled | Visual | §17.4 | ☐ |
+| 5.35 | Blockquotes styled | Visual | §17.4 | ☐ |
+| 5.36 | Tables styled | Visual | §17.4 | ☐ |
+
+### 8.8 Build & Deploy
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 5.37 | `npm run build` succeeds | Run | §20 | ☐ |
+| 5.38 | All 9 pages + 2 detail templates work on live site | Open each | §20 | ☐ |
+
+**Phase 5 total:** 38 checks — **0/38 ✅**
+
+---
+
+## 9. Phase 6 — Polish & Deploy
+
+**Status:** ⏳ Not started
+
+### 9.1 SEO
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 6.01 | `@astrojs/sitemap` in `integrations` | Read config | §13.2 | ☐ |
+| 6.02 | `/sitemap-index.xml` accessible | Open URL | §13.2 | ☐ |
+| 6.03 | `public/robots.txt` exists | `ls` | §13.3 | ☐ |
+| 6.04 | `/robots.txt` accessible | Open URL | §13.3 | ☐ |
+| 6.05 | `robots.txt` references sitemap | Read file | §13.3 | ☐ |
+| 6.06 | `public/images/og-default.png` exists (1200×630) | `ls`, check size | §13.4 | ☐ |
+| 6.07 | Every page has `<title>` | View source | §13.1 | ☐ |
+| 6.08 | Every page has meta description | View source | §13.1 | ☐ |
+| 6.09 | Every page has canonical link | View source | §13.1 | ☐ |
+| 6.10 | Every page has OG tags | View source | §13.1 | ☐ |
+| 6.11 | Twitter card meta present | View source | §13.1 | ☐ |
+
+### 9.2 Assets
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 6.12 | `public/favicon.svg` exists | `ls` | §10 | ☐ |
+| 6.13 | Favicon shows in browser tab | Open live | §10 | ☐ |
+| 6.14 | `public/cv.pdf` exists (or placeholder) | `ls` | §10 | ☐ |
+| 6.15 | Avatar image exists | `ls public/images/avatar.png` | §10 | ☐ |
+
+### 9.3 Lighthouse
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 6.16 | Performance ≥ 95 | Lighthouse | §15.1 | ☐ |
+| 6.17 | Accessibility ≥ 95 | Lighthouse | §15.1 | ☐ |
+| 6.18 | Best Practices ≥ 95 | Lighthouse | §15.1 | ☐ |
+| 6.19 | SEO ≥ 95 | Lighthouse | §15.1 | ☐ |
+| 6.20 | LCP < 2.5s | Lighthouse | §15.1 | ☐ |
+| 6.21 | CLS < 0.1 | Lighthouse | §15.1 | ☐ |
+| 6.22 | INP < 200ms | Lighthouse | §15.1 | ☐ |
+
+### 9.4 Performance Budget
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 6.23 | JS on `/katalog` < 50KB gzipped | DevTools | §15.2 | ☐ |
+| 6.24 | JS on other pages < 10KB gzipped | DevTools | §15.2 | ☐ |
+| 6.25 | CSS < 20KB gzipped | DevTools | §15.2 | ☐ |
+| 6.26 | Page weight < 500KB | DevTools | §15.2 | ☐ |
+
+### 9.5 Documentation
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 6.27 | `README.md` exists | `ls` | §20 | ☐ |
+| 6.28 | README has setup instructions | Read | §20 | ☐ |
+| 6.29 | README has architecture diagrams | Read | §20 | ☐ |
+| 6.30 | `docs/README.md` exists | `ls` | §10 | ☐ |
+| 6.31 | `docs/README.md` links all docs | Read | §10 | ☐ |
+| 6.32 | All 8 docs present in `docs/` | `ls docs/` | §10 | ☐ |
+
+### 9.6 Final Deploy
+
+| # | Check | How | Ref | Done |
+|---|-------|-----|-----|:---:|
+| 6.33 | `npm run build` succeeds | Run | §20 | ☐ |
+| 6.34 | Push triggers GitHub Action | Actions tab | §18.4 | ☐ |
+| 6.35 | Action completes green | Actions tab | §18.4 | ☐ |
+| 6.36 | Live site loads | Open URL | §18.1 | ☐ |
+| 6.37 | All 12 routes work on live site | Open each | §6.1 | ☐ |
+| 6.38 | Dark mode works on live site | OS switch | §5.8 | ☐ |
+| 6.39 | Mobile responsive on live site | DevTools | §8.1 | ☐ |
+| 6.40 | No console errors on live site | DevTools | §16 | ☐ |
+| 6.41 | No 404s in Network tab | DevTools | §16 | ☐ |
+
+**Phase 6 total:** 41 checks — **0/41 ✅**
+
+---
+
+## 10. Summary
+
+### 10.1 Phase Totals
+
+| Phase | Checks | ✅ | ❌ | Status |
+|-------|:---:|:---:|:---:|--------|
+| 1 — Fondasi Proyek | 57 | 57 | 0 | ✅ Complete |
+| 2 — Desain & Home | 39 | 0 | 39 | ⏳ Not started |
+| 3 — Halaman Statis | 36 | 0 | 36 | ⏳ Not started |
+| 4 — Katalog + Filter | 25 | 0 | 25 | ⏳ Not started |
+| 5 — Blog + Detail | 38 | 0 | 38 | ⏳ Not started |
+| 6 — Polish & Deploy | 41 | 0 | 41 | ⏳ Not started |
+| **Total** | **236** | **57** | **179** | **24% complete** |
+
+### 10.2 Milestones
+
+| Milestone | Checks | Status |
+|-----------|:---:|--------|
+| Phase 1 complete | 57/57 | ✅ |
+| Phase 2 complete | 96/236 | ⏳ |
+| Phase 3 complete | 132/236 | ⏳ |
+| Phase 4 complete | 157/236 | ⏳ |
+| Phase 5 complete | 195/236 | ⏳ |
+| Phase 6 complete | 236/236 | ⏳ |
+| Launch (1.0.0) | 236/236 + content | ⏳ |
+
+### 10.3 Regression Checks
+
+Run these after **any** change:
+
+| # | Check | How |
+|---|-------|-----|
+| R.01 | `npm run build` succeeds | Run |
+| R.02 | No console errors | DevTools |
+| R.03 | Dark mode works | OS switch |
+| R.04 | Mobile responsive | DevTools |
+| R.05 | No `dark:` variants (except `prose-invert`) | `grep -r "dark:" src/` |
+| R.06 | No hardcoded hex in components | `grep -r "#[0-9a-f]" src/components/` |
+| R.07 | No `tailwind.config.mjs` | `ls tailwind.config.mjs` → not found |
+| R.08 | No `@astrojs/tailwind` | `grep "@astrojs/tailwind" package.json` → not found |
+| R.09 | `src/content.config.ts` exists | `ls` |
+| R.10 | No `src/content/config.ts` | `ls src/content/config.ts` → not found |
+
+---
+
+## 11. Change Log
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.3.0 | 2026-11-04 | Synced with `blueprint.md` v1.2.0 after Phase 1: Node 22, Astro 5 + Tailwind 4 (`@tailwindcss/vite`, no `tailwind.config.mjs`), `src/content.config.ts`; Phase 1 marked complete (57/57); Phase 2 expanded with dark mode + design token checks; Phase 4 JS budget check added; Phase 6 docs checks added; regression checks R.01–R.10 added; total 236 checks. |
+| 1.2.0 | 2026-10-26 | All checks marked ✅ for Phase 1 (as originally planned, later corrected); evidence column concept added; project version 1.0.0 (corrected back to 0.1.0 in v1.3.0). |
+| 1.1.0 | 2026-10-26 | Removed "unique/sub" terminology; Phase 1 expanded to 46 checks; Phase 2 +1 dark variant check; Phase 6 +2 docs checks; total 229. |
+| 1.0.1 | 2026-10-26 | Document Info split into `Document Version` vs `Project Version`. |
+| 1.0.0 | 2026-10-26 | Initial checklist. |
+
 ---
 
 *End of document.*
