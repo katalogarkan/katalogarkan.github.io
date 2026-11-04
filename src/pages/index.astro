@@ -1,10 +1,204 @@
 ---
+// src/pages/index.astro
+// Home page: Hero, Featured Projects, Skills Summary, Testimonials, CTA.
+// Empty sections are hidden via conditional rendering.
+
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SkillBadge from '../components/SkillBadge.astro';
+import { getCollection } from 'astro:content';
+
+// Fetch featured projects (max 3)
+const allProjects = await getCollection('katalog');
+const featuredProjects = allProjects
+  .filter((p) => p.data.featured === true)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+// Placeholder skills (top 8) — will be replaced with real data in Phase 3
+const topSkills = [
+  'HTML',
+  'CSS',
+  'JavaScript',
+  'TypeScript',
+  'React',
+  'Astro',
+  'Node.js',
+  'Tailwind CSS',
+];
+
+// Placeholder testimonials — will be replaced with real data in Phase 3
+const testimonials: { quote: string; name: string; role: string }[] = [];
+
+const title = 'Arkan — Full Stack Web Developer';
+const description =
+  'Personal site and project katalog of Arkan, a Full Stack Web Developer building fast, accessible web experiences.';
 ---
 
-<BaseLayout title="Hello" description="Temporary home page">
-  <div class="container-page py-24 text-center">
-    <h1 class="text-4xl font-bold mb-4">Hello</h1>
-    <p class="text-text-muted">Project setup successful. Ready for Phase 1.</p>
-  </div>
+<BaseLayout {title} {description}>
+
+  <!-- ============================================ -->
+  <!-- HERO -->
+  <!-- ============================================ -->
+  <section class="py-16 md:py-24">
+    <div class="container-page">
+      <div class="max-w-3xl">
+        <p class="text-sm font-medium text-primary mb-4">
+          Full Stack Web Developer
+        </p>
+        <h1 class="text-4xl md:text-6xl font-bold text-text leading-tight mb-6">
+          Hi, I'm Arkan.
+        </h1>
+        <p class="text-lg md:text-xl text-text-muted mb-8 max-w-2xl">
+          I build fast, accessible, and maintainable web applications —
+          from static sites to full-stack apps. This is my personal site
+          and project katalog.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="/katalog"
+            class="inline-flex items-center justify-center px-6 py-3 rounded-md
+                   bg-primary text-white font-medium
+                   hover:bg-primary-hover
+                   focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
+                   transition-colors"
+          >
+            View Katalog
+          </a>
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center px-6 py-3 rounded-md
+                   bg-transparent text-primary font-medium border border-primary
+                   hover:bg-primary hover:text-white
+                   focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
+                   transition-colors"
+          >
+            Contact Me
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- FEATURED PROJECTS -->
+  <!-- ============================================ -->
+  {featuredProjects.length > 0 && (
+    <section class="py-12 md:py-16 border-t border-border">
+      <div class="container-page">
+        <div class="flex items-end justify-between mb-8">
+          <div>
+            <h2 class="text-2xl font-bold text-text">Featured Projects</h2>
+            <p class="text-text-muted mt-2">
+              A few things I've built recently.
+            </p>
+          </div>
+          <a
+            href="/katalog"
+            class="hidden sm:inline-flex text-sm font-medium text-primary hover:text-primary-hover transition-colors"
+          >
+            View all →
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredProjects.map((project) => (
+            <a
+              href={`/katalog/${project.id}`}
+              class="group block bg-bg-subtle border border-border rounded-lg p-6
+                     shadow-md hover:shadow-lg transition-shadow"
+            >
+              <h3 class="text-lg font-bold text-text group-hover:text-primary transition-colors mb-2">
+                {project.data.title}
+              </h3>
+              <p class="text-sm text-text-muted mb-4">
+                {project.data.description}
+              </p>
+              <div class="flex flex-wrap gap-1">
+                {project.data.techStack.slice(0, 3).map((tech) => (
+                  <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ============================================ -->
+  <!-- SKILLS SUMMARY -->
+  <!-- ============================================ -->
+  {topSkills.length > 0 && (
+    <section class="py-12 md:py-16 border-t border-border">
+      <div class="container-page">
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-text">Skills</h2>
+          <p class="text-text-muted mt-2">
+            Technologies I work with day to day.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          {topSkills.map((skill) => (
+            <SkillBadge name={skill} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ============================================ -->
+  <!-- TESTIMONIALS -->
+  <!-- ============================================ -->
+  {testimonials.length > 0 && (
+    <section class="py-12 md:py-16 border-t border-border">
+      <div class="container-page">
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-text">What People Say</h2>
+          <p class="text-text-muted mt-2">
+            Feedback from clients and collaborators.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {testimonials.map((t) => (
+            <blockquote class="bg-bg-subtle border border-border rounded-lg p-6">
+              <p class="text-text mb-4 italic">"{t.quote}"</p>
+              <footer class="text-sm">
+                <p class="font-bold text-text">{t.name}</p>
+                <p class="text-text-muted">{t.role}</p>
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ============================================ -->
+  <!-- CTA -->
+  <!-- ============================================ -->
+  <section class="py-12 md:py-16 border-t border-border">
+    <div class="container-page">
+      <div class="bg-bg-subtle border border-border rounded-lg p-8 md:p-12 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-text mb-4">
+          Interested in working together?
+        </h2>
+        <p class="text-text-muted mb-6 max-w-xl mx-auto">
+          I'm available for freelance projects and full-time roles.
+          Let's talk about what you're building.
+        </p>
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-md
+                 bg-primary text-white font-medium
+                 hover:bg-primary-hover
+                 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
+                 transition-colors"
+        >
+          Contact Me
+        </a>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
