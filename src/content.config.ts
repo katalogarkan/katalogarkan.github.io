@@ -30,4 +30,16 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { katalog, blog };
+// Koleksi Testimonials (Sudah ditambah date dan order)
+const testimonials = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/testimonials' }),
+  schema: z.object({
+    name: z.string(),
+    role: z.string(),
+    rating: z.number().min(1).max(5),
+    order: z.number().optional(),
+    date: z.coerce.date(),
+  }),
+});
+
+export const collections = { katalog, blog, testimonials };

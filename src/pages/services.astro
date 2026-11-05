@@ -3,183 +3,367 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const title = 'Services & Pricing — Arkan Tsabit';
-const description = 'Detailed freelance services for Web Development, Data Engineering, Analytics, and Cloud.';
+const description =
+  'Detailed freelance services for Web Development, Data Engineering, Analytics, and Cloud. Transparent pricing, clear deliverables, production-ready code.';
 
 const serviceCategories = [
   {
-    name: "Web Development",
-    icon: "web",
+    name: 'Web Development',
+    icon: 'web',
+    slug: 'web-dev',
     services: [
-      { 
-        title: "Landing Page", 
-        desc: "A high-converting single-page website designed to launch your product quickly. Ideal for marketing campaigns or validating a new business idea.",
-        deliverables: ["1 Page Design & Development", "Mobile & Tablet Responsive", "Contact Form Integration", "Basic On-Page SEO"],
-        tech: ["Astro", "Tailwind CSS"],
-        timeline: "5–7 Days",
-        revisions: "2 Revisions",
-        price: "$250"
+      {
+        title: 'Landing Page',
+        desc: 'A single-page website built for fast conversion, ideal for product launches or idea validation. Includes responsive design, contact form integration, and basic SEO.',
+        deliverables: [
+          '1 Page Design & Development',
+          'Mobile & Tablet Responsive',
+          'Contact Form Integration',
+          'Basic On-Page SEO',
+        ],
+        tech: ['Astro', 'Tailwind CSS'],
+        timeline: '7–10 Days',
+        revisions: '2 Revisions',
+        price: '$400–700',
+        exampleUrl: '/katalog/saas-landing-page',
       },
-      { 
-        title: "Company Profile", 
-        desc: "A professional multi-page website to establish your brand's credibility online. Perfect for B2B companies, agencies, and local businesses.",
-        deliverables: ["Up to 5 Pages (Home, About, Services)", "Blog/News Section Setup", "SEO Meta Tags", "Google Analytics Integration"],
-        tech: ["Astro", "React", "Tailwind CSS"],
-        timeline: "10–14 Days",
-        revisions: "3 Revisions",
-        price: "$450"
+      {
+        title: 'Company Profile',
+        desc: 'A multi-page website built to establish brand credibility, ideal for B2B, agencies, and local businesses. Includes 5 pages, a blog section, SEO meta tags, and Google Analytics.',
+        deliverables: [
+          'Up to 5 Pages (Home, About, Services)',
+          'Blog/News Section Setup',
+          'SEO Meta Tags',
+          'Google Analytics Integration',
+        ],
+        tech: ['Astro', 'React', 'Tailwind CSS'],
+        timeline: '2–3 Weeks',
+        revisions: '3 Revisions',
+        price: '$800–1,500',
+        exampleUrl: '/katalog/agency-company-profile',
       },
-      { 
-        title: "Custom Web App", 
-        desc: "An interactive web application tailored to your specific business logic. Includes user authentication, database connection, and custom features.",
-        deliverables: ["Custom Frontend & Backend", "REST API Integration", "User Login/Auth System", "Database Setup & Connection"],
-        tech: ["Astro", "React", "Node.js", "PostgreSQL"],
-        timeline: "3–6 Weeks",
-        revisions: "Unlimited (within scope)",
-        price: "$800+"
+      {
+        title: 'Custom Web App',
+        desc: 'A web application with custom business logic, including user authentication, database connection, and APIs. Scoped as an MVP starter — full production apps are quoted separately.',
+        deliverables: [
+          'Custom Frontend & Backend',
+          'REST API Integration',
+          'User Login/Auth System',
+          'Database Setup & Connection',
+        ],
+        tech: ['React', 'Node.js', 'PostgreSQL'],
+        timeline: '6–10 Weeks',
+        revisions: 'Scope-Based',
+        price: '$5,000–12,000',
+        exampleUrl: '/katalog/custom-data-tracker-app',
       },
-      { 
-        title: "Website Redesign", 
-        desc: "Give your outdated website a modern, fast, and mobile-friendly makeover. Improve user experience and conversion rates.",
-        deliverables: ["UI/UX Audit", "Modern Design Implementation", "Speed Optimization", "Mobile Responsiveness"],
-        tech: ["Astro", "Tailwind CSS", "Figma"],
-        timeline: "1–2 Weeks",
-        revisions: "3 Revisions",
-        price: "$400"
+      {
+        title: 'Website Redesign',
+        desc: 'UI/UX audit, modern redesign, speed optimization, and mobile responsiveness to improve conversion.',
+        deliverables: [
+          'UI/UX Audit',
+          'Modern Design Implementation',
+          'Speed Optimization',
+          'Mobile Responsiveness',
+        ],
+        tech: ['Figma', 'Astro', 'Tailwind CSS'],
+        timeline: '3–6 Weeks',
+        revisions: '3 Revisions',
+        price: '$1,500–3,000',
+        exampleUrl: '/katalog/legacy-redesign',
       },
-      { 
-        title: "Monthly Maintenance", 
-        desc: "Keep your website secure, updated, and running smoothly. I handle the technical stuff so you can focus on your business.",
-        deliverables: ["Weekly Backups", "Security Updates", "Uptime Monitoring", "Minor Content Updates"],
-        tech: ["cPanel", "GitHub", "Cloudflare"],
-        timeline: "Monthly Retainer",
-        revisions: "N/A",
-        price: "$50/mo"
-      }
-    ]
+      {
+        title: 'Monthly Maintenance',
+        desc: 'Weekly backups, security updates, uptime monitoring, and minor content updates to keep your website safe.',
+        deliverables: [
+          'Weekly Backups',
+          'Security Updates',
+          'Uptime Monitoring',
+          'Minor Content Updates',
+        ],
+        tech: ['cPanel', 'GitHub', 'Cloudflare'],
+        timeline: 'Monthly Retainer',
+        revisions: 'N/A',
+        price: '$75–150/mo',
+        exampleUrl: '',
+      },
+    ],
   },
   {
-    name: "Data Engineering & Analytics",
-    icon: "data",
+    name: 'Data Engineering & Analytics',
+    icon: 'data',
+    slug: 'data-eng',
     services: [
-      { 
-        title: "ETL Pipeline Setup", 
-        desc: "Automated data extraction, transformation, and loading from your sources to your data warehouse. Save hours of manual data entry.",
-        deliverables: ["Python Scripts for Extraction", "Apache Airflow DAGs", "Data Cleaning & Deduplication", "Automated Daily Scheduling"],
-        tech: ["Python", "Apache Airflow", "BigQuery"],
-        timeline: "1–2 Weeks",
-        revisions: "2 Revisions",
-        price: "$600"
+      {
+        title: 'ETL Pipeline Setup',
+        desc: 'Automate data extraction, transformation, and loading from sources to a data warehouse. Save time on manual input.',
+        deliverables: [
+          'Python Scripts for Extraction',
+          'Apache Airflow DAGs',
+          'Data Cleaning & Deduplication',
+          'Automated Daily Scheduling',
+        ],
+        tech: ['Python', 'Apache Airflow', 'BigQuery'],
+        timeline: '2–3 Weeks',
+        revisions: '2 Revisions',
+        price: '$2,000–4,000',
+        exampleUrl: '/katalog/batchetl-pipeline',
       },
-      { 
-        title: "Data Warehouse Modeling", 
-        desc: "Designing an optimized database schema (Star Schema) to make your data analytics faster, cheaper, and more reliable.",
-        deliverables: ["ERD & Schema Design", "BigQuery/PostgreSQL Setup", "Dataform/dbt Transformations", "Data Quality Tests"],
-        tech: ["BigQuery", "Dataform", "SQL"],
-        timeline: "2–3 Weeks",
-        revisions: "3 Revisions",
-        price: "$700"
+      {
+        title: 'Data Warehouse Modeling',
+        desc: 'Star schema design, BigQuery/PostgreSQL setup, Dataform/dbt transformations, and data quality testing.',
+        deliverables: [
+          'ERD & Schema Design',
+          'BigQuery/PostgreSQL Setup',
+          'Dataform/dbt Transformations',
+          'Data Quality Tests',
+        ],
+        tech: ['BigQuery', 'Dataform', 'SQL'],
+        timeline: '3–4 Weeks',
+        revisions: '3 Revisions',
+        price: '$2,500–5,000',
+        exampleUrl: '/katalog/uber-data-pipeline',
       },
-      { 
-        title: "Web Scraping", 
-        desc: "Extract valuable data from competitor websites, marketplaces, or social media to gain a competitive edge for your business.",
-        deliverables: ["Custom Python Scraper", "Data Cleaning & Formatting", "CSV/JSON Export", "Anti-Block Handling"],
-        tech: ["Python", "BeautifulSoup", "Pandas"],
-        timeline: "3–7 Days",
-        revisions: "2 Revisions",
-        price: "$350"
+      {
+        title: 'Web Scraping',
+        desc: 'Extract data from competitor or marketplace websites. Includes a Python scraper, data cleaning, CSV/JSON export, and anti-blocking handling.',
+        deliverables: [
+          'Custom Python Scraper',
+          'Data Cleaning & Formatting',
+          'CSV/JSON Export',
+          'Anti-Block Handling',
+        ],
+        tech: ['Python', 'BeautifulSoup', 'Scrapy', 'Playwright'],
+        timeline: '5–10 Days',
+        revisions: '2 Revisions',
+        price: '$600–1,200',
+        exampleUrl: '/katalog/amazon-price-tracker',
       },
-      { 
-        title: "Interactive Dashboard", 
-        desc: "Transform your raw data into beautiful, interactive dashboards so you can track KPIs and make data-driven decisions.",
-        deliverables: ["Custom Dashboard Design", "Live Data Connection", "Up to 5 Charts/KPIs", "Deployment to Cloud"],
-        tech: ["Streamlit", "Plotly", "Looker Studio"],
-        timeline: "1–2 Weeks",
-        revisions: "2 Revisions",
-        price: "$450"
+      {
+        title: 'Interactive Dashboard',
+        desc: 'Interactive data visualization for KPI tracking. Custom design, live data connection, up to 5 charts/KPIs, cloud deployment.',
+        deliverables: [
+          'Custom Dashboard Design',
+          'Live Data Connection',
+          'Up to 5 Charts/KPIs',
+          'Deployment to Cloud',
+        ],
+        tech: ['Streamlit', 'Plotly', 'Looker Studio'],
+        timeline: '2–3 Weeks',
+        revisions: '2 Revisions',
+        price: '$1,000–2,000',
+        exampleUrl: '/katalog/saas-retail-dashboard',
       },
-      { 
-        title: "Data Migration", 
-        desc: "Securely migrating your data from legacy systems (MySQL, Excel, CSV) to modern cloud infrastructure without downtime or data loss.",
-        deliverables: ["Migration Strategy Document", "Zero Downtime Execution", "Validation & Reconciliation Scripts", "Post-Migration Support"],
-        tech: ["GCP", "Python", "Docker"],
-        timeline: "1–2 Weeks",
-        revisions: "2 Revisions",
-        price: "$500"
-      }
-    ]
+      {
+        title: 'Data Migration',
+        desc: 'Migrate data from legacy systems to the cloud. Migration strategy, zero-downtime execution, and validation scripts.',
+        deliverables: [
+          'Migration Strategy Document',
+          'Zero Downtime Execution',
+          'Validation & Reconciliation Scripts',
+          'Post-Migration Support',
+        ],
+        tech: ['GCP', 'AWS', 'Python', 'Docker'],
+        timeline: '2–3 Weeks',
+        revisions: '2 Revisions',
+        price: '$2,000–5,000',
+        exampleUrl: '/katalog/data-migration',
+      },
+    ],
   },
   {
-    name: "Cloud & DevOps",
-    icon: "cloud",
+    name: 'Cloud & DevOps',
+    icon: 'cloud',
+    slug: 'cloud-devops',
     services: [
-      { 
-        title: "Dockerization", 
-        desc: "Packaging your application into containers so it runs reliably and consistently on your local machine, testing server, and production.",
-        deliverables: ["Dockerfile Creation", "Docker Compose Setup", "Environment Variables Config", "Deployment Guide"],
-        tech: ["Docker", "Docker Compose"],
-        timeline: "3–5 Days",
-        revisions: "2 Revisions",
-        price: "$300"
+      {
+        title: 'Dockerization',
+        desc: 'Package applications into containers, ensuring consistency across environments. Dockerfile, Docker Compose, env configuration, deployment guide.',
+        deliverables: [
+          'Dockerfile Creation',
+          'Docker Compose Setup',
+          'Environment Variables Config',
+          'Deployment Guide',
+        ],
+        tech: ['Docker', 'Docker Compose'],
+        timeline: '3–5 Days',
+        revisions: '2 Revisions',
+        price: '$300–500',
+        exampleUrl: '/katalog/batchetl-pipeline',
       },
-      { 
-        title: "CI/CD Pipeline", 
-        desc: "Automating your testing and deployment process to ship features faster and safer without manual errors.",
-        deliverables: ["GitHub Actions/Jenkins Setup", "Automated Build & Test", "Deployment Scripts", "Rollback Strategy"],
-        tech: ["GitHub Actions", "Jenkins"],
-        timeline: "1 Week",
-        revisions: "2 Revisions",
-        price: "$400"
+      {
+        title: 'CI/CD Pipeline',
+        desc: 'Automate testing and deployment to ship features faster and safer without manual errors.',
+        deliverables: [
+          'GitHub Actions/Jenkins Setup',
+          'Automated Build & Test',
+          'Deployment Scripts',
+          'Rollback Strategy',
+        ],
+        tech: ['GitHub Actions', 'GitLab CI'],
+        timeline: '1–2 Weeks',
+        revisions: '2 Revisions',
+        price: '$500–1,000',
+        exampleUrl: '/katalog/katalogarkan-portfolio',
       },
-      { 
-        title: "Cloud Infrastructure (IaC)", 
-        desc: "Setting up your servers, databases, and networking on Google Cloud or AWS using Infrastructure as Code (Terraform).",
-        deliverables: ["Terraform Scripts", "Server & Database Provisioning", "Security & Firewall Rules", "Cost Optimization Guide"],
-        tech: ["Terraform", "GCP", "AWS"],
-        timeline: "1–2 Weeks",
-        revisions: "2 Revisions",
-        price: "$600"
+      {
+        title: 'Cloud Infrastructure (IaC)',
+        desc: 'Set up servers, databases, and networking with Terraform on GCP/AWS. Includes security groups, firewall rules, and a cost optimization guide.',
+        deliverables: [
+          'Terraform Scripts',
+          'Server & Database Provisioning',
+          'Security & Firewall Rules',
+          'Cost Optimization Guide',
+        ],
+        tech: ['Terraform', 'GCP', 'AWS'],
+        timeline: '2–3 Weeks',
+        revisions: '2 Revisions',
+        price: '$1,500–3,000',
+        exampleUrl: '/katalog/terraform-iac',
       },
-      { 
-        title: "Cloud Cost Optimization", 
-        desc: "Auditing your GCP or AWS account to find wasted resources, optimize configurations, and reduce your monthly cloud bill.",
-        deliverables: ["Cloud Audit Report", "Resource Right-sizing", "Idle Resource Cleanup", "Cost-Saving Recommendations"],
-        tech: ["GCP", "AWS", "Cost Explorer"],
-        timeline: "1 Week",
-        revisions: "1 Revision",
-        price: "$350"
-      }
-    ]
-  }
+      {
+        title: 'Cloud Cost Optimization',
+        desc: 'Audit cloud accounts, find wasted resources, optimize configurations, and recommend cost savings. Audit-only scope; execution quoted separately.',
+        deliverables: [
+          'Cloud Audit Report',
+          'Resource Right-sizing',
+          'Idle Resource Cleanup',
+          'Cost-Saving Recommendations',
+        ],
+        tech: ['GCP Billing', 'AWS Cost Explorer'],
+        timeline: '1–2 Weeks',
+        revisions: '1 Revision',
+        price: '$600–1,200',
+        exampleUrl: '/katalog/aws-cost-audit',
+      },
+    ],
+  },
 ];
+
+const whyMe = [
+  {
+    title: 'Production-Ready Code',
+    desc: 'Every deliverable ships with documentation, tests where relevant, and a handoff guide — not a zip file of scripts.',
+  },
+  {
+    title: 'Performance-First Builds',
+    desc: 'Web projects are built for speed, accessibility, and SEO — and verified with Lighthouse before handoff.',
+  },
+  {
+    title: 'Clear Deliverables',
+    desc: 'Every service lists exactly what you get. No scope creep, no surprise invoices, no "that was extra".',
+  },
+  {
+    title: 'Transparent Handoff',
+    desc: 'Every project includes a handoff report with before/after metrics where applicable — not just screenshots.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How does the testimonial discount work?',
+    a: 'If you agree to leave an honest testimonial after the project is delivered, you get 10% off the quoted price. The discount is applied to the final invoice — no strings attached, and you can still leave an honest review.',
+  },
+  {
+    q: 'How do payments work?',
+    a: '50% upfront to reserve the slot, 50% on delivery. For projects above $2,000, we can split into three milestones (30/40/30).',
+  },
+  {
+    q: 'What payment methods do you accept?',
+    a: 'For international clients, I accept Wise (preferred — low fees, mid-market rate), PayPal, or direct bank transfer (SWIFT) for larger amounts. For Indonesian clients, I accept bank transfer or QRIS. Payment details are included on every invoice.',
+  },
+  {
+    q: 'Who will actually work on my project?',
+    a: 'I do. You work directly with me from discovery to handoff — no account managers, no outsourced teams. That means faster decisions and a single point of contact.',
+  },
+  {
+    q: 'How do we communicate during the project?',
+    a: 'We start with a discovery call, then move to email or WhatsApp/Slack for async updates. You get a short progress update every week and access to a staging preview as soon as there is something to see.',
+  },
+  {
+    q: 'Do I own the code and files after delivery?',
+    a: 'Yes. On final payment, you own the full source code, design files, and credentials. I retain the right to show the work in my portfolio unless we agree otherwise.',
+  },
+  {
+    q: 'What counts as a revision?',
+    a: 'A revision is a change to work already delivered — copy tweaks, layout adjustments, color changes. New features or scope additions are quoted separately.',
+  },
+  {
+    q: 'Do you offer a warranty?',
+    a: 'Yes. Every project includes a 30-day bug-fix warranty after handoff. Bugs are fixed for free; new features are quoted separately.',
+  },
+  {
+    q: 'Can you work with my existing stack?',
+    a: 'Usually yes. I specialize in Astro, React, Node.js, Python, PostgreSQL, and GCP/AWS — but I adapt to your stack if it makes sense.',
+  },
+  {
+    q: 'What if I need changes after the project ends?',
+    a: 'Monthly maintenance retainers cover minor updates, security patches, and monitoring. Larger changes are quoted as a new project.',
+  },
+  {
+    q: 'Do you sign NDAs?',
+    a: 'Yes. I am happy to sign a mutual NDA before discovery if your project involves sensitive information.',
+  },
+];
+
+const icons = {
+  web: `<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>`,
+  data: `<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>`,
+  cloud: `<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>`,
+};
 ---
 
 <BaseLayout {title} {description}>
+  <!-- ============================================================ -->
+  <!-- Header                                                       -->
+  <!-- ============================================================ -->
   <section class="py-12 md:py-16">
     <div class="container-page max-w-6xl">
-      
-      <!-- Header -->
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <h1 class="text-4xl font-bold text-text mb-4">Services & Pricing</h1>
         <p class="text-lg text-text-muted max-w-2xl mx-auto">
-          Transparent pricing, clear deliverables, and production-ready code. Choose the exact service you need.
+          Transparent pricing, clear deliverables, and production-ready code. Choose the exact service you need — or{' '}
+          <a href="/contact" class="text-primary hover:underline">book a free discovery call</a>.
         </p>
       </div>
 
-      <!-- Services List -->
+      <!-- ============================================================ -->
+      <!-- Testimonial Discount Banner                                  -->
+      <!-- ============================================================ -->
+      <div class="mb-16 bg-primary/10 border border-primary/30 rounded-xl p-6 text-center">
+        <p class="text-sm font-bold text-primary uppercase tracking-wider mb-2">
+          10% Off — Leave a Testimonial
+        </p>
+        <p class="text-text-muted max-w-2xl mx-auto text-sm leading-relaxed">
+          Agree to leave an honest testimonial after delivery, and get 10% off your final invoice. No strings attached —
+          the discount is applied regardless of what you write.
+        </p>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- Why Me?                                                      -->
+      <!-- ============================================================ -->
+      <div class="mb-20">
+        <h2 class="text-2xl font-bold text-text mb-8 text-center">Why Work With Me</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {whyMe.map((item) => (
+            <div class="bg-bg-subtle border border-border rounded-lg p-6">
+              <h3 class="font-bold text-text mb-2">{item.title}</h3>
+              <p class="text-sm text-text-muted leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- Services List                                                -->
+      <!-- ============================================================ -->
       <div class="space-y-16">
         {serviceCategories.map((category) => (
-          <div id={category.icon === 'web' ? 'web-dev' : category.icon === 'data' ? 'data-eng' : 'cloud-devops'} class="scroll-mt-24">
+          <div id={category.slug} class="scroll-mt-24">
             <!-- Category Header -->
             <h2 class="text-2xl font-bold text-text mb-8 flex items-center gap-3 border-b-2 border-primary pb-4">
-              {category.icon === 'web' && (
-                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-              )}
-              {category.icon === 'data' && (
-                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
-              )}
-              {category.icon === 'cloud' && (
-                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
-              )}
+              <Fragment set:html={icons[category.icon as keyof typeof icons]} />
               {category.name}
             </h2>
 
@@ -187,7 +371,6 @@ const serviceCategories = [
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {category.services.map((svc) => (
                 <div class="bg-bg-subtle border border-border rounded-lg flex flex-col hover:border-primary transition-colors overflow-hidden shadow-sm">
-                  
                   <!-- Card Header -->
                   <div class="p-6 border-b border-border bg-bg/50">
                     <h3 class="font-bold text-text text-xl mb-2">{svc.title}</h3>
@@ -199,13 +382,16 @@ const serviceCategories = [
                     <!-- Deliverables -->
                     <div>
                       <h4 class="text-xs font-bold text-text uppercase tracking-wider mb-3 flex items-center gap-2">
-                        <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        What You Get
+                        <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>What You Get</span>
                       </h4>
                       <ul class="space-y-2">
                         {svc.deliverables.map((item) => (
                           <li class="text-sm text-text-muted flex items-start gap-2">
-                            <span class="text-primary mt-0.5">•</span> {item}
+                            <span class="text-primary mt-0.5 shrink-0">•</span>
+                            <span>{item}</span>
                           </li>
                         ))}
                       </ul>
@@ -219,6 +405,23 @@ const serviceCategories = [
                           <span class="text-xs font-medium bg-primary/10 text-primary px-2 py-1 rounded">{t}</span>
                         ))}
                       </div>
+                    </div>
+
+                    <!-- View Example Link -->
+                    <div class="pt-2">
+                      {svc.exampleUrl ? (
+                        <a
+                          href={svc.exampleUrl}
+                          class="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+                        >
+                          View Example Project
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                          </svg>
+                        </a>
+                      ) : (
+                        <span class="text-sm text-text-muted italic">Example coming soon</span>
+                      )}
                     </div>
                   </div>
 
@@ -234,14 +437,16 @@ const serviceCategories = [
                         <p class="font-bold text-text">{svc.revisions}</p>
                       </div>
                     </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-border">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-4 border-t border-border">
                       <span class="text-2xl font-bold text-primary">{svc.price}</span>
-                      <a href="/contact" class="px-4 py-2 rounded-md bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors">
+                      <a
+                        href={`/contact?service=${encodeURIComponent(svc.title)}`}
+                        class="px-4 py-2 rounded-md bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors text-center"
+                      >
                         Order Now
                       </a>
                     </div>
                   </div>
-
                 </div>
               ))}
             </div>
@@ -249,6 +454,47 @@ const serviceCategories = [
         ))}
       </div>
 
+      <!-- ============================================================ -->
+      <!-- FAQ                                                          -->
+      <!-- ============================================================ -->
+      <div class="mt-24">
+        <h2 class="text-2xl font-bold text-text mb-8 text-center">Frequently Asked Questions</h2>
+        <div class="max-w-3xl mx-auto space-y-4">
+          {faqs.map((item) => (
+            <details class="group bg-bg-subtle border border-border rounded-lg p-6">
+              <summary class="cursor-pointer font-semibold text-text list-none flex justify-between items-center gap-4">
+                <span>{item.q}</span>
+                <svg
+                  class="w-5 h-5 text-text-muted shrink-0 group-open:rotate-180 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </summary>
+              <p class="mt-4 text-sm text-text-muted leading-relaxed">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- Contact CTA                                                  -->
+      <!-- ============================================================ -->
+      <div class="mt-24 bg-primary/5 border border-primary/20 rounded-2xl p-10 text-center">
+        <h2 class="text-2xl font-bold text-text mb-3">Not sure which service you need?</h2>
+        <p class="text-text-muted mb-6 max-w-xl mx-auto">
+          Book a free 30-minute discovery call. We'll talk through your goals and I'll recommend the right scope — no
+          commitment required.
+        </p>
+        <a
+          href="/contact"
+          class="inline-block px-6 py-3 rounded-md bg-primary text-white font-medium hover:bg-primary-hover transition-colors"
+        >
+          Book a Free Discovery Call
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>

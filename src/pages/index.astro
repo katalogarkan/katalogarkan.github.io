@@ -15,6 +15,56 @@ const topSkills = [
   'Python', 'SQL', 'Apache Airflow', 'BigQuery', 'Astro', 'React', 'Docker', 'Terraform'
 ];
 
+const process = [
+  {
+    step: '01',
+    title: 'Discovery',
+    desc: 'A 30-minute call to understand your goals, constraints, and timeline. No commitment required.',
+  },
+  {
+    step: '02',
+    title: 'Proposal',
+    desc: 'A written proposal with scope, deliverables, timeline, and fixed price. You approve before we start.',
+  },
+  {
+    step: '03',
+    title: 'Build',
+    desc: 'Weekly progress updates, staging previews, and a shared task board. You see the work as it happens.',
+  },
+  {
+    step: '04',
+    title: 'Handoff',
+    desc: 'Documentation, credentials, and a 30-day bug-fix warranty. Optional maintenance retainer available.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How does the testimonial discount work?',
+    a: 'If you agree to leave an honest testimonial after the project is delivered, you get 10% off the quoted price. The discount is applied to the final invoice — no strings attached, and you can still leave an honest review.',
+  },
+  {
+    q: 'How do payments work?',
+    a: '50% upfront to reserve the slot, 50% on delivery. For projects above $2,000, we can split into three milestones (30/40/30).',
+  },
+  {
+    q: 'What payment methods do you accept?',
+    a: 'For international clients, I accept Wise (preferred — low fees, mid-market rate), PayPal, or direct bank transfer (SWIFT) for larger amounts. For Indonesian clients, I accept bank transfer or QRIS. Payment details are included on every invoice.',
+  },
+  {
+    q: 'Who will actually work on my project?',
+    a: 'I do. You work directly with me from discovery to handoff — no account managers, no outsourced teams. That means faster decisions and a single point of contact.',
+  },
+  {
+    q: 'Do I own the code and files after delivery?',
+    a: 'Yes. On final payment, you own the full source code, design files, and credentials. I retain the right to show the work in my portfolio unless we agree otherwise.',
+  },
+  {
+    q: 'Do you offer a warranty?',
+    a: 'Yes. Every project includes a 30-day bug-fix warranty after handoff. Bugs are fixed for free; new features are quoted separately.',
+  },
+];
+
 const title = 'Arkan Tsabit — Full Stack & Data Engineer';
 const description =
   'I help businesses build high-performance websites and scalable data pipelines. Oracle Top 108 Global. Available for freelance projects.';
@@ -35,8 +85,11 @@ const description =
       <h1 class="text-4xl md:text-6xl font-bold text-text leading-tight mb-6">
         I build <span class="text-primary">Data Pipelines</span> & <span class="text-primary">Modern Websites</span>.
       </h1>
-      <p class="text-lg md:text-xl text-text-muted mb-10 max-w-2xl mx-auto">
+      <p class="text-lg md:text-xl text-text-muted mb-6 max-w-2xl mx-auto">
         Hi, I'm Arkan Tsabit. I am a Full Stack Developer and Cloud Data Engineer with 10+ professional certifications (Oracle, IBM, Meta). I help businesses turn raw data into automated, production-ready applications.
+      </p>
+      <p class="text-base text-text-muted mb-10 max-w-2xl mx-auto">
+        I'm currently opening my freelance practice — which means you get senior-level work at introductory rates, in exchange for an honest testimonial after delivery.
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
         <a href="/services" class="inline-flex items-center justify-center px-8 py-4 rounded-md bg-primary text-white font-medium text-lg hover:bg-primary-hover focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-colors shadow-lg shadow-primary/20">
@@ -66,10 +119,12 @@ const description =
         <div>
           <p class="text-3xl md:text-4xl font-bold text-primary mb-1">2.96M+</p>
           <p class="text-sm font-medium text-text-muted">Rows Processed</p>
+          <p class="text-xs text-text-muted/70 mt-0.5">BatchETL · NYC Taxi</p>
         </div>
         <div>
           <p class="text-3xl md:text-4xl font-bold text-primary mb-1">100%</p>
           <p class="text-sm font-medium text-text-muted">Data Quality</p>
+          <p class="text-xs text-text-muted/70 mt-0.5">BatchETL pipeline</p>
         </div>
       </div>
     </div>
@@ -122,10 +177,33 @@ const description =
   </section>
 
   <!-- ============================================ -->
+  <!-- HOW IT WORKS -->
+  <!-- ============================================ -->
+  <section class="py-16 md:py-24 border-t border-border bg-bg-subtle/50">
+    <div class="container-page max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-text mb-4">How It Works</h2>
+        <p class="text-text-muted max-w-2xl mx-auto">
+          A simple, transparent process — from first call to final handoff.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {process.map((item) => (
+          <div class="bg-bg border border-border rounded-lg p-6">
+            <span class="text-4xl font-bold text-primary/30">{item.step}</span>
+            <h3 class="font-bold text-text mt-2 mb-2">{item.title}</h3>
+            <p class="text-sm text-text-muted leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
   <!-- FEATURED PROJECTS -->
   <!-- ============================================ -->
   {featuredProjects.length > 0 && (
-    <section class="py-16 border-t border-border bg-bg-subtle/50">
+    <section class="py-16 md:py-24 border-t border-border">
       <div class="container-page max-w-5xl">
         <div class="flex items-end justify-between mb-8">
           <div>
@@ -136,10 +214,10 @@ const description =
             View all projects →
           </a>
         </div>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {featuredProjects.map((project) => (
-            <a href={`/katalog/${project.id}`} class="group block bg-bg border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-all">
+            <a href={`/katalog/${project.id}`} class="group block bg-bg-subtle border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-all">
               <h3 class="text-lg font-bold text-text group-hover:text-primary transition-colors mb-2">
                 {project.data.title}
               </h3>
@@ -163,7 +241,7 @@ const description =
   <!-- ============================================ -->
   <!-- SKILLS SUMMARY -->
   <!-- ============================================ -->
-  <section class="py-16">
+  <section class="py-16 border-t border-border">
     <div class="container-page max-w-5xl text-center">
       <h2 class="text-2xl font-bold text-text mb-6">Core Technologies</h2>
       <div class="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
@@ -178,22 +256,62 @@ const description =
   </section>
 
   <!-- ============================================ -->
+  <!-- FAQ -->
+  <!-- ============================================ -->
+  <section class="py-16 md:py-24 border-t border-border bg-bg-subtle/50">
+    <div class="container-page max-w-3xl">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold text-text mb-4">Frequently Asked Questions</h2>
+        <p class="text-text-muted max-w-2xl mx-auto">
+          Everything you need to know before we start.
+        </p>
+      </div>
+      <div class="space-y-4">
+        {faqs.map((item) => (
+          <details class="group bg-bg border border-border rounded-lg p-6">
+            <summary class="cursor-pointer font-semibold text-text list-none flex justify-between items-center gap-4">
+              <span>{item.q}</span>
+              <svg
+                class="w-5 h-5 text-text-muted shrink-0 group-open:rotate-180 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </summary>
+            <p class="mt-4 text-sm text-text-muted leading-relaxed">{item.a}</p>
+          </details>
+        ))}
+      </div>
+      <div class="text-center mt-8">
+        <a href="/services" class="text-sm font-medium text-primary hover:text-primary-hover">
+          View Pricing →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
   <!-- FINAL CTA -->
   <!-- ============================================ -->
   <section class="py-16 md:py-24 border-t border-border">
     <div class="container-page max-w-4xl">
       <div class="bg-primary text-white rounded-2xl p-8 md:p-12 text-center shadow-xl shadow-primary/20 relative overflow-hidden">
         <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-        
+
         <h2 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
           Ready to build something great?
         </h2>
-        <p class="text-primary-100/90 text-lg mb-8 max-w-xl mx-auto relative z-10 text-white/90">
+        <p class="text-white/90 text-lg mb-8 max-w-xl mx-auto relative z-10">
           Let's discuss your project. Whether you need a high-performance website or an automated data pipeline, I can help you achieve it.
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
           <a href="/contact" class="inline-flex items-center justify-center px-8 py-3 rounded-md bg-white text-primary font-bold hover:bg-gray-100 transition-colors">
-            Hire Me Now
+            Book a Free Discovery Call
+          </a>
+          <a href="/services" class="inline-flex items-center justify-center px-8 py-3 rounded-md bg-white/10 text-white font-medium border border-white/30 hover:bg-white/20 transition-colors">
+            View Pricing
           </a>
         </div>
       </div>
