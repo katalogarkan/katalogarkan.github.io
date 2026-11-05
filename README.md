@@ -17,7 +17,7 @@
 
 A personal branding website and project catalog for **Arkan Tsabit**, designed to showcase technical expertise and freelance services. The site bridges two core disciplines: **Full Stack Web Development** (Astro, React) and **Cloud Data Engineering** (Apache Airflow, BigQuery, Python).
 
-Key features include interactive data case studies, verified professional certifications (Oracle, IBM, Meta), and a comprehensive catalog of freelance services. Built entirely as a static site with Astro, complemented by a serverless Google Sheets backend for forms.
+Key features include interactive data case studies, verified professional certifications (Oracle, IBM, Meta), and a comprehensive catalog of freelance services. The site is built entirely as a static site with Astro, complemented by a serverless Google Sheets backend for forms.
 
 ## Key Metrics & Features
 
@@ -74,6 +74,7 @@ To build for production, run `npm run build`. The static files will be generated
 ## Documentation
 
 For deep-dive technical details, check the `/docs` folder:
+
 - [Blueprint & Architecture](docs/blueprint.md)
 - [Design System](docs/design-system.md)
 - [Deployment Guide](docs/deployment-guide.md)
@@ -81,6 +82,7 @@ For deep-dive technical details, check the `/docs` folder:
 ## Author
 
 **Arkan Tsabit** — Full Stack Developer & Cloud Data Engineer
+
 - **Portfolio:** [katalogarkan.github.io](https://katalogarkan.github.io)
 - **LinkedIn:** [linkedin.com/in/arkan-tsabit-0b12b9407](https://linkedin.com/in/arkan-tsabit-0b12b9407)
 - **GitHub:** [github.com/ArkanTsabit123](https://github.com/ArkanTsabit123)
